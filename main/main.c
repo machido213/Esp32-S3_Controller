@@ -12,7 +12,7 @@
 #include "esp_log.h"
 #include "esp_err.h"
 #include "driver/gpio.h"
-#include "driver/adc.h"
+#include "esp_adc/adc_oneshot.h"
 #include "driver/uart.h"
 #include "esp_http_server.h"
 #include "esp_http_client.h"
@@ -131,26 +131,45 @@ void comms_uart_send_status(const char *json)
 // TODO: 根據實際板子將 B2_GPIO/B3_GPIO 映射到 ADC 通道，並使用 adc1_get_raw
 static int read_pot_raw(int which)
 {
-    // 實作 ADC 讀取：使用 adc1 API
-    // 此函式會在第一次呼叫時設定 ADC 寬度與衰減
+    // 使用 esp_adc 的 oneshot API
+    // 這裡在第一次呼叫時建立 ADC unit handle 並設定 channel
     static bool adc_inited = false;
+    static adc_oneshot_unit_handle_t adc_handle = NULL;
     if (!adc_inited) {
-        // 12-bit 寬度
-        adc1_config_width(ADC_WIDTH_BIT_12);
-        // 設定衰減以支援滿量程 (例如 0-3.3V)
-        adc1_config_channel_atten(B2_ADC_CHANNEL, ADC_ATTEN_DB_11);
-        adc1_config_channel_atten(B3_ADC_CHANNEL, ADC_ATTEN_DB_11);
+        adc_oneshot_unit_init_cfg_t unit_cfg = {
+            .unit_id = ADC_UNIT_1,
+            .ulp_mode = ADC_ULP_MODE_DISABLE,
+        };
+        esp_err_t ret = adc_oneshot_new_unit(&unit_cfg, &adc_handle);
+        if (ret != ESP_OK) {
+            ESP_LOGE(TAG, "adc_oneshot_new_unit failed: %s", esp_err_to_name(ret));
+            return 0;
+        }
+
+        adc_oneshot_chan_cfg_t chan_cfg = {
+            .bitwidth = ADC_BITWIDTH_12,
+            .atten = ADC_ATTEN_DB_12,
+        };
+        adc_oneshot_config_channel(adc_handle, B2_ADC_CHANNEL, &chan_cfg);
+        adc_oneshot_config_channel(adc_handle, B3_ADC_CHANNEL, &chan_cfg);
+
         adc_inited = true;
     }
 
     int raw = 0;
+    esp_err_t r;
     if (which == 2) {
-        raw = adc1_get_raw(B2_ADC_CHANNEL);
+        r = adc_oneshot_read(adc_handle, B2_ADC_CHANNEL, &raw);
     } else if (which == 3) {
-        raw = adc1_get_raw(B3_ADC_CHANNEL);
+        r = adc_oneshot_read(adc_handle, B3_ADC_CHANNEL, &raw);
+    } else {
+        return 0;
     }
-    // 回傳 0..4095 的原始值
-    return raw;
+    if (r != ESP_OK) {
+        ESP_LOGE(TAG, "adc read failed: %s", esp_err_to_name(r));
+        return 0;
+    }
+    return raw; // 0..4095 (depending on bitwidth)
 }
 
 /* ---------- OTA (background using esp_https_ota) ---------- */
