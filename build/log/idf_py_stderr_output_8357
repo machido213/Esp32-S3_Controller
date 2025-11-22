@@ -1,0 +1,11 @@
+Command: ninja flash
+[1;31m
+A fatal error occurred: Could not open /dev/esp32, the port is busy or doesn't exist.
+(Could not configure port: (5, 'Input/output error'))
+[0m
+[31mCMake Error at /opt/esp/idf/components/esptool_py/run_serial_tool.cmake:67 (message):
+  /opt/esp/python_env/idf6.1_py3.12_env/bin/python;-m;esptool;--chip;esp32s3
+  failed.
+
+
+[0m

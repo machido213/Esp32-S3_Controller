@@ -17,4 +17,4 @@ set confirm off
 set confirm on
 
 # Load application symbols
-file /workspaces/Esp32-S3_Controller/build/template-app.elf
+file /workspaces/Esp32-S3_Controller/build/Esp32-S3_Controller.elf

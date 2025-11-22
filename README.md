@@ -44,7 +44,38 @@ EX:
 每軸搖桿對應到個兩個方向資料，而雙軸搖桿有兩個軸，對應到4個方向資料，C1_1/C1_2為一組，C1_3/C1_4為一組，以此類推，且每個軸的兩個方向資料不會同時被觸發
 
 
+# Container連結到USB
+參考https://blog.csdn.net/laoxue123456/article/details/138339029
+因為Docker無法直接訪問主機的USB設備需要使用USBIP，這是允許我們通過網路共享USB設備的工具，以下教學
+分成三部分：
+主機端下載安裝usbipd-win，以及在wsl安裝ubuntu(因為docker-desktop無法編譯)，並且在ubuntu安裝usbip工具
+管理員執行powershell
+```powershell
+usbipd list
+```
+這會顯示主機端所有usb設備，找到你要連接的設備的busid，然後執行
+```powershell
+usbipd bind --busid <busid>
+```
+接著在wsl的ubuntu安裝usbip工具		
+```bash
+apt install linux-tools-virtual hwdata
+update-alternatives --install /usr/bin/usbip usbip `ls /usr/lib/linux-tools/*/usbip |tail -n1` 20 
+```
+使用usbip help測試是否成功
+```bash
+usbip help
+```		
 
+接著在wsl啟動usbipd-win服務
+```powershell
+usbipd wsl list
+usbipd wsl attach --busid <busid> --auto-attach
+```
+然後在ubuntu查看usb裝置
+```bash
+dmesg | tail
+```
 
 
 
@@ -100,6 +131,7 @@ idf.py build
 ```bash
 idf.py -p /dev/ttyUSB0 flash monitor
 ```
+
 
 **Web API**
 - `GET /status` — 回傳目前所有輸入/輸出狀態的 JSON（同時會將 JSON 透過 UART 傳給 Jetson）。

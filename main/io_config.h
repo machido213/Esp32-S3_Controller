@@ -155,6 +155,37 @@ void io_write_pin(gpio_num_t pin, int level);
 }
 #endif
 
-#ifdef __cplusplus
-}
+/* Compile-time checks: ensure pin numbers are within valid range for ESP32-S3
+	 (GPIO 0..47). These help detect accidental wrong constants that would
+	 cause runtime gpio mask errors. */
+#if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
+	_Static_assert(Z1_GPIO >= 0 && Z1_GPIO <= 47, "Z1_GPIO out of range (0..47)");
+	_Static_assert(A1_1_GPIO >= 0 && A1_1_GPIO <= 47, "A1_1_GPIO out of range (0..47)");
+	_Static_assert(A1_2_GPIO >= 0 && A1_2_GPIO <= 47, "A1_2_GPIO out of range (0..47)");
+	_Static_assert(A2_GPIO >= 0 && A2_GPIO <= 47, "A2_GPIO out of range (0..47)");
+	_Static_assert(A3_GPIO >= 0 && A3_GPIO <= 47, "A3_GPIO out of range (0..47)");
+	_Static_assert(A4_GPIO >= 0 && A4_GPIO <= 47, "A4_GPIO out of range (0..47)");
+	_Static_assert(B1_1_GPIO >= 0 && B1_1_GPIO <= 47, "B1_1_GPIO out of range (0..47)");
+	_Static_assert(B1_2_GPIO >= 0 && B1_2_GPIO <= 47, "B1_2_GPIO out of range (0..47)");
+	_Static_assert(B2_GPIO >= 0 && B2_GPIO <= 47, "B2_GPIO out of range (0..47)");
+	_Static_assert(B3_GPIO >= 0 && B3_GPIO <= 47, "B3_GPIO out of range (0..47)");
+	_Static_assert(B4_GPIO >= 0 && B4_GPIO <= 47, "B4_GPIO out of range (0..47)");
+	_Static_assert(B5_GPIO >= 0 && B5_GPIO <= 47, "B5_GPIO out of range (0..47)");
+	_Static_assert(B6_GPIO >= 0 && B6_GPIO <= 47, "B6_GPIO out of range (0..47)");
+	_Static_assert(C1_1_GPIO >= 0 && C1_1_GPIO <= 47, "C1_1_GPIO out of range (0..47)");
+	_Static_assert(C1_2_GPIO >= 0 && C1_2_GPIO <= 47, "C1_2_GPIO out of range (0..47)");
+	_Static_assert(C1_3_GPIO >= 0 && C1_3_GPIO <= 47, "C1_3_GPIO out of range (0..47)");
+	_Static_assert(C1_4_GPIO >= 0 && C1_4_GPIO <= 47, "C1_4_GPIO out of range (0..47)");
+	_Static_assert(C2_1_GPIO >= 0 && C2_1_GPIO <= 47, "C2_1_GPIO out of range (0..47)");
+	_Static_assert(C2_2_GPIO >= 0 && C2_2_GPIO <= 47, "C2_2_GPIO out of range (0..47)");
+	_Static_assert(C2_3_GPIO >= 0 && C2_3_GPIO <= 47, "C2_3_GPIO out of range (0..47)");
+	_Static_assert(C2_4_GPIO >= 0 && C2_4_GPIO <= 47, "C2_4_GPIO out of range (0..47)");
+	_Static_assert(C3_1_GPIO >= 0 && C3_1_GPIO <= 47, "C3_1_GPIO out of range (0..47)");
+	_Static_assert(C3_2_GPIO >= 0 && C3_2_GPIO <= 47, "C3_2_GPIO out of range (0..47)");
+	_Static_assert(C3_3_GPIO >= 0 && C3_3_GPIO <= 47, "C3_3_GPIO out of range (0..47)");
+	_Static_assert(C3_4_GPIO >= 0 && C3_4_GPIO <= 47, "C3_4_GPIO out of range (0..47)");
+	_Static_assert(C4_1_GPIO >= 0 && C4_1_GPIO <= 47, "C4_1_GPIO out of range (0..47)");
+	_Static_assert(C4_2_GPIO >= 0 && C4_2_GPIO <= 47, "C4_2_GPIO out of range (0..47)");
+	_Static_assert(JETSON_UART_TX_PIN >= 0 && JETSON_UART_TX_PIN <= 47, "JETSON_UART_TX_PIN out of range (0..47)");
+	_Static_assert(JETSON_UART_RX_PIN >= 0 && JETSON_UART_RX_PIN <= 47, "JETSON_UART_RX_PIN out of range (0..47)");
 #endif

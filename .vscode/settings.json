@@ -3,8 +3,10 @@
   "idf.openOcdConfigs": [
     "board/esp32s3-builtin.cfg"
   ],
-  "cmake.sourceDirectory": "/workspaces/Esp32-S3_Controller",
+  "cmake.sourceDirectory": "C:/Users/machido/Desktop/code/Esp32-S3_Controller",
   "idf.customExtraVars": {
     "IDF_TARGET": "esp32s3"
-  }
+  },
+  "idf.port": "/dev/ttyACM0",
+  "idf.flashType": "UART"
 }

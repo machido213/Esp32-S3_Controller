@@ -4,7 +4,7 @@
 /workspaces/Esp32-S3_Controller/build/CMakeFiles/flash.dir
 /workspaces/Esp32-S3_Controller/build/CMakeFiles/bootloader.dir
 /workspaces/Esp32-S3_Controller/build/CMakeFiles/_project_elf_src.dir
-/workspaces/Esp32-S3_Controller/build/CMakeFiles/template-app.elf.dir
+/workspaces/Esp32-S3_Controller/build/CMakeFiles/Esp32-S3_Controller.elf.dir
 /workspaces/Esp32-S3_Controller/build/CMakeFiles/size.dir
 /workspaces/Esp32-S3_Controller/build/CMakeFiles/size-files.dir
 /workspaces/Esp32-S3_Controller/build/CMakeFiles/size-components.dir
@@ -14,7 +14,7 @@
 /workspaces/Esp32-S3_Controller/build/CMakeFiles/uf2.dir
 /workspaces/Esp32-S3_Controller/build/CMakeFiles/uf2-app.dir
 /workspaces/Esp32-S3_Controller/build/CMakeFiles/__ldgen_output_sections.ld.dir
-/workspaces/Esp32-S3_Controller/build/CMakeFiles/gen_template-app_binary.dir
+/workspaces/Esp32-S3_Controller/build/CMakeFiles/gen_Esp32-S3_Controller_binary.dir
 /workspaces/Esp32-S3_Controller/build/CMakeFiles/gen_project_binary.dir
 /workspaces/Esp32-S3_Controller/build/CMakeFiles/app.dir
 /workspaces/Esp32-S3_Controller/build/CMakeFiles/app-flash.dir

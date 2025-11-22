@@ -1,0 +1,948 @@
+Command: /opt/esp/python_env/idf6.1_py3.12_env/bin/python /opt/esp/idf/tools/idf_monitor.py -p /dev/ttyACM0 -b 460800 --toolchain-prefix xtensa-esp32s3-elf- --target esp32s3 --revision 0 /workspaces/Esp32-S3_Controller/build/Esp32-S3_Controller.elf /workspaces/Esp32-S3_Controller/build/bootloader/bootloader.elf -m '/opt/esp/python_env/idf6.1_py3.12_env/bin/python' '/opt/esp/idf/tools/idf.py' '-p' '/dev/ttyACM0' '-b' '460800'
+[0;33m--- esp-idf-monitor 1.8.0 on /dev/ttyACM0 460800[0m
+[0;33m--- Quit: Ctrl+] | Menu: Ctrl+T | Help: Ctrl+T followed by Ctrl+H[0m
+[0m--- 0x40048839: [0;33muart_tx_one_char_uart[0m[0m in [0;32mROM[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c8908: [0;33mcall_start_cpu0[0m[0m at [0;32m/opt/esp/idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m--- 0x4037b795: [0;33mpanic_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/panic.c[0m[0m:[1;31m464[0m
+[0m--- 0x4037b75d: [0;33mesp_system_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/esp_system_chip.c[0m[0m:[1;31m87[0m
+[0m--- 0x4037a84d: [0;33m__assert_func[0m[0m at [0;32m/opt/esp/idf/components/esp_libc/src/assert.c[0m[0m:[1;31m81[0m
+[0m--- 0x4201ab3d: [0;33mtcpip_send_msg_wait_sem[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/tcpip.c[0m[0m:[1;31m454[0m
+[0m--- 0x420271ce: [0;33mnetconn_apimsg[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m134[0m
+[0m--- 0x42027252: [0;33mnetconn_new_with_proto_and_callback[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m164[0m
+[0m--- 0x4201a7ed: [0;33mlwip_socket[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/sockets.c[0m[0m:[1;31m1759[0m
+[0m--- 0x42012761: [0;33msocket[0m[0m at [0;32m/opt/esp/idf/components/lwip/include/lwip/sockets.h[0m[0m:[1;31m70[0m
+[0m--- (inlined by) [0;33mhttpd_server_init[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m349[0m
+[0m--- 0x42012e2c: [0;33mhttpd_start[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m516[0m
+[0m--- 0x4200cd93: [0;33mweb_server_start[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m345[0m
+[0m--- 0x4200ce16: [0;33mapp_main[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m470[0m
+[0m--- 0x420079d3: [0;33mmain_task[0m[0m at [0;32m/opt/esp/idf/components/freertos/app_startup.c[0m[0m:[1;31m199[0m
+[0m--- 0x4205a01a: [0;33mvPortTaskWrapper[0m[0m at [0;32m/opt/esp/idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m143[0m
+[0m--- 0x4037b8e5: [0;33mesp_restart_noos[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m166[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c8908: [0;33mcall_start_cpu0[0m[0m at [0;32m/opt/esp/idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m--- 0x4037b795: [0;33mpanic_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/panic.c[0m[0m:[1;31m464[0m
+[0m--- 0x4037b75d: [0;33mesp_system_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/esp_system_chip.c[0m[0m:[1;31m87[0m
+[0m--- 0x4037a84d: [0;33m__assert_func[0m[0m at [0;32m/opt/esp/idf/components/esp_libc/src/assert.c[0m[0m:[1;31m81[0m
+[0m--- 0x4201ab3d: [0;33mtcpip_send_msg_wait_sem[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/tcpip.c[0m[0m:[1;31m454[0m
+[0m--- 0x420271ce: [0;33mnetconn_apimsg[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m134[0m
+[0m--- 0x42027252: [0;33mnetconn_new_with_proto_and_callback[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m164[0m
+[0m--- 0x4201a7ed: [0;33mlwip_socket[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/sockets.c[0m[0m:[1;31m1759[0m
+[0m--- 0x42012761: [0;33msocket[0m[0m at [0;32m/opt/esp/idf/components/lwip/include/lwip/sockets.h[0m[0m:[1;31m70[0m
+[0m--- (inlined by) [0;33mhttpd_server_init[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m349[0m
+[0m--- 0x42012e2c: [0;33mhttpd_start[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m516[0m
+[0m--- 0x4200cd93: [0;33mweb_server_start[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m345[0m
+[0m--- 0x4200ce16: [0;33mapp_main[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m470[0m
+[0m--- 0x420079d3: [0;33mmain_task[0m[0m at [0;32m/opt/esp/idf/components/freertos/app_startup.c[0m[0m:[1;31m199[0m
+[0m--- 0x4205a01a: [0;33mvPortTaskWrapper[0m[0m at [0;32m/opt/esp/idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m143[0m
+[0m--- 0x4037b8e5: [0;33mesp_restart_noos[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m166[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c8908: [0;33mcall_start_cpu0[0m[0m at [0;32m/opt/esp/idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m--- 0x4037b795: [0;33mpanic_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/panic.c[0m[0m:[1;31m464[0m
+[0m--- 0x4037b75d: [0;33mesp_system_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/esp_system_chip.c[0m[0m:[1;31m87[0m
+[0m--- 0x4037a84d: [0;33m__assert_func[0m[0m at [0;32m/opt/esp/idf/components/esp_libc/src/assert.c[0m[0m:[1;31m81[0m
+[0m--- 0x4201ab3d: [0;33mtcpip_send_msg_wait_sem[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/tcpip.c[0m[0m:[1;31m454[0m
+[0m--- 0x420271ce: [0;33mnetconn_apimsg[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m134[0m
+[0m--- 0x42027252: [0;33mnetconn_new_with_proto_and_callback[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m164[0m
+[0m--- 0x4201a7ed: [0;33mlwip_socket[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/sockets.c[0m[0m:[1;31m1759[0m
+[0m--- 0x42012761: [0;33msocket[0m[0m at [0;32m/opt/esp/idf/components/lwip/include/lwip/sockets.h[0m[0m:[1;31m70[0m
+[0m--- (inlined by) [0;33mhttpd_server_init[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m349[0m
+[0m--- 0x42012e2c: [0;33mhttpd_start[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m516[0m
+[0m--- 0x4200cd93: [0;33mweb_server_start[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m345[0m
+[0m--- 0x4200ce16: [0;33mapp_main[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m470[0m
+[0m--- 0x420079d3: [0;33mmain_task[0m[0m at [0;32m/opt/esp/idf/components/freertos/app_startup.c[0m[0m:[1;31m199[0m
+[0m--- 0x4205a01a: [0;33mvPortTaskWrapper[0m[0m at [0;32m/opt/esp/idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m143[0m
+[0m--- 0x4037b8e5: [0;33mesp_restart_noos[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m166[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c8908: [0;33mcall_start_cpu0[0m[0m at [0;32m/opt/esp/idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m--- 0x4037b795: [0;33mpanic_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/panic.c[0m[0m:[1;31m464[0m
+[0m--- 0x4037b75d: [0;33mesp_system_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/esp_system_chip.c[0m[0m:[1;31m87[0m
+[0m--- 0x4037a84d: [0;33m__assert_func[0m[0m at [0;32m/opt/esp/idf/components/esp_libc/src/assert.c[0m[0m:[1;31m81[0m
+[0m--- 0x4201ab3d: [0;33mtcpip_send_msg_wait_sem[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/tcpip.c[0m[0m:[1;31m454[0m
+[0m--- 0x420271ce: [0;33mnetconn_apimsg[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m134[0m
+[0m--- 0x42027252: [0;33mnetconn_new_with_proto_and_callback[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m164[0m
+[0m--- 0x4201a7ed: [0;33mlwip_socket[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/sockets.c[0m[0m:[1;31m1759[0m
+[0m--- 0x42012761: [0;33msocket[0m[0m at [0;32m/opt/esp/idf/components/lwip/include/lwip/sockets.h[0m[0m:[1;31m70[0m
+[0m--- (inlined by) [0;33mhttpd_server_init[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m349[0m
+[0m--- 0x42012e2c: [0;33mhttpd_start[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m516[0m
+[0m--- 0x4200cd93: [0;33mweb_server_start[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m345[0m
+[0m--- 0x4200ce16: [0;33mapp_main[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m470[0m
+[0m--- 0x420079d3: [0;33mmain_task[0m[0m at [0;32m/opt/esp/idf/components/freertos/app_startup.c[0m[0m:[1;31m199[0m
+[0m--- 0x4205a01a: [0;33mvPortTaskWrapper[0m[0m at [0;32m/opt/esp/idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m143[0m
+[0m--- 0x4037b8e5: [0;33mesp_restart_noos[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m166[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c8908: [0;33mcall_start_cpu0[0m[0m at [0;32m/opt/esp/idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m--- 0x4037b795: [0;33mpanic_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/panic.c[0m[0m:[1;31m464[0m
+[0m--- 0x4037b75d: [0;33mesp_system_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/esp_system_chip.c[0m[0m:[1;31m87[0m
+[0m--- 0x4037a84d: [0;33m__assert_func[0m[0m at [0;32m/opt/esp/idf/components/esp_libc/src/assert.c[0m[0m:[1;31m81[0m
+[0m--- 0x4201ab3d: [0;33mtcpip_send_msg_wait_sem[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/tcpip.c[0m[0m:[1;31m454[0m
+[0m--- 0x420271ce: [0;33mnetconn_apimsg[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m134[0m
+[0m--- 0x42027252: [0;33mnetconn_new_with_proto_and_callback[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m164[0m
+[0m--- 0x4201a7ed: [0;33mlwip_socket[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/sockets.c[0m[0m:[1;31m1759[0m
+[0m--- 0x42012761: [0;33msocket[0m[0m at [0;32m/opt/esp/idf/components/lwip/include/lwip/sockets.h[0m[0m:[1;31m70[0m
+[0m--- (inlined by) [0;33mhttpd_server_init[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m349[0m
+[0m--- 0x42012e2c: [0;33mhttpd_start[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m516[0m
+[0m--- 0x4200cd93: [0;33mweb_server_start[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m345[0m
+[0m--- 0x4200ce16: [0;33mapp_main[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m470[0m
+[0m--- 0x420079d3: [0;33mmain_task[0m[0m at [0;32m/opt/esp/idf/components/freertos/app_startup.c[0m[0m:[1;31m199[0m
+[0m--- 0x4205a01a: [0;33mvPortTaskWrapper[0m[0m at [0;32m/opt/esp/idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m143[0m
+[0m--- 0x4037b8e5: [0;33mesp_restart_noos[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m166[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c8908: [0;33mcall_start_cpu0[0m[0m at [0;32m/opt/esp/idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m--- 0x4037b795: [0;33mpanic_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/panic.c[0m[0m:[1;31m464[0m
+[0m--- 0x4037b75d: [0;33mesp_system_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/esp_system_chip.c[0m[0m:[1;31m87[0m
+[0m--- 0x4037a84d: [0;33m__assert_func[0m[0m at [0;32m/opt/esp/idf/components/esp_libc/src/assert.c[0m[0m:[1;31m81[0m
+[0m--- 0x4201ab3d: [0;33mtcpip_send_msg_wait_sem[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/tcpip.c[0m[0m:[1;31m454[0m
+[0m--- 0x420271ce: [0;33mnetconn_apimsg[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m134[0m
+[0m--- 0x42027252: [0;33mnetconn_new_with_proto_and_callback[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m164[0m
+[0m--- 0x4201a7ed: [0;33mlwip_socket[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/sockets.c[0m[0m:[1;31m1759[0m
+[0m--- 0x42012761: [0;33msocket[0m[0m at [0;32m/opt/esp/idf/components/lwip/include/lwip/sockets.h[0m[0m:[1;31m70[0m
+[0m--- (inlined by) [0;33mhttpd_server_init[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m349[0m
+[0m--- 0x42012e2c: [0;33mhttpd_start[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m516[0m
+[0m--- 0x4200cd93: [0;33mweb_server_start[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m345[0m
+[0m--- 0x4200ce16: [0;33mapp_main[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m470[0m
+[0m--- 0x420079d3: [0;33mmain_task[0m[0m at [0;32m/opt/esp/idf/components/freertos/app_startup.c[0m[0m:[1;31m199[0m
+[0m--- 0x4205a01a: [0;33mvPortTaskWrapper[0m[0m at [0;32m/opt/esp/idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m143[0m
+[0m--- 0x4037b8e5: [0;33mesp_restart_noos[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m166[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c8908: [0;33mcall_start_cpu0[0m[0m at [0;32m/opt/esp/idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m--- 0x4037b795: [0;33mpanic_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/panic.c[0m[0m:[1;31m464[0m
+[0m--- 0x4037b75d: [0;33mesp_system_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/esp_system_chip.c[0m[0m:[1;31m87[0m
+[0m--- 0x4037a84d: [0;33m__assert_func[0m[0m at [0;32m/opt/esp/idf/components/esp_libc/src/assert.c[0m[0m:[1;31m81[0m
+[0m--- 0x4201ab3d: [0;33mtcpip_send_msg_wait_sem[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/tcpip.c[0m[0m:[1;31m454[0m
+[0m--- 0x420271ce: [0;33mnetconn_apimsg[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m134[0m
+[0m--- 0x42027252: [0;33mnetconn_new_with_proto_and_callback[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m164[0m
+[0m--- 0x4201a7ed: [0;33mlwip_socket[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/sockets.c[0m[0m:[1;31m1759[0m
+[0m--- 0x42012761: [0;33msocket[0m[0m at [0;32m/opt/esp/idf/components/lwip/include/lwip/sockets.h[0m[0m:[1;31m70[0m
+[0m--- (inlined by) [0;33mhttpd_server_init[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m349[0m
+[0m--- 0x42012e2c: [0;33mhttpd_start[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m516[0m
+[0m--- 0x4200cd93: [0;33mweb_server_start[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m345[0m
+[0m--- 0x4200ce16: [0;33mapp_main[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m470[0m
+[0m--- 0x420079d3: [0;33mmain_task[0m[0m at [0;32m/opt/esp/idf/components/freertos/app_startup.c[0m[0m:[1;31m199[0m
+[0m--- 0x4205a01a: [0;33mvPortTaskWrapper[0m[0m at [0;32m/opt/esp/idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m143[0m
+[0m--- 0x4037b8e5: [0;33mesp_restart_noos[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m166[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c8908: [0;33mcall_start_cpu0[0m[0m at [0;32m/opt/esp/idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m--- 0x4037b795: [0;33mpanic_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/panic.c[0m[0m:[1;31m464[0m
+[0m--- 0x4037b75d: [0;33mesp_system_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/esp_system_chip.c[0m[0m:[1;31m87[0m
+[0m--- 0x4037a84d: [0;33m__assert_func[0m[0m at [0;32m/opt/esp/idf/components/esp_libc/src/assert.c[0m[0m:[1;31m81[0m
+[0m--- 0x4201ab3d: [0;33mtcpip_send_msg_wait_sem[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/tcpip.c[0m[0m:[1;31m454[0m
+[0m--- 0x420271ce: [0;33mnetconn_apimsg[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m134[0m
+[0m--- 0x42027252: [0;33mnetconn_new_with_proto_and_callback[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m164[0m
+[0m--- 0x4201a7ed: [0;33mlwip_socket[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/sockets.c[0m[0m:[1;31m1759[0m
+[0m--- 0x42012761: [0;33msocket[0m[0m at [0;32m/opt/esp/idf/components/lwip/include/lwip/sockets.h[0m[0m:[1;31m70[0m
+[0m--- (inlined by) [0;33mhttpd_server_init[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m349[0m
+[0m--- 0x42012e2c: [0;33mhttpd_start[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m516[0m
+[0m--- 0x4200cd93: [0;33mweb_server_start[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m345[0m
+[0m--- 0x4200ce16: [0;33mapp_main[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m470[0m
+[0m--- 0x420079d3: [0;33mmain_task[0m[0m at [0;32m/opt/esp/idf/components/freertos/app_startup.c[0m[0m:[1;31m199[0m
+[0m--- 0x4205a01a: [0;33mvPortTaskWrapper[0m[0m at [0;32m/opt/esp/idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m143[0m
+[0m--- 0x4037b8e5: [0;33mesp_restart_noos[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m166[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c8908: [0;33mcall_start_cpu0[0m[0m at [0;32m/opt/esp/idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m--- 0x4037b795: [0;33mpanic_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/panic.c[0m[0m:[1;31m464[0m
+[0m--- 0x4037b75d: [0;33mesp_system_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/esp_system_chip.c[0m[0m:[1;31m87[0m
+[0m--- 0x4037a84d: [0;33m__assert_func[0m[0m at [0;32m/opt/esp/idf/components/esp_libc/src/assert.c[0m[0m:[1;31m81[0m
+[0m--- 0x4201ab3d: [0;33mtcpip_send_msg_wait_sem[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/tcpip.c[0m[0m:[1;31m454[0m
+[0m--- 0x420271ce: [0;33mnetconn_apimsg[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m134[0m
+[0m--- 0x42027252: [0;33mnetconn_new_with_proto_and_callback[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m164[0m
+[0m--- 0x4201a7ed: [0;33mlwip_socket[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/sockets.c[0m[0m:[1;31m1759[0m
+[0m--- 0x42012761: [0;33msocket[0m[0m at [0;32m/opt/esp/idf/components/lwip/include/lwip/sockets.h[0m[0m:[1;31m70[0m
+[0m--- (inlined by) [0;33mhttpd_server_init[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m349[0m
+[0m--- 0x42012e2c: [0;33mhttpd_start[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m516[0m
+[0m--- 0x4200cd93: [0;33mweb_server_start[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m345[0m
+[0m--- 0x4200ce16: [0;33mapp_main[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m470[0m
+[0m--- 0x420079d3: [0;33mmain_task[0m[0m at [0;32m/opt/esp/idf/components/freertos/app_startup.c[0m[0m:[1;31m199[0m
+[0m--- 0x4205a01a: [0;33mvPortTaskWrapper[0m[0m at [0;32m/opt/esp/idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m143[0m
+[0m--- 0x4037b8e5: [0;33mesp_restart_noos[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m166[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c8908: [0;33mcall_start_cpu0[0m[0m at [0;32m/opt/esp/idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m--- 0x4037b795: [0;33mpanic_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/panic.c[0m[0m:[1;31m464[0m
+[0m--- 0x4037b75d: [0;33mesp_system_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/esp_system_chip.c[0m[0m:[1;31m87[0m
+[0m--- 0x4037a84d: [0;33m__assert_func[0m[0m at [0;32m/opt/esp/idf/components/esp_libc/src/assert.c[0m[0m:[1;31m81[0m
+[0m--- 0x4201ab3d: [0;33mtcpip_send_msg_wait_sem[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/tcpip.c[0m[0m:[1;31m454[0m
+[0m--- 0x420271ce: [0;33mnetconn_apimsg[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m134[0m
+[0m--- 0x42027252: [0;33mnetconn_new_with_proto_and_callback[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m164[0m
+[0m--- 0x4201a7ed: [0;33mlwip_socket[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/sockets.c[0m[0m:[1;31m1759[0m
+[0m--- 0x42012761: [0;33msocket[0m[0m at [0;32m/opt/esp/idf/components/lwip/include/lwip/sockets.h[0m[0m:[1;31m70[0m
+[0m--- (inlined by) [0;33mhttpd_server_init[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m349[0m
+[0m--- 0x42012e2c: [0;33mhttpd_start[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m516[0m
+[0m--- 0x4200cd93: [0;33mweb_server_start[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m345[0m
+[0m--- 0x4200ce16: [0;33mapp_main[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m470[0m
+[0m--- 0x420079d3: [0;33mmain_task[0m[0m at [0;32m/opt/esp/idf/components/freertos/app_startup.c[0m[0m:[1;31m199[0m
+[0m--- 0x4205a01a: [0;33mvPortTaskWrapper[0m[0m at [0;32m/opt/esp/idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m143[0m
+[0m--- 0x4037b8e5: [0;33mesp_restart_noos[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m166[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c8908: [0;33mcall_start_cpu0[0m[0m at [0;32m/opt/esp/idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m--- 0x4037b795: [0;33mpanic_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/panic.c[0m[0m:[1;31m464[0m
+[0m--- 0x4037b75d: [0;33mesp_system_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/esp_system_chip.c[0m[0m:[1;31m87[0m
+[0m--- 0x4037a84d: [0;33m__assert_func[0m[0m at [0;32m/opt/esp/idf/components/esp_libc/src/assert.c[0m[0m:[1;31m81[0m
+[0m--- 0x4201ab3d: [0;33mtcpip_send_msg_wait_sem[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/tcpip.c[0m[0m:[1;31m454[0m
+[0m--- 0x420271ce: [0;33mnetconn_apimsg[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m134[0m
+[0m--- 0x42027252: [0;33mnetconn_new_with_proto_and_callback[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m164[0m
+[0m--- 0x4201a7ed: [0;33mlwip_socket[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/sockets.c[0m[0m:[1;31m1759[0m
+[0m--- 0x42012761: [0;33msocket[0m[0m at [0;32m/opt/esp/idf/components/lwip/include/lwip/sockets.h[0m[0m:[1;31m70[0m
+[0m--- (inlined by) [0;33mhttpd_server_init[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m349[0m
+[0m--- 0x42012e2c: [0;33mhttpd_start[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m516[0m
+[0m--- 0x4200cd93: [0;33mweb_server_start[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m345[0m
+[0m--- 0x4200ce16: [0;33mapp_main[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m470[0m
+[0m--- 0x420079d3: [0;33mmain_task[0m[0m at [0;32m/opt/esp/idf/components/freertos/app_startup.c[0m[0m:[1;31m199[0m
+[0m--- 0x4205a01a: [0;33mvPortTaskWrapper[0m[0m at [0;32m/opt/esp/idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m143[0m
+[0m--- 0x4037b8e5: [0;33mesp_restart_noos[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m166[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c8908: [0;33mcall_start_cpu0[0m[0m at [0;32m/opt/esp/idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m--- 0x4037b795: [0;33mpanic_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/panic.c[0m[0m:[1;31m464[0m
+[0m--- 0x4037b75d: [0;33mesp_system_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/esp_system_chip.c[0m[0m:[1;31m87[0m
+[0m--- 0x4037a84d: [0;33m__assert_func[0m[0m at [0;32m/opt/esp/idf/components/esp_libc/src/assert.c[0m[0m:[1;31m81[0m
+[0m--- 0x4201ab3d: [0;33mtcpip_send_msg_wait_sem[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/tcpip.c[0m[0m:[1;31m454[0m
+[0m--- 0x420271ce: [0;33mnetconn_apimsg[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m134[0m
+[0m--- 0x42027252: [0;33mnetconn_new_with_proto_and_callback[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m164[0m
+[0m--- 0x4201a7ed: [0;33mlwip_socket[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/sockets.c[0m[0m:[1;31m1759[0m
+[0m--- 0x42012761: [0;33msocket[0m[0m at [0;32m/opt/esp/idf/components/lwip/include/lwip/sockets.h[0m[0m:[1;31m70[0m
+[0m--- (inlined by) [0;33mhttpd_server_init[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m349[0m
+[0m--- 0x42012e2c: [0;33mhttpd_start[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m516[0m
+[0m--- 0x4200cd93: [0;33mweb_server_start[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m345[0m
+[0m--- 0x4200ce16: [0;33mapp_main[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m470[0m
+[0m--- 0x420079d3: [0;33mmain_task[0m[0m at [0;32m/opt/esp/idf/components/freertos/app_startup.c[0m[0m:[1;31m199[0m
+[0m--- 0x4205a01a: [0;33mvPortTaskWrapper[0m[0m at [0;32m/opt/esp/idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m143[0m
+[0m--- 0x4037b8e5: [0;33mesp_restart_noos[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m166[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c8908: [0;33mcall_start_cpu0[0m[0m at [0;32m/opt/esp/idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m--- 0x4037b795: [0;33mpanic_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/panic.c[0m[0m:[1;31m464[0m
+[0m--- 0x4037b75d: [0;33mesp_system_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/esp_system_chip.c[0m[0m:[1;31m87[0m
+[0m--- 0x4037a84d: [0;33m__assert_func[0m[0m at [0;32m/opt/esp/idf/components/esp_libc/src/assert.c[0m[0m:[1;31m81[0m
+[0m--- 0x4201ab3d: [0;33mtcpip_send_msg_wait_sem[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/tcpip.c[0m[0m:[1;31m454[0m
+[0m--- 0x420271ce: [0;33mnetconn_apimsg[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m134[0m
+[0m--- 0x42027252: [0;33mnetconn_new_with_proto_and_callback[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m164[0m
+[0m--- 0x4201a7ed: [0;33mlwip_socket[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/sockets.c[0m[0m:[1;31m1759[0m
+[0m--- 0x42012761: [0;33msocket[0m[0m at [0;32m/opt/esp/idf/components/lwip/include/lwip/sockets.h[0m[0m:[1;31m70[0m
+[0m--- (inlined by) [0;33mhttpd_server_init[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m349[0m
+[0m--- 0x42012e2c: [0;33mhttpd_start[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m516[0m
+[0m--- 0x4200cd93: [0;33mweb_server_start[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m345[0m
+[0m--- 0x4200ce16: [0;33mapp_main[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m470[0m
+[0m--- 0x420079d3: [0;33mmain_task[0m[0m at [0;32m/opt/esp/idf/components/freertos/app_startup.c[0m[0m:[1;31m199[0m
+[0m--- 0x4205a01a: [0;33mvPortTaskWrapper[0m[0m at [0;32m/opt/esp/idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m143[0m
+[0m--- 0x4037b8e5: [0;33mesp_restart_noos[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m166[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c8908: [0;33mcall_start_cpu0[0m[0m at [0;32m/opt/esp/idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m--- 0x4037b795: [0;33mpanic_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/panic.c[0m[0m:[1;31m464[0m
+[0m--- 0x4037b75d: [0;33mesp_system_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/esp_system_chip.c[0m[0m:[1;31m87[0m
+[0m--- 0x4037a84d: [0;33m__assert_func[0m[0m at [0;32m/opt/esp/idf/components/esp_libc/src/assert.c[0m[0m:[1;31m81[0m
+[0m--- 0x4201ab3d: [0;33mtcpip_send_msg_wait_sem[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/tcpip.c[0m[0m:[1;31m454[0m
+[0m--- 0x420271ce: [0;33mnetconn_apimsg[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m134[0m
+[0m--- 0x42027252: [0;33mnetconn_new_with_proto_and_callback[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m164[0m
+[0m--- 0x42012761: [0;33msocket[0m[0m at [0;32m/opt/esp/idf/components/lwip/include/lwip/sockets.h[0m[0m:[1;31m70[0m
+[0m--- (inlined by) [0;33mhttpd_server_init[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m349[0m
+[0m--- 0x42012e2c: [0;33mhttpd_start[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m516[0m
+[0m--- 0x4200cd93: [0;33mweb_server_start[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m345[0m
+[0m--- 0x4200ce16: [0;33mapp_main[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m470[0m
+[0m--- 0x420079d3: [0;33mmain_task[0m[0m at [0;32m/opt/esp/idf/components/freertos/app_startup.c[0m[0m:[1;31m199[0m
+[0m--- 0x4037b8e5: [0;33mesp_restart_noos[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m166[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c8908: [0;33mcall_start_cpu0[0m[0m at [0;32m/opt/esp/idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m--- 0x4037b795: [0;33mpanic_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/panic.c[0m[0m:[1;31m464[0m
+[0m--- 0x4037b75d: [0;33mesp_system_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/esp_system_chip.c[0m[0m:[1;31m87[0m
+[0m--- 0x4037a84d: [0;33m__assert_func[0m[0m at [0;32m/opt/esp/idf/components/esp_libc/src/assert.c[0m[0m:[1;31m81[0m
+[0m--- 0x4201ab3d: [0;33mtcpip_send_msg_wait_sem[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/tcpip.c[0m[0m:[1;31m454[0m
+[0m--- 0x420271ce: [0;33mnetconn_apimsg[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m134[0m
+[0m--- 0x42027252: [0;33mnetconn_new_with_proto_and_callback[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m164[0m
+[0m--- 0x4201a7ed: [0;33mlwip_socket[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/sockets.c[0m[0m:[1;31m1759[0m
+[0m--- 0x42012761: [0;33msocket[0m[0m at [0;32m/opt/esp/idf/components/lwip/include/lwip/sockets.h[0m[0m:[1;31m70[0m
+[0m--- (inlined by) [0;33mhttpd_server_init[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m349[0m
+[0m--- 0x42012e2c: [0;33mhttpd_start[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m516[0m
+[0m--- 0x4200cd93: [0;33mweb_server_start[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m345[0m
+[0m--- 0x4200ce16: [0;33mapp_main[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m470[0m
+[0m--- 0x420079d3: [0;33mmain_task[0m[0m at [0;32m/opt/esp/idf/components/freertos/app_startup.c[0m[0m:[1;31m199[0m
+[0m--- 0x4205a01a: [0;33mvPortTaskWrapper[0m[0m at [0;32m/opt/esp/idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m143[0m
+[0m--- 0x4037b8e5: [0;33mesp_restart_noos[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m166[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c8908: [0;33mcall_start_cpu0[0m[0m at [0;32m/opt/esp/idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m--- 0x4037b795: [0;33mpanic_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/panic.c[0m[0m:[1;31m464[0m
+[0m--- 0x4037b75d: [0;33mesp_system_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/esp_system_chip.c[0m[0m:[1;31m87[0m
+[0m--- 0x4037a84d: [0;33m__assert_func[0m[0m at [0;32m/opt/esp/idf/components/esp_libc/src/assert.c[0m[0m:[1;31m81[0m
+[0m--- 0x4201ab3d: [0;33mtcpip_send_msg_wait_sem[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/tcpip.c[0m[0m:[1;31m454[0m
+[0m--- 0x420271ce: [0;33mnetconn_apimsg[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m134[0m
+[0m--- 0x42027252: [0;33mnetconn_new_with_proto_and_callback[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m164[0m
+[0m--- 0x4201a7ed: [0;33mlwip_socket[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/sockets.c[0m[0m:[1;31m1759[0m
+[0m--- 0x42012761: [0;33msocket[0m[0m at [0;32m/opt/esp/idf/components/lwip/include/lwip/sockets.h[0m[0m:[1;31m70[0m
+[0m--- (inlined by) [0;33mhttpd_server_init[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m349[0m
+[0m--- 0x42012e2c: [0;33mhttpd_start[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m516[0m
+[0m--- 0x4200cd93: [0;33mweb_server_start[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m345[0m
+[0m--- 0x4200ce16: [0;33mapp_main[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m470[0m
+[0m--- 0x420079d3: [0;33mmain_task[0m[0m at [0;32m/opt/esp/idf/components/freertos/app_startup.c[0m[0m:[1;31m199[0m
+[0m--- 0x4205a01a: [0;33mvPortTaskWrapper[0m[0m at [0;32m/opt/esp/idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m143[0m
+[0m--- 0x4037b8e5: [0;33mesp_restart_noos[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m166[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c8908: [0;33mcall_start_cpu0[0m[0m at [0;32m/opt/esp/idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m--- 0x4037b795: [0;33mpanic_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/panic.c[0m[0m:[1;31m464[0m
+[0m--- 0x4037b75d: [0;33mesp_system_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/esp_system_chip.c[0m[0m:[1;31m87[0m
+[0m--- 0x4037a84d: [0;33m__assert_func[0m[0m at [0;32m/opt/esp/idf/components/esp_libc/src/assert.c[0m[0m:[1;31m81[0m
+[0m--- 0x4201ab3d: [0;33mtcpip_send_msg_wait_sem[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/tcpip.c[0m[0m:[1;31m454[0m
+[0m--- 0x420271ce: [0;33mnetconn_apimsg[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m134[0m
+[0m--- 0x42027252: [0;33mnetconn_new_with_proto_and_callback[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m164[0m
+[0m--- 0x4201a7ed: [0;33mlwip_socket[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/sockets.c[0m[0m:[1;31m1759[0m
+[0m--- 0x42012761: [0;33msocket[0m[0m at [0;32m/opt/esp/idf/components/lwip/include/lwip/sockets.h[0m[0m:[1;31m70[0m
+[0m--- (inlined by) [0;33mhttpd_server_init[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m349[0m
+[0m--- 0x42012e2c: [0;33mhttpd_start[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m516[0m
+[0m--- 0x4200cd93: [0;33mweb_server_start[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m345[0m
+[0m--- 0x4200ce16: [0;33mapp_main[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m470[0m
+[0m--- 0x420079d3: [0;33mmain_task[0m[0m at [0;32m/opt/esp/idf/components/freertos/app_startup.c[0m[0m:[1;31m199[0m
+[0m--- 0x4205a01a: [0;33mvPortTaskWrapper[0m[0m at [0;32m/opt/esp/idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m143[0m
+[0m--- 0x4037b8e5: [0;33mesp_restart_noos[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m166[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c8908: [0;33mcall_start_cpu0[0m[0m at [0;32m/opt/esp/idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m--- 0x4037b795: [0;33mpanic_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/panic.c[0m[0m:[1;31m464[0m
+[0m--- 0x4037b75d: [0;33mesp_system_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/esp_system_chip.c[0m[0m:[1;31m87[0m
+[0m--- 0x4037a84d: [0;33m__assert_func[0m[0m at [0;32m/opt/esp/idf/components/esp_libc/src/assert.c[0m[0m:[1;31m81[0m
+[0m--- 0x4201ab3d: [0;33mtcpip_send_msg_wait_sem[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/tcpip.c[0m[0m:[1;31m454[0m
+[0m--- 0x420271ce: [0;33mnetconn_apimsg[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m134[0m
+[0m--- 0x42027252: [0;33mnetconn_new_with_proto_and_callback[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m164[0m
+[0m--- 0x4201a7ed: [0;33mlwip_socket[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/sockets.c[0m[0m:[1;31m1759[0m
+[0m--- 0x42012761: [0;33msocket[0m[0m at [0;32m/opt/esp/idf/components/lwip/include/lwip/sockets.h[0m[0m:[1;31m70[0m
+[0m--- (inlined by) [0;33mhttpd_server_init[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m349[0m
+[0m--- 0x42012e2c: [0;33mhttpd_start[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m516[0m
+[0m--- 0x4200cd93: [0;33mweb_server_start[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m345[0m
+[0m--- 0x4200ce16: [0;33mapp_main[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m470[0m
+[0m--- 0x420079d3: [0;33mmain_task[0m[0m at [0;32m/opt/esp/idf/components/freertos/app_startup.c[0m[0m:[1;31m199[0m
+[0m--- 0x4205a01a: [0;33mvPortTaskWrapper[0m[0m at [0;32m/opt/esp/idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m143[0m
+[0m--- 0x4037b8e5: [0;33mesp_restart_noos[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m166[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c8908: [0;33mcall_start_cpu0[0m[0m at [0;32m/opt/esp/idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m--- 0x4037b795: [0;33mpanic_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/panic.c[0m[0m:[1;31m464[0m
+[0m--- 0x4037b75d: [0;33mesp_system_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/esp_system_chip.c[0m[0m:[1;31m87[0m
+[0m--- 0x4037a84d: [0;33m__assert_func[0m[0m at [0;32m/opt/esp/idf/components/esp_libc/src/assert.c[0m[0m:[1;31m81[0m
+[0m--- 0x4201ab3d: [0;33mtcpip_send_msg_wait_sem[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/tcpip.c[0m[0m:[1;31m454[0m
+[0m--- 0x420271ce: [0;33mnetconn_apimsg[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m134[0m
+[0m--- 0x42027252: [0;33mnetconn_new_with_proto_and_callback[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m164[0m
+[0m--- 0x42012761: [0;33msocket[0m[0m at [0;32m/opt/esp/idf/components/lwip/include/lwip/sockets.h[0m[0m:[1;31m70[0m
+[0m--- (inlined by) [0;33mhttpd_server_init[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m349[0m
+[0m--- 0x42012e2c: [0;33mhttpd_start[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m516[0m
+[0m--- 0x4200cd93: [0;33mweb_server_start[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m345[0m
+[0m--- 0x4200ce16: [0;33mapp_main[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m470[0m
+[0m--- 0x420079d3: [0;33mmain_task[0m[0m at [0;32m/opt/esp/idf/components/freertos/app_startup.c[0m[0m:[1;31m199[0m
+[0m--- 0x4037b8e5: [0;33mesp_restart_noos[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m166[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c8908: [0;33mcall_start_cpu0[0m[0m at [0;32m/opt/esp/idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m--- 0x4037b795: [0;33mpanic_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/panic.c[0m[0m:[1;31m464[0m
+[0m--- 0x4037b75d: [0;33mesp_system_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/esp_system_chip.c[0m[0m:[1;31m87[0m
+[0m--- 0x4037a84d: [0;33m__assert_func[0m[0m at [0;32m/opt/esp/idf/components/esp_libc/src/assert.c[0m[0m:[1;31m81[0m
+[0m--- 0x4201ab3d: [0;33mtcpip_send_msg_wait_sem[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/tcpip.c[0m[0m:[1;31m454[0m
+[0m--- 0x420271ce: [0;33mnetconn_apimsg[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m134[0m
+[0m--- 0x42027252: [0;33mnetconn_new_with_proto_and_callback[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m164[0m
+[0m--- 0x4201a7ed: [0;33mlwip_socket[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/sockets.c[0m[0m:[1;31m1759[0m
+[0m--- 0x42012761: [0;33msocket[0m[0m at [0;32m/opt/esp/idf/components/lwip/include/lwip/sockets.h[0m[0m:[1;31m70[0m
+[0m--- (inlined by) [0;33mhttpd_server_init[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m349[0m
+[0m--- 0x42012e2c: [0;33mhttpd_start[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m516[0m
+[0m--- 0x4200cd93: [0;33mweb_server_start[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m345[0m
+[0m--- 0x4200ce16: [0;33mapp_main[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m470[0m
+[0m--- 0x420079d3: [0;33mmain_task[0m[0m at [0;32m/opt/esp/idf/components/freertos/app_startup.c[0m[0m:[1;31m199[0m
+[0m--- 0x4205a01a: [0;33mvPortTaskWrapper[0m[0m at [0;32m/opt/esp/idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m143[0m
+[0m--- 0x4037b8e5: [0;33mesp_restart_noos[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m166[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c8908: [0;33mcall_start_cpu0[0m[0m at [0;32m/opt/esp/idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m--- 0x4037b795: [0;33mpanic_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/panic.c[0m[0m:[1;31m464[0m
+[0m--- 0x4037b75d: [0;33mesp_system_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/esp_system_chip.c[0m[0m:[1;31m87[0m
+[0m--- 0x4037a84d: [0;33m__assert_func[0m[0m at [0;32m/opt/esp/idf/components/esp_libc/src/assert.c[0m[0m:[1;31m81[0m
+[0m--- 0x4201ab3d: [0;33mtcpip_send_msg_wait_sem[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/tcpip.c[0m[0m:[1;31m454[0m
+[0m--- 0x420271ce: [0;33mnetconn_apimsg[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m134[0m
+[0m--- 0x42027252: [0;33mnetconn_new_with_proto_and_callback[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m164[0m
+[0m--- 0x4201a7ed: [0;33mlwip_socket[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/sockets.c[0m[0m:[1;31m1759[0m
+[0m--- 0x42012761: [0;33msocket[0m[0m at [0;32m/opt/esp/idf/components/lwip/include/lwip/sockets.h[0m[0m:[1;31m70[0m
+[0m--- (inlined by) [0;33mhttpd_server_init[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m349[0m
+[0m--- 0x42012e2c: [0;33mhttpd_start[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m516[0m
+[0m--- 0x4200cd93: [0;33mweb_server_start[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m345[0m
+[0m--- 0x4200ce16: [0;33mapp_main[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m470[0m
+[0m--- 0x420079d3: [0;33mmain_task[0m[0m at [0;32m/opt/esp/idf/components/freertos/app_startup.c[0m[0m:[1;31m199[0m
+[0m--- 0x4205a01a: [0;33mvPortTaskWrapper[0m[0m at [0;32m/opt/esp/idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m143[0m
+[0m--- 0x4037b8e5: [0;33mesp_restart_noos[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m166[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c8908: [0;33mcall_start_cpu0[0m[0m at [0;32m/opt/esp/idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m--- 0x4037b795: [0;33mpanic_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/panic.c[0m[0m:[1;31m464[0m
+[0m--- 0x4037b75d: [0;33mesp_system_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/esp_system_chip.c[0m[0m:[1;31m87[0m
+[0m--- 0x4037a84d: [0;33m__assert_func[0m[0m at [0;32m/opt/esp/idf/components/esp_libc/src/assert.c[0m[0m:[1;31m81[0m
+[0m--- 0x4201ab3d: [0;33mtcpip_send_msg_wait_sem[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/tcpip.c[0m[0m:[1;31m454[0m
+[0m--- 0x420271ce: [0;33mnetconn_apimsg[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m134[0m
+[0m--- 0x42027252: [0;33mnetconn_new_with_proto_and_callback[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m164[0m
+[0m--- 0x4201a7ed: [0;33mlwip_socket[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/sockets.c[0m[0m:[1;31m1759[0m
+[0m--- 0x42012761: [0;33msocket[0m[0m at [0;32m/opt/esp/idf/components/lwip/include/lwip/sockets.h[0m[0m:[1;31m70[0m
+[0m--- (inlined by) [0;33mhttpd_server_init[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m349[0m
+[0m--- 0x42012e2c: [0;33mhttpd_start[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m516[0m
+[0m--- 0x4200cd93: [0;33mweb_server_start[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m345[0m
+[0m--- 0x4200ce16: [0;33mapp_main[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m470[0m
+[0m--- 0x420079d3: [0;33mmain_task[0m[0m at [0;32m/opt/esp/idf/components/freertos/app_startup.c[0m[0m:[1;31m199[0m
+[0m--- 0x4205a01a: [0;33mvPortTaskWrapper[0m[0m at [0;32m/opt/esp/idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m143[0m
+[0m--- 0x4037b8e5: [0;33mesp_restart_noos[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m166[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c8908: [0;33mcall_start_cpu0[0m[0m at [0;32m/opt/esp/idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m--- 0x4037b795: [0;33mpanic_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/panic.c[0m[0m:[1;31m464[0m
+[0m--- 0x4037b75d: [0;33mesp_system_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/esp_system_chip.c[0m[0m:[1;31m87[0m
+[0m--- 0x4037a84d: [0;33m__assert_func[0m[0m at [0;32m/opt/esp/idf/components/esp_libc/src/assert.c[0m[0m:[1;31m81[0m
+[0m--- 0x4201ab3d: [0;33mtcpip_send_msg_wait_sem[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/tcpip.c[0m[0m:[1;31m454[0m
+[0m--- 0x420271ce: [0;33mnetconn_apimsg[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m134[0m
+[0m--- 0x42027252: [0;33mnetconn_new_with_proto_and_callback[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m164[0m
+[0m--- 0x4201a7ed: [0;33mlwip_socket[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/sockets.c[0m[0m:[1;31m1759[0m
+[0m--- 0x42012761: [0;33msocket[0m[0m at [0;32m/opt/esp/idf/components/lwip/include/lwip/sockets.h[0m[0m:[1;31m70[0m
+[0m--- (inlined by) [0;33mhttpd_server_init[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m349[0m
+[0m--- 0x42012e2c: [0;33mhttpd_start[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m516[0m
+[0m--- 0x4200cd93: [0;33mweb_server_start[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m345[0m
+[0m--- 0x4200ce16: [0;33mapp_main[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m470[0m
+[0m--- 0x420079d3: [0;33mmain_task[0m[0m at [0;32m/opt/esp/idf/components/freertos/app_startup.c[0m[0m:[1;31m199[0m
+[0m--- 0x4205a01a: [0;33mvPortTaskWrapper[0m[0m at [0;32m/opt/esp/idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m143[0m
+[0m--- 0x4037b8e5: [0;33mesp_restart_noos[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m166[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c8908: [0;33mcall_start_cpu0[0m[0m at [0;32m/opt/esp/idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m--- 0x4037b795: [0;33mpanic_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/panic.c[0m[0m:[1;31m464[0m
+[0m--- 0x4037b75d: [0;33mesp_system_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/esp_system_chip.c[0m[0m:[1;31m87[0m
+[0m--- 0x4037a84d: [0;33m__assert_func[0m[0m at [0;32m/opt/esp/idf/components/esp_libc/src/assert.c[0m[0m:[1;31m81[0m
+[0m--- 0x4201ab3d: [0;33mtcpip_send_msg_wait_sem[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/tcpip.c[0m[0m:[1;31m454[0m
+[0m--- 0x420271ce: [0;33mnetconn_apimsg[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m134[0m
+[0m--- 0x42027252: [0;33mnetconn_new_with_proto_and_callback[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m164[0m
+[0m--- 0x4201a7ed: [0;33mlwip_socket[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/sockets.c[0m[0m:[1;31m1759[0m
+[0m--- 0x42012761: [0;33msocket[0m[0m at [0;32m/opt/esp/idf/components/lwip/include/lwip/sockets.h[0m[0m:[1;31m70[0m
+[0m--- (inlined by) [0;33mhttpd_server_init[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m349[0m
+[0m--- 0x42012e2c: [0;33mhttpd_start[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m516[0m
+[0m--- 0x4200cd93: [0;33mweb_server_start[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m345[0m
+[0m--- 0x4200ce16: [0;33mapp_main[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m470[0m
+[0m--- 0x420079d3: [0;33mmain_task[0m[0m at [0;32m/opt/esp/idf/components/freertos/app_startup.c[0m[0m:[1;31m199[0m
+[0m--- 0x4205a01a: [0;33mvPortTaskWrapper[0m[0m at [0;32m/opt/esp/idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m143[0m
+[0m--- 0x4037b8e5: [0;33mesp_restart_noos[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m166[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c8908: [0;33mcall_start_cpu0[0m[0m at [0;32m/opt/esp/idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m--- 0x4037b795: [0;33mpanic_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/panic.c[0m[0m:[1;31m464[0m
+[0m--- 0x4037b75d: [0;33mesp_system_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/esp_system_chip.c[0m[0m:[1;31m87[0m
+[0m--- 0x4037a84d: [0;33m__assert_func[0m[0m at [0;32m/opt/esp/idf/components/esp_libc/src/assert.c[0m[0m:[1;31m81[0m
+[0m--- 0x4201ab3d: [0;33mtcpip_send_msg_wait_sem[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/tcpip.c[0m[0m:[1;31m454[0m
+[0m--- 0x420271ce: [0;33mnetconn_apimsg[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m134[0m
+[0m--- 0x42027252: [0;33mnetconn_new_with_proto_and_callback[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m164[0m
+[0m--- 0x4201a7ed: [0;33mlwip_socket[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/sockets.c[0m[0m:[1;31m1759[0m
+[0m--- 0x42012761: [0;33msocket[0m[0m at [0;32m/opt/esp/idf/components/lwip/include/lwip/sockets.h[0m[0m:[1;31m70[0m
+[0m--- (inlined by) [0;33mhttpd_server_init[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m349[0m
+[0m--- 0x42012e2c: [0;33mhttpd_start[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m516[0m
+[0m--- 0x4200cd93: [0;33mweb_server_start[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m345[0m
+[0m--- 0x4200ce16: [0;33mapp_main[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m470[0m
+[0m--- 0x420079d3: [0;33mmain_task[0m[0m at [0;32m/opt/esp/idf/components/freertos/app_startup.c[0m[0m:[1;31m199[0m
+[0m--- 0x4205a01a: [0;33mvPortTaskWrapper[0m[0m at [0;32m/opt/esp/idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m143[0m
+[0m--- 0x4037b8e5: [0;33mesp_restart_noos[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m166[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c8908: [0;33mcall_start_cpu0[0m[0m at [0;32m/opt/esp/idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m--- 0x4037b795: [0;33mpanic_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/panic.c[0m[0m:[1;31m464[0m
+[0m--- 0x4037b75d: [0;33mesp_system_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/esp_system_chip.c[0m[0m:[1;31m87[0m
+[0m--- 0x4037a84d: [0;33m__assert_func[0m[0m at [0;32m/opt/esp/idf/components/esp_libc/src/assert.c[0m[0m:[1;31m81[0m
+[0m--- 0x4201ab3d: [0;33mtcpip_send_msg_wait_sem[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/tcpip.c[0m[0m:[1;31m454[0m
+[0m--- 0x420271ce: [0;33mnetconn_apimsg[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m134[0m
+[0m--- 0x42027252: [0;33mnetconn_new_with_proto_and_callback[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m164[0m
+[0m--- 0x4201a7ed: [0;33mlwip_socket[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/sockets.c[0m[0m:[1;31m1759[0m
+[0m--- 0x42012761: [0;33msocket[0m[0m at [0;32m/opt/esp/idf/components/lwip/include/lwip/sockets.h[0m[0m:[1;31m70[0m
+[0m--- (inlined by) [0;33mhttpd_server_init[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m349[0m
+[0m--- 0x42012e2c: [0;33mhttpd_start[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m516[0m
+[0m--- 0x4200cd93: [0;33mweb_server_start[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m345[0m
+[0m--- 0x4200ce16: [0;33mapp_main[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m470[0m
+[0m--- 0x420079d3: [0;33mmain_task[0m[0m at [0;32m/opt/esp/idf/components/freertos/app_startup.c[0m[0m:[1;31m199[0m
+[0m--- 0x4205a01a: [0;33mvPortTaskWrapper[0m[0m at [0;32m/opt/esp/idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m143[0m
+[0m--- 0x4037b8e5: [0;33mesp_restart_noos[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m166[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c8908: [0;33mcall_start_cpu0[0m[0m at [0;32m/opt/esp/idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m--- 0x4037b795: [0;33mpanic_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/panic.c[0m[0m:[1;31m464[0m
+[0m--- 0x4037b75d: [0;33mesp_system_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/esp_system_chip.c[0m[0m:[1;31m87[0m
+[0m--- 0x4037a84d: [0;33m__assert_func[0m[0m at [0;32m/opt/esp/idf/components/esp_libc/src/assert.c[0m[0m:[1;31m81[0m
+[0m--- 0x4201ab3d: [0;33mtcpip_send_msg_wait_sem[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/tcpip.c[0m[0m:[1;31m454[0m
+[0m--- 0x420271ce: [0;33mnetconn_apimsg[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m134[0m
+[0m--- 0x42027252: [0;33mnetconn_new_with_proto_and_callback[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m164[0m
+[0m--- 0x4201a7ed: [0;33mlwip_socket[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/sockets.c[0m[0m:[1;31m1759[0m
+[0m--- 0x42012761: [0;33msocket[0m[0m at [0;32m/opt/esp/idf/components/lwip/include/lwip/sockets.h[0m[0m:[1;31m70[0m
+[0m--- (inlined by) [0;33mhttpd_server_init[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m349[0m
+[0m--- 0x42012e2c: [0;33mhttpd_start[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m516[0m
+[0m--- 0x4200cd93: [0;33mweb_server_start[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m345[0m
+[0m--- 0x4200ce16: [0;33mapp_main[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m470[0m
+[0m--- 0x420079d3: [0;33mmain_task[0m[0m at [0;32m/opt/esp/idf/components/freertos/app_startup.c[0m[0m:[1;31m199[0m
+[0m--- 0x4205a01a: [0;33mvPortTaskWrapper[0m[0m at [0;32m/opt/esp/idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m143[0m
+[0m--- 0x4037b8e5: [0;33mesp_restart_noos[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m166[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c8908: [0;33mcall_start_cpu0[0m[0m at [0;32m/opt/esp/idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m--- 0x4037b795: [0;33mpanic_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/panic.c[0m[0m:[1;31m464[0m
+[0m--- 0x4037b75d: [0;33mesp_system_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/esp_system_chip.c[0m[0m:[1;31m87[0m
+[0m--- 0x4037a84d: [0;33m__assert_func[0m[0m at [0;32m/opt/esp/idf/components/esp_libc/src/assert.c[0m[0m:[1;31m81[0m
+[0m--- 0x4201ab3d: [0;33mtcpip_send_msg_wait_sem[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/tcpip.c[0m[0m:[1;31m454[0m
+[0m--- 0x420271ce: [0;33mnetconn_apimsg[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m134[0m
+[0m--- 0x42027252: [0;33mnetconn_new_with_proto_and_callback[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m164[0m
+[0m--- 0x4201a7ed: [0;33mlwip_socket[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/sockets.c[0m[0m:[1;31m1759[0m
+[0m--- 0x42012761: [0;33msocket[0m[0m at [0;32m/opt/esp/idf/components/lwip/include/lwip/sockets.h[0m[0m:[1;31m70[0m
+[0m--- (inlined by) [0;33mhttpd_server_init[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m349[0m
+[0m--- 0x42012e2c: [0;33mhttpd_start[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m516[0m
+[0m--- 0x4200cd93: [0;33mweb_server_start[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m345[0m
+[0m--- 0x4200ce16: [0;33mapp_main[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m470[0m
+[0m--- 0x420079d3: [0;33mmain_task[0m[0m at [0;32m/opt/esp/idf/components/freertos/app_startup.c[0m[0m:[1;31m199[0m
+[0m--- 0x4205a01a: [0;33mvPortTaskWrapper[0m[0m at [0;32m/opt/esp/idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m143[0m
+[0m--- 0x4037b8e5: [0;33mesp_restart_noos[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m166[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c8908: [0;33mcall_start_cpu0[0m[0m at [0;32m/opt/esp/idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m--- 0x4037b795: [0;33mpanic_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/panic.c[0m[0m:[1;31m464[0m
+[0m--- 0x4037b75d: [0;33mesp_system_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/esp_system_chip.c[0m[0m:[1;31m87[0m
+[0m--- 0x4037a84d: [0;33m__assert_func[0m[0m at [0;32m/opt/esp/idf/components/esp_libc/src/assert.c[0m[0m:[1;31m81[0m
+[0m--- 0x4201ab3d: [0;33mtcpip_send_msg_wait_sem[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/tcpip.c[0m[0m:[1;31m454[0m
+[0m--- 0x420271ce: [0;33mnetconn_apimsg[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m134[0m
+[0m--- 0x42027252: [0;33mnetconn_new_with_proto_and_callback[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m164[0m
+[0m--- 0x4201a7ed: [0;33mlwip_socket[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/sockets.c[0m[0m:[1;31m1759[0m
+[0m--- 0x42012761: [0;33msocket[0m[0m at [0;32m/opt/esp/idf/components/lwip/include/lwip/sockets.h[0m[0m:[1;31m70[0m
+[0m--- (inlined by) [0;33mhttpd_server_init[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m349[0m
+[0m--- 0x42012e2c: [0;33mhttpd_start[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m516[0m
+[0m--- 0x4200cd93: [0;33mweb_server_start[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m345[0m
+[0m--- 0x4200ce16: [0;33mapp_main[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m470[0m
+[0m--- 0x420079d3: [0;33mmain_task[0m[0m at [0;32m/opt/esp/idf/components/freertos/app_startup.c[0m[0m:[1;31m199[0m
+[0m--- 0x4205a01a: [0;33mvPortTaskWrapper[0m[0m at [0;32m/opt/esp/idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m143[0m
+[0m--- 0x4037b8e5: [0;33mesp_restart_noos[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m166[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c8908: [0;33mcall_start_cpu0[0m[0m at [0;32m/opt/esp/idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m--- 0x4037b795: [0;33mpanic_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/panic.c[0m[0m:[1;31m464[0m
+[0m--- 0x4037b75d: [0;33mesp_system_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/esp_system_chip.c[0m[0m:[1;31m87[0m
+[0m--- 0x4037a84d: [0;33m__assert_func[0m[0m at [0;32m/opt/esp/idf/components/esp_libc/src/assert.c[0m[0m:[1;31m81[0m
+[0m--- 0x4201ab3d: [0;33mtcpip_send_msg_wait_sem[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/tcpip.c[0m[0m:[1;31m454[0m
+[0m--- 0x420271ce: [0;33mnetconn_apimsg[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m134[0m
+[0m--- 0x42027252: [0;33mnetconn_new_with_proto_and_callback[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m164[0m
+[0m--- 0x4201a7ed: [0;33mlwip_socket[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/sockets.c[0m[0m:[1;31m1759[0m
+[0m--- 0x42012761: [0;33msocket[0m[0m at [0;32m/opt/esp/idf/components/lwip/include/lwip/sockets.h[0m[0m:[1;31m70[0m
+[0m--- (inlined by) [0;33mhttpd_server_init[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m349[0m
+[0m--- 0x42012e2c: [0;33mhttpd_start[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m516[0m
+[0m--- 0x4200cd93: [0;33mweb_server_start[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m345[0m
+[0m--- 0x4200ce16: [0;33mapp_main[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m470[0m
+[0m--- 0x420079d3: [0;33mmain_task[0m[0m at [0;32m/opt/esp/idf/components/freertos/app_startup.c[0m[0m:[1;31m199[0m
+[0m--- 0x4205a01a: [0;33mvPortTaskWrapper[0m[0m at [0;32m/opt/esp/idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m143[0m
+[0m--- 0x4037b8e5: [0;33mesp_restart_noos[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m166[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c8908: [0;33mcall_start_cpu0[0m[0m at [0;32m/opt/esp/idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m--- 0x4037b795: [0;33mpanic_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/panic.c[0m[0m:[1;31m464[0m
+[0m--- 0x4037b75d: [0;33mesp_system_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/esp_system_chip.c[0m[0m:[1;31m87[0m
+[0m--- 0x4037a84d: [0;33m__assert_func[0m[0m at [0;32m/opt/esp/idf/components/esp_libc/src/assert.c[0m[0m:[1;31m81[0m
+[0m--- 0x4201ab3d: [0;33mtcpip_send_msg_wait_sem[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/tcpip.c[0m[0m:[1;31m454[0m
+[0m--- 0x420271ce: [0;33mnetconn_apimsg[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m134[0m
+[0m--- 0x42027252: [0;33mnetconn_new_with_proto_and_callback[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m164[0m
+[0m--- 0x4201a7ed: [0;33mlwip_socket[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/sockets.c[0m[0m:[1;31m1759[0m
+[0m--- 0x42012761: [0;33msocket[0m[0m at [0;32m/opt/esp/idf/components/lwip/include/lwip/sockets.h[0m[0m:[1;31m70[0m
+[0m--- (inlined by) [0;33mhttpd_server_init[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m349[0m
+[0m--- 0x42012e2c: [0;33mhttpd_start[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m516[0m
+[0m--- 0x4200cd93: [0;33mweb_server_start[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m345[0m
+[0m--- 0x4200ce16: [0;33mapp_main[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m470[0m
+[0m--- 0x420079d3: [0;33mmain_task[0m[0m at [0;32m/opt/esp/idf/components/freertos/app_startup.c[0m[0m:[1;31m199[0m
+[0m--- 0x4205a01a: [0;33mvPortTaskWrapper[0m[0m at [0;32m/opt/esp/idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m143[0m
+[0m--- 0x4037b8e5: [0;33mesp_restart_noos[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m166[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c8908: [0;33mcall_start_cpu0[0m[0m at [0;32m/opt/esp/idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m--- 0x4037b795: [0;33mpanic_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/panic.c[0m[0m:[1;31m464[0m
+[0m--- 0x4037b75d: [0;33mesp_system_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/esp_system_chip.c[0m[0m:[1;31m87[0m
+[0m--- 0x4037a84d: [0;33m__assert_func[0m[0m at [0;32m/opt/esp/idf/components/esp_libc/src/assert.c[0m[0m:[1;31m81[0m
+[0m--- 0x4201ab3d: [0;33mtcpip_send_msg_wait_sem[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/tcpip.c[0m[0m:[1;31m454[0m
+[0m--- 0x420271ce: [0;33mnetconn_apimsg[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m134[0m
+[0m--- 0x42027252: [0;33mnetconn_new_with_proto_and_callback[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m164[0m
+[0m--- 0x4201a7ed: [0;33mlwip_socket[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/sockets.c[0m[0m:[1;31m1759[0m
+[0m--- 0x42012761: [0;33msocket[0m[0m at [0;32m/opt/esp/idf/components/lwip/include/lwip/sockets.h[0m[0m:[1;31m70[0m
+[0m--- (inlined by) [0;33mhttpd_server_init[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m349[0m
+[0m--- 0x42012e2c: [0;33mhttpd_start[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m516[0m
+[0m--- 0x4200cd93: [0;33mweb_server_start[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m345[0m
+[0m--- 0x4200ce16: [0;33mapp_main[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m470[0m
+[0m--- 0x420079d3: [0;33mmain_task[0m[0m at [0;32m/opt/esp/idf/components/freertos/app_startup.c[0m[0m:[1;31m199[0m
+[0m--- 0x4205a01a: [0;33mvPortTaskWrapper[0m[0m at [0;32m/opt/esp/idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m143[0m
+[0m--- 0x4037b8e5: [0;33mesp_restart_noos[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m166[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c8908: [0;33mcall_start_cpu0[0m[0m at [0;32m/opt/esp/idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m--- 0x4037b795: [0;33mpanic_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/panic.c[0m[0m:[1;31m464[0m
+[0m--- 0x4037b75d: [0;33mesp_system_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/esp_system_chip.c[0m[0m:[1;31m87[0m
+[0m--- 0x4037a84d: [0;33m__assert_func[0m[0m at [0;32m/opt/esp/idf/components/esp_libc/src/assert.c[0m[0m:[1;31m81[0m
+[0m--- 0x4201ab3d: [0;33mtcpip_send_msg_wait_sem[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/tcpip.c[0m[0m:[1;31m454[0m
+[0m--- 0x420271ce: [0;33mnetconn_apimsg[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m134[0m
+[0m--- 0x42027252: [0;33mnetconn_new_with_proto_and_callback[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m164[0m
+[0m--- 0x4201a7ed: [0;33mlwip_socket[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/sockets.c[0m[0m:[1;31m1759[0m
+[0m--- 0x42012761: [0;33msocket[0m[0m at [0;32m/opt/esp/idf/components/lwip/include/lwip/sockets.h[0m[0m:[1;31m70[0m
+[0m--- (inlined by) [0;33mhttpd_server_init[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m349[0m
+[0m--- 0x42012e2c: [0;33mhttpd_start[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m516[0m
+[0m--- 0x4200cd93: [0;33mweb_server_start[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m345[0m
+[0m--- 0x4200ce16: [0;33mapp_main[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m470[0m
+[0m--- 0x420079d3: [0;33mmain_task[0m[0m at [0;32m/opt/esp/idf/components/freertos/app_startup.c[0m[0m:[1;31m199[0m
+[0m--- 0x4205a01a: [0;33mvPortTaskWrapper[0m[0m at [0;32m/opt/esp/idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m143[0m
+[0m--- 0x4037b8e5: [0;33mesp_restart_noos[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m166[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c8908: [0;33mcall_start_cpu0[0m[0m at [0;32m/opt/esp/idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m--- 0x4037b795: [0;33mpanic_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/panic.c[0m[0m:[1;31m464[0m
+[0m--- 0x4037b75d: [0;33mesp_system_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/esp_system_chip.c[0m[0m:[1;31m87[0m
+[0m--- 0x4037a84d: [0;33m__assert_func[0m[0m at [0;32m/opt/esp/idf/components/esp_libc/src/assert.c[0m[0m:[1;31m81[0m
+[0m--- 0x4201ab3d: [0;33mtcpip_send_msg_wait_sem[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/tcpip.c[0m[0m:[1;31m454[0m
+[0m--- 0x420271ce: [0;33mnetconn_apimsg[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m134[0m
+[0m--- 0x42027252: [0;33mnetconn_new_with_proto_and_callback[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m164[0m
+[0m--- 0x42012761: [0;33msocket[0m[0m at [0;32m/opt/esp/idf/components/lwip/include/lwip/sockets.h[0m[0m:[1;31m70[0m
+[0m--- (inlined by) [0;33mhttpd_server_init[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m349[0m
+[0m--- 0x42012e2c: [0;33mhttpd_start[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m516[0m
+[0m--- 0x4200cd93: [0;33mweb_server_start[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m345[0m
+[0m--- 0x4200ce16: [0;33mapp_main[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m470[0m
+[0m--- 0x420079d3: [0;33mmain_task[0m[0m at [0;32m/opt/esp/idf/components/freertos/app_startup.c[0m[0m:[1;31m199[0m
+[0m--- 0x4037b8e5: [0;33mesp_restart_noos[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m166[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c8908: [0;33mcall_start_cpu0[0m[0m at [0;32m/opt/esp/idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m--- 0x4037b795: [0;33mpanic_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/panic.c[0m[0m:[1;31m464[0m
+[0m--- 0x4037b75d: [0;33mesp_system_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/esp_system_chip.c[0m[0m:[1;31m87[0m
+[0m--- 0x4037a84d: [0;33m__assert_func[0m[0m at [0;32m/opt/esp/idf/components/esp_libc/src/assert.c[0m[0m:[1;31m81[0m
+[0m--- 0x4201ab3d: [0;33mtcpip_send_msg_wait_sem[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/tcpip.c[0m[0m:[1;31m454[0m
+[0m--- 0x420271ce: [0;33mnetconn_apimsg[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m134[0m
+[0m--- 0x42027252: [0;33mnetconn_new_with_proto_and_callback[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m164[0m
+[0m--- 0x4201a7ed: [0;33mlwip_socket[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/sockets.c[0m[0m:[1;31m1759[0m
+[0m--- 0x42012761: [0;33msocket[0m[0m at [0;32m/opt/esp/idf/components/lwip/include/lwip/sockets.h[0m[0m:[1;31m70[0m
+[0m--- (inlined by) [0;33mhttpd_server_init[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m349[0m
+[0m--- 0x42012e2c: [0;33mhttpd_start[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m516[0m
+[0m--- 0x4200cd93: [0;33mweb_server_start[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m345[0m
+[0m--- 0x4200ce16: [0;33mapp_main[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m470[0m
+[0m--- 0x420079d3: [0;33mmain_task[0m[0m at [0;32m/opt/esp/idf/components/freertos/app_startup.c[0m[0m:[1;31m199[0m
+[0m--- 0x4037b8e5: [0;33mesp_restart_noos[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m166[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c8908: [0;33mcall_start_cpu0[0m[0m at [0;32m/opt/esp/idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m--- 0x4037b795: [0;33mpanic_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/panic.c[0m[0m:[1;31m464[0m
+[0m--- 0x4037b75d: [0;33mesp_system_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/esp_system_chip.c[0m[0m:[1;31m87[0m
+[0m--- 0x4037a84d: [0;33m__assert_func[0m[0m at [0;32m/opt/esp/idf/components/esp_libc/src/assert.c[0m[0m:[1;31m81[0m
+[0m--- 0x4201ab3d: [0;33mtcpip_send_msg_wait_sem[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/tcpip.c[0m[0m:[1;31m454[0m
+[0m--- 0x420271ce: [0;33mnetconn_apimsg[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m134[0m
+[0m--- 0x42027252: [0;33mnetconn_new_with_proto_and_callback[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m164[0m
+[0m--- 0x4201a7ed: [0;33mlwip_socket[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/sockets.c[0m[0m:[1;31m1759[0m
+[0m--- 0x42012761: [0;33msocket[0m[0m at [0;32m/opt/esp/idf/components/lwip/include/lwip/sockets.h[0m[0m:[1;31m70[0m
+[0m--- (inlined by) [0;33mhttpd_server_init[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m349[0m
+[0m--- 0x42012e2c: [0;33mhttpd_start[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m516[0m
+[0m--- 0x4200cd93: [0;33mweb_server_start[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m345[0m
+[0m--- 0x4200ce16: [0;33mapp_main[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m470[0m
+[0m--- 0x420079d3: [0;33mmain_task[0m[0m at [0;32m/opt/esp/idf/components/freertos/app_startup.c[0m[0m:[1;31m199[0m
+[0m--- 0x4205a01a: [0;33mvPortTaskWrapper[0m[0m at [0;32m/opt/esp/idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m143[0m
+[0m--- 0x4037b8e5: [0;33mesp_restart_noos[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m166[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c8908: [0;33mcall_start_cpu0[0m[0m at [0;32m/opt/esp/idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m--- 0x4037b795: [0;33mpanic_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/panic.c[0m[0m:[1;31m464[0m
+[0m--- 0x4037b75d: [0;33mesp_system_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/esp_system_chip.c[0m[0m:[1;31m87[0m
+[0m--- 0x4037a84d: [0;33m__assert_func[0m[0m at [0;32m/opt/esp/idf/components/esp_libc/src/assert.c[0m[0m:[1;31m81[0m
+[0m--- 0x4201ab3d: [0;33mtcpip_send_msg_wait_sem[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/tcpip.c[0m[0m:[1;31m454[0m
+[0m--- 0x420271ce: [0;33mnetconn_apimsg[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m134[0m
+[0m--- 0x42027252: [0;33mnetconn_new_with_proto_and_callback[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m164[0m
+[0m--- 0x4201a7ed: [0;33mlwip_socket[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/sockets.c[0m[0m:[1;31m1759[0m
+[0m--- 0x42012761: [0;33msocket[0m[0m at [0;32m/opt/esp/idf/components/lwip/include/lwip/sockets.h[0m[0m:[1;31m70[0m
+[0m--- (inlined by) [0;33mhttpd_server_init[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m349[0m
+[0m--- 0x42012e2c: [0;33mhttpd_start[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m516[0m
+[0m--- 0x4200cd93: [0;33mweb_server_start[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m345[0m
+[0m--- 0x4200ce16: [0;33mapp_main[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m470[0m
+[0m--- 0x420079d3: [0;33mmain_task[0m[0m at [0;32m/opt/esp/idf/components/freertos/app_startup.c[0m[0m:[1;31m199[0m
+[0m--- 0x4205a01a: [0;33mvPortTaskWrapper[0m[0m at [0;32m/opt/esp/idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m143[0m
+[0m--- 0x4037b8e5: [0;33mesp_restart_noos[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m166[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c8908: [0;33mcall_start_cpu0[0m[0m at [0;32m/opt/esp/idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m--- 0x4037b795: [0;33mpanic_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/panic.c[0m[0m:[1;31m464[0m
+[0m--- 0x4037b75d: [0;33mesp_system_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/esp_system_chip.c[0m[0m:[1;31m87[0m
+[0m--- 0x4037a84d: [0;33m__assert_func[0m[0m at [0;32m/opt/esp/idf/components/esp_libc/src/assert.c[0m[0m:[1;31m81[0m
+[0m--- 0x4201ab3d: [0;33mtcpip_send_msg_wait_sem[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/tcpip.c[0m[0m:[1;31m454[0m
+[0m--- 0x420271ce: [0;33mnetconn_apimsg[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m134[0m
+[0m--- 0x42027252: [0;33mnetconn_new_with_proto_and_callback[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m164[0m
+[0m--- 0x4201a7ed: [0;33mlwip_socket[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/sockets.c[0m[0m:[1;31m1759[0m
+[0m--- 0x42012761: [0;33msocket[0m[0m at [0;32m/opt/esp/idf/components/lwip/include/lwip/sockets.h[0m[0m:[1;31m70[0m
+[0m--- (inlined by) [0;33mhttpd_server_init[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m349[0m
+[0m--- 0x42012e2c: [0;33mhttpd_start[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m516[0m
+[0m--- 0x4200cd93: [0;33mweb_server_start[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m345[0m
+[0m--- 0x4200ce16: [0;33mapp_main[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m470[0m
+[0m--- 0x420079d3: [0;33mmain_task[0m[0m at [0;32m/opt/esp/idf/components/freertos/app_startup.c[0m[0m:[1;31m199[0m
+[0m--- 0x4205a01a: [0;33mvPortTaskWrapper[0m[0m at [0;32m/opt/esp/idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m143[0m
+[0m--- 0x4037b8e5: [0;33mesp_restart_noos[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m166[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c8908: [0;33mcall_start_cpu0[0m[0m at [0;32m/opt/esp/idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m--- 0x4037b795: [0;33mpanic_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/panic.c[0m[0m:[1;31m464[0m
+[0m--- 0x4037b75d: [0;33mesp_system_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/esp_system_chip.c[0m[0m:[1;31m87[0m
+[0m--- 0x4037a84d: [0;33m__assert_func[0m[0m at [0;32m/opt/esp/idf/components/esp_libc/src/assert.c[0m[0m:[1;31m81[0m
+[0m--- 0x4201ab3d: [0;33mtcpip_send_msg_wait_sem[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/tcpip.c[0m[0m:[1;31m454[0m
+[0m--- 0x420271ce: [0;33mnetconn_apimsg[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m134[0m
+[0m--- 0x42027252: [0;33mnetconn_new_with_proto_and_callback[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m164[0m
+[0m--- 0x4201a7ed: [0;33mlwip_socket[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/sockets.c[0m[0m:[1;31m1759[0m
+[0m--- 0x42012761: [0;33msocket[0m[0m at [0;32m/opt/esp/idf/components/lwip/include/lwip/sockets.h[0m[0m:[1;31m70[0m
+[0m--- (inlined by) [0;33mhttpd_server_init[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m349[0m
+[0m--- 0x42012e2c: [0;33mhttpd_start[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m516[0m
+[0m--- 0x4200cd93: [0;33mweb_server_start[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m345[0m
+[0m--- 0x4200ce16: [0;33mapp_main[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m470[0m
+[0m--- 0x420079d3: [0;33mmain_task[0m[0m at [0;32m/opt/esp/idf/components/freertos/app_startup.c[0m[0m:[1;31m199[0m
+[0m--- 0x4205a01a: [0;33mvPortTaskWrapper[0m[0m at [0;32m/opt/esp/idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m143[0m
+[0m--- 0x4037b8e5: [0;33mesp_restart_noos[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m166[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c8908: [0;33mcall_start_cpu0[0m[0m at [0;32m/opt/esp/idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m--- 0x4037b795: [0;33mpanic_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/panic.c[0m[0m:[1;31m464[0m
+[0m--- 0x4037b75d: [0;33mesp_system_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/esp_system_chip.c[0m[0m:[1;31m87[0m
+[0m--- 0x4037a84d: [0;33m__assert_func[0m[0m at [0;32m/opt/esp/idf/components/esp_libc/src/assert.c[0m[0m:[1;31m81[0m
+[0m--- 0x4201ab3d: [0;33mtcpip_send_msg_wait_sem[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/tcpip.c[0m[0m:[1;31m454[0m
+[0m--- 0x420271ce: [0;33mnetconn_apimsg[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m134[0m
+[0m--- 0x42027252: [0;33mnetconn_new_with_proto_and_callback[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m164[0m
+[0m--- 0x4201a7ed: [0;33mlwip_socket[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/sockets.c[0m[0m:[1;31m1759[0m
+[0m--- 0x42012761: [0;33msocket[0m[0m at [0;32m/opt/esp/idf/components/lwip/include/lwip/sockets.h[0m[0m:[1;31m70[0m
+[0m--- (inlined by) [0;33mhttpd_server_init[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m349[0m
+[0m--- 0x42012e2c: [0;33mhttpd_start[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m516[0m
+[0m--- 0x4200cd93: [0;33mweb_server_start[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m345[0m
+[0m--- 0x4200ce16: [0;33mapp_main[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m470[0m
+[0m--- 0x420079d3: [0;33mmain_task[0m[0m at [0;32m/opt/esp/idf/components/freertos/app_startup.c[0m[0m:[1;31m199[0m
+[0m--- 0x4205a01a: [0;33mvPortTaskWrapper[0m[0m at [0;32m/opt/esp/idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m143[0m
+[0m--- 0x4037b8e5: [0;33mesp_restart_noos[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m166[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c8908: [0;33mcall_start_cpu0[0m[0m at [0;32m/opt/esp/idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m--- 0x4037b795: [0;33mpanic_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/panic.c[0m[0m:[1;31m464[0m
+[0m--- 0x4037b75d: [0;33mesp_system_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/esp_system_chip.c[0m[0m:[1;31m87[0m
+[0m--- 0x4037a84d: [0;33m__assert_func[0m[0m at [0;32m/opt/esp/idf/components/esp_libc/src/assert.c[0m[0m:[1;31m81[0m
+[0m--- 0x4201ab3d: [0;33mtcpip_send_msg_wait_sem[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/tcpip.c[0m[0m:[1;31m454[0m
+[0m--- 0x420271ce: [0;33mnetconn_apimsg[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m134[0m
+[0m--- 0x42027252: [0;33mnetconn_new_with_proto_and_callback[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m164[0m
+[0m--- 0x4201a7ed: [0;33mlwip_socket[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/sockets.c[0m[0m:[1;31m1759[0m
+[0m--- 0x42012761: [0;33msocket[0m[0m at [0;32m/opt/esp/idf/components/lwip/include/lwip/sockets.h[0m[0m:[1;31m70[0m
+[0m--- (inlined by) [0;33mhttpd_server_init[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m349[0m
+[0m--- 0x42012e2c: [0;33mhttpd_start[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m516[0m
+[0m--- 0x4200cd93: [0;33mweb_server_start[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m345[0m
+[0m--- 0x4200ce16: [0;33mapp_main[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m470[0m
+[0m--- 0x420079d3: [0;33mmain_task[0m[0m at [0;32m/opt/esp/idf/components/freertos/app_startup.c[0m[0m:[1;31m199[0m
+[0m--- 0x4205a01a: [0;33mvPortTaskWrapper[0m[0m at [0;32m/opt/esp/idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m143[0m
+[0m--- 0x4037b8e5: [0;33mesp_restart_noos[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m166[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c8908: [0;33mcall_start_cpu0[0m[0m at [0;32m/opt/esp/idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m--- 0x4037b795: [0;33mpanic_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/panic.c[0m[0m:[1;31m464[0m
+[0m--- 0x4037b75d: [0;33mesp_system_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/esp_system_chip.c[0m[0m:[1;31m87[0m
+[0m--- 0x4037a84d: [0;33m__assert_func[0m[0m at [0;32m/opt/esp/idf/components/esp_libc/src/assert.c[0m[0m:[1;31m81[0m
+[0m--- 0x4201ab3d: [0;33mtcpip_send_msg_wait_sem[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/tcpip.c[0m[0m:[1;31m454[0m
+[0m--- 0x420271ce: [0;33mnetconn_apimsg[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m134[0m
+[0m--- 0x42027252: [0;33mnetconn_new_with_proto_and_callback[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m164[0m
+[0m--- 0x4201a7ed: [0;33mlwip_socket[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/sockets.c[0m[0m:[1;31m1759[0m
+[0m--- 0x42012761: [0;33msocket[0m[0m at [0;32m/opt/esp/idf/components/lwip/include/lwip/sockets.h[0m[0m:[1;31m70[0m
+[0m--- (inlined by) [0;33mhttpd_server_init[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m349[0m
+[0m--- 0x42012e2c: [0;33mhttpd_start[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m516[0m
+[0m--- 0x4200cd93: [0;33mweb_server_start[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m345[0m
+[0m--- 0x4200ce16: [0;33mapp_main[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m470[0m
+[0m--- 0x420079d3: [0;33mmain_task[0m[0m at [0;32m/opt/esp/idf/components/freertos/app_startup.c[0m[0m:[1;31m199[0m
+[0m--- 0x4205a01a: [0;33mvPortTaskWrapper[0m[0m at [0;32m/opt/esp/idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m143[0m
+[0m--- 0x4037b8e5: [0;33mesp_restart_noos[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m166[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c8908: [0;33mcall_start_cpu0[0m[0m at [0;32m/opt/esp/idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m--- 0x4037b795: [0;33mpanic_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/panic.c[0m[0m:[1;31m464[0m
+[0m--- 0x4037b75d: [0;33mesp_system_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/esp_system_chip.c[0m[0m:[1;31m87[0m
+[0m--- 0x4037a84d: [0;33m__assert_func[0m[0m at [0;32m/opt/esp/idf/components/esp_libc/src/assert.c[0m[0m:[1;31m81[0m
+[0m--- 0x4201ab3d: [0;33mtcpip_send_msg_wait_sem[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/tcpip.c[0m[0m:[1;31m454[0m
+[0m--- 0x420271ce: [0;33mnetconn_apimsg[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m134[0m
+[0m--- 0x42027252: [0;33mnetconn_new_with_proto_and_callback[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m164[0m
+[0m--- 0x42012761: [0;33msocket[0m[0m at [0;32m/opt/esp/idf/components/lwip/include/lwip/sockets.h[0m[0m:[1;31m70[0m
+[0m--- (inlined by) [0;33mhttpd_server_init[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m349[0m
+[0m--- 0x42012e2c: [0;33mhttpd_start[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m516[0m
+[0m--- 0x4200cd93: [0;33mweb_server_start[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m345[0m
+[0m--- 0x4200ce16: [0;33mapp_main[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m470[0m
+[0m--- 0x420079d3: [0;33mmain_task[0m[0m at [0;32m/opt/esp/idf/components/freertos/app_startup.c[0m[0m:[1;31m199[0m
+[0m--- 0x4037b8e5: [0;33mesp_restart_noos[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m166[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c8908: [0;33mcall_start_cpu0[0m[0m at [0;32m/opt/esp/idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m--- 0x4037b795: [0;33mpanic_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/panic.c[0m[0m:[1;31m464[0m
+[0m--- 0x4037b75d: [0;33mesp_system_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/esp_system_chip.c[0m[0m:[1;31m87[0m
+[0m--- 0x4037a84d: [0;33m__assert_func[0m[0m at [0;32m/opt/esp/idf/components/esp_libc/src/assert.c[0m[0m:[1;31m81[0m
+[0m--- 0x4201ab3d: [0;33mtcpip_send_msg_wait_sem[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/tcpip.c[0m[0m:[1;31m454[0m
+[0m--- 0x420271ce: [0;33mnetconn_apimsg[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m134[0m
+[0m--- 0x42027252: [0;33mnetconn_new_with_proto_and_callback[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m164[0m
+[0m--- 0x4201a7ed: [0;33mlwip_socket[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/sockets.c[0m[0m:[1;31m1759[0m
+[0m--- 0x42012761: [0;33msocket[0m[0m at [0;32m/opt/esp/idf/components/lwip/include/lwip/sockets.h[0m[0m:[1;31m70[0m
+[0m--- (inlined by) [0;33mhttpd_server_init[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m349[0m
+[0m--- 0x42012e2c: [0;33mhttpd_start[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m516[0m
+[0m--- 0x4200cd93: [0;33mweb_server_start[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m345[0m
+[0m--- 0x4200ce16: [0;33mapp_main[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m470[0m
+[0m--- 0x420079d3: [0;33mmain_task[0m[0m at [0;32m/opt/esp/idf/components/freertos/app_startup.c[0m[0m:[1;31m199[0m
+[0m--- 0x4205a01a: [0;33mvPortTaskWrapper[0m[0m at [0;32m/opt/esp/idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m143[0m
+[0m--- 0x4037b8e5: [0;33mesp_restart_noos[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m166[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c8908: [0;33mcall_start_cpu0[0m[0m at [0;32m/opt/esp/idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m--- 0x4037b795: [0;33mpanic_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/panic.c[0m[0m:[1;31m464[0m
+[0m--- 0x4037b75d: [0;33mesp_system_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/esp_system_chip.c[0m[0m:[1;31m87[0m
+[0m--- 0x4037a84d: [0;33m__assert_func[0m[0m at [0;32m/opt/esp/idf/components/esp_libc/src/assert.c[0m[0m:[1;31m81[0m
+[0m--- 0x4201ab3d: [0;33mtcpip_send_msg_wait_sem[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/tcpip.c[0m[0m:[1;31m454[0m
+[0m--- 0x420271ce: [0;33mnetconn_apimsg[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m134[0m
+[0m--- 0x42027252: [0;33mnetconn_new_with_proto_and_callback[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m164[0m
+[0m--- 0x4201a7ed: [0;33mlwip_socket[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/sockets.c[0m[0m:[1;31m1759[0m
+[0m--- 0x42012761: [0;33msocket[0m[0m at [0;32m/opt/esp/idf/components/lwip/include/lwip/sockets.h[0m[0m:[1;31m70[0m
+[0m--- (inlined by) [0;33mhttpd_server_init[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m349[0m
+[0m--- 0x42012e2c: [0;33mhttpd_start[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m516[0m
+[0m--- 0x4200cd93: [0;33mweb_server_start[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m345[0m
+[0m--- 0x4200ce16: [0;33mapp_main[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m470[0m
+[0m--- 0x420079d3: [0;33mmain_task[0m[0m at [0;32m/opt/esp/idf/components/freertos/app_startup.c[0m[0m:[1;31m199[0m
+[0m--- 0x4205a01a: [0;33mvPortTaskWrapper[0m[0m at [0;32m/opt/esp/idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m143[0m
+[0m--- 0x4037b8e5: [0;33mesp_restart_noos[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m166[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c8908: [0;33mcall_start_cpu0[0m[0m at [0;32m/opt/esp/idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m--- 0x4037b795: [0;33mpanic_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/panic.c[0m[0m:[1;31m464[0m
+[0m--- 0x4037b75d: [0;33mesp_system_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/esp_system_chip.c[0m[0m:[1;31m87[0m
+[0m--- 0x4037a84d: [0;33m__assert_func[0m[0m at [0;32m/opt/esp/idf/components/esp_libc/src/assert.c[0m[0m:[1;31m81[0m
+[0m--- 0x4201ab3d: [0;33mtcpip_send_msg_wait_sem[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/tcpip.c[0m[0m:[1;31m454[0m
+[0m--- 0x420271ce: [0;33mnetconn_apimsg[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m134[0m
+[0m--- 0x42027252: [0;33mnetconn_new_with_proto_and_callback[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m164[0m
+[0m--- 0x4201a7ed: [0;33mlwip_socket[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/sockets.c[0m[0m:[1;31m1759[0m
+[0m--- 0x42012761: [0;33msocket[0m[0m at [0;32m/opt/esp/idf/components/lwip/include/lwip/sockets.h[0m[0m:[1;31m70[0m
+[0m--- (inlined by) [0;33mhttpd_server_init[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m349[0m
+[0m--- 0x42012e2c: [0;33mhttpd_start[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m516[0m
+[0m--- 0x4200cd93: [0;33mweb_server_start[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m345[0m
+[0m--- 0x4200ce16: [0;33mapp_main[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m470[0m
+[0m--- 0x420079d3: [0;33mmain_task[0m[0m at [0;32m/opt/esp/idf/components/freertos/app_startup.c[0m[0m:[1;31m199[0m
+[0m--- 0x4205a01a: [0;33mvPortTaskWrapper[0m[0m at [0;32m/opt/esp/idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m143[0m
+[0m--- 0x4037b8e5: [0;33mesp_restart_noos[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m166[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c8908: [0;33mcall_start_cpu0[0m[0m at [0;32m/opt/esp/idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m--- 0x4037b795: [0;33mpanic_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/panic.c[0m[0m:[1;31m464[0m
+[0m--- 0x4037b75d: [0;33mesp_system_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/esp_system_chip.c[0m[0m:[1;31m87[0m
+[0m--- 0x4037a84d: [0;33m__assert_func[0m[0m at [0;32m/opt/esp/idf/components/esp_libc/src/assert.c[0m[0m:[1;31m81[0m
+[0m--- 0x4201ab3d: [0;33mtcpip_send_msg_wait_sem[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/tcpip.c[0m[0m:[1;31m454[0m
+[0m--- 0x420271ce: [0;33mnetconn_apimsg[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m134[0m
+[0m--- 0x42027252: [0;33mnetconn_new_with_proto_and_callback[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m164[0m
+[0m--- 0x4201a7ed: [0;33mlwip_socket[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/sockets.c[0m[0m:[1;31m1759[0m
+[0m--- 0x42012761: [0;33msocket[0m[0m at [0;32m/opt/esp/idf/components/lwip/include/lwip/sockets.h[0m[0m:[1;31m70[0m
+[0m--- (inlined by) [0;33mhttpd_server_init[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m349[0m
+[0m--- 0x42012e2c: [0;33mhttpd_start[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m516[0m
+[0m--- 0x4200cd93: [0;33mweb_server_start[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m345[0m
+[0m--- 0x4200ce16: [0;33mapp_main[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m470[0m
+[0m--- 0x420079d3: [0;33mmain_task[0m[0m at [0;32m/opt/esp/idf/components/freertos/app_startup.c[0m[0m:[1;31m199[0m
+[0m--- 0x4205a01a: [0;33mvPortTaskWrapper[0m[0m at [0;32m/opt/esp/idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m143[0m
+[0m--- 0x4037b8e5: [0;33mesp_restart_noos[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m166[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c8908: [0;33mcall_start_cpu0[0m[0m at [0;32m/opt/esp/idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m--- 0x4037b795: [0;33mpanic_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/panic.c[0m[0m:[1;31m464[0m
+[0m--- 0x4037b75d: [0;33mesp_system_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/esp_system_chip.c[0m[0m:[1;31m87[0m
+[0m--- 0x4037a84d: [0;33m__assert_func[0m[0m at [0;32m/opt/esp/idf/components/esp_libc/src/assert.c[0m[0m:[1;31m81[0m
+[0m--- 0x4201ab3d: [0;33mtcpip_send_msg_wait_sem[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/tcpip.c[0m[0m:[1;31m454[0m
+[0m--- 0x420271ce: [0;33mnetconn_apimsg[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m134[0m
+[0m--- 0x42027252: [0;33mnetconn_new_with_proto_and_callback[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m164[0m
+[0m--- 0x4201a7ed: [0;33mlwip_socket[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/sockets.c[0m[0m:[1;31m1759[0m
+[0m--- 0x42012761: [0;33msocket[0m[0m at [0;32m/opt/esp/idf/components/lwip/include/lwip/sockets.h[0m[0m:[1;31m70[0m
+[0m--- (inlined by) [0;33mhttpd_server_init[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m349[0m
+[0m--- 0x42012e2c: [0;33mhttpd_start[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m516[0m
+[0m--- 0x4200cd93: [0;33mweb_server_start[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m345[0m
+[0m--- 0x4200ce16: [0;33mapp_main[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m470[0m
+[0m--- 0x420079d3: [0;33mmain_task[0m[0m at [0;32m/opt/esp/idf/components/freertos/app_startup.c[0m[0m:[1;31m199[0m
+[0m--- 0x4205a01a: [0;33mvPortTaskWrapper[0m[0m at [0;32m/opt/esp/idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m143[0m
+[0m--- 0x4037b8e5: [0;33mesp_restart_noos[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m166[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c8908: [0;33mcall_start_cpu0[0m[0m at [0;32m/opt/esp/idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m--- 0x4037b795: [0;33mpanic_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/panic.c[0m[0m:[1;31m464[0m
+[0m--- 0x4037b75d: [0;33mesp_system_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/esp_system_chip.c[0m[0m:[1;31m87[0m
+[0m--- 0x4037a84d: [0;33m__assert_func[0m[0m at [0;32m/opt/esp/idf/components/esp_libc/src/assert.c[0m[0m:[1;31m81[0m
+[0m--- 0x4201ab3d: [0;33mtcpip_send_msg_wait_sem[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/tcpip.c[0m[0m:[1;31m454[0m
+[0m--- 0x420271ce: [0;33mnetconn_apimsg[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m134[0m
+[0m--- 0x42027252: [0;33mnetconn_new_with_proto_and_callback[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m164[0m
+[0m--- 0x4201a7ed: [0;33mlwip_socket[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/sockets.c[0m[0m:[1;31m1759[0m
+[0m--- 0x42012761: [0;33msocket[0m[0m at [0;32m/opt/esp/idf/components/lwip/include/lwip/sockets.h[0m[0m:[1;31m70[0m
+[0m--- (inlined by) [0;33mhttpd_server_init[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m349[0m
+[0m--- 0x42012e2c: [0;33mhttpd_start[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m516[0m
+[0m--- 0x4200cd93: [0;33mweb_server_start[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m345[0m
+[0m--- 0x4200ce16: [0;33mapp_main[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m470[0m
+[0m--- 0x420079d3: [0;33mmain_task[0m[0m at [0;32m/opt/esp/idf/components/freertos/app_startup.c[0m[0m:[1;31m199[0m
+[0m--- 0x4205a01a: [0;33mvPortTaskWrapper[0m[0m at [0;32m/opt/esp/idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m143[0m
+[0m--- 0x4037b8e5: [0;33mesp_restart_noos[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m166[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c8908: [0;33mcall_start_cpu0[0m[0m at [0;32m/opt/esp/idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m--- 0x4037b795: [0;33mpanic_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/panic.c[0m[0m:[1;31m464[0m
+[0m--- 0x4037b75d: [0;33mesp_system_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/esp_system_chip.c[0m[0m:[1;31m87[0m
+[0m--- 0x4037a84d: [0;33m__assert_func[0m[0m at [0;32m/opt/esp/idf/components/esp_libc/src/assert.c[0m[0m:[1;31m81[0m
+[0m--- 0x4201ab3d: [0;33mtcpip_send_msg_wait_sem[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/tcpip.c[0m[0m:[1;31m454[0m
+[0m--- 0x420271ce: [0;33mnetconn_apimsg[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m134[0m
+[0m--- 0x42027252: [0;33mnetconn_new_with_proto_and_callback[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m164[0m
+[0m--- 0x42012761: [0;33msocket[0m[0m at [0;32m/opt/esp/idf/components/lwip/include/lwip/sockets.h[0m[0m:[1;31m70[0m
+[0m--- (inlined by) [0;33mhttpd_server_init[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m349[0m
+[0m--- 0x42012e2c: [0;33mhttpd_start[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m516[0m
+[0m--- 0x4200cd93: [0;33mweb_server_start[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m345[0m
+[0m--- 0x4200ce16: [0;33mapp_main[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m470[0m
+[0m--- 0x420079d3: [0;33mmain_task[0m[0m at [0;32m/opt/esp/idf/components/freertos/app_startup.c[0m[0m:[1;31m199[0m
+[0m--- 0x4037b8e5: [0;33mesp_restart_noos[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m166[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c8908: [0;33mcall_start_cpu0[0m[0m at [0;32m/opt/esp/idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m--- 0x4037b795: [0;33mpanic_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/panic.c[0m[0m:[1;31m464[0m
+[0m--- 0x4037b75d: [0;33mesp_system_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/esp_system_chip.c[0m[0m:[1;31m87[0m
+[0m--- 0x4037a84d: [0;33m__assert_func[0m[0m at [0;32m/opt/esp/idf/components/esp_libc/src/assert.c[0m[0m:[1;31m81[0m
+[0m--- 0x4201ab3d: [0;33mtcpip_send_msg_wait_sem[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/tcpip.c[0m[0m:[1;31m454[0m
+[0m--- 0x420271ce: [0;33mnetconn_apimsg[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m134[0m
+[0m--- 0x42027252: [0;33mnetconn_new_with_proto_and_callback[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m164[0m
+[0m--- 0x42012761: [0;33msocket[0m[0m at [0;32m/opt/esp/idf/components/lwip/include/lwip/sockets.h[0m[0m:[1;31m70[0m
+[0m--- (inlined by) [0;33mhttpd_server_init[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m349[0m
+[0m--- 0x42012e2c: [0;33mhttpd_start[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m516[0m
+[0m--- 0x4200cd93: [0;33mweb_server_start[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m345[0m
+[0m--- 0x4200ce16: [0;33mapp_main[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m470[0m
+[0m--- 0x420079d3: [0;33mmain_task[0m[0m at [0;32m/opt/esp/idf/components/freertos/app_startup.c[0m[0m:[1;31m199[0m
+[0m--- 0x4037b8e5: [0;33mesp_restart_noos[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m166[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c8908: [0;33mcall_start_cpu0[0m[0m at [0;32m/opt/esp/idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m--- 0x4037b795: [0;33mpanic_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/panic.c[0m[0m:[1;31m464[0m
+[0m--- 0x4037b75d: [0;33mesp_system_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/esp_system_chip.c[0m[0m:[1;31m87[0m
+[0m--- 0x4037a84d: [0;33m__assert_func[0m[0m at [0;32m/opt/esp/idf/components/esp_libc/src/assert.c[0m[0m:[1;31m81[0m
+[0m--- 0x4201ab3d: [0;33mtcpip_send_msg_wait_sem[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/tcpip.c[0m[0m:[1;31m454[0m
+[0m--- 0x420271ce: [0;33mnetconn_apimsg[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m134[0m
+[0m--- 0x42027252: [0;33mnetconn_new_with_proto_and_callback[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m164[0m
+[0m--- 0x4201a7ed: [0;33mlwip_socket[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/sockets.c[0m[0m:[1;31m1759[0m
+[0m--- 0x42012761: [0;33msocket[0m[0m at [0;32m/opt/esp/idf/components/lwip/include/lwip/sockets.h[0m[0m:[1;31m70[0m
+[0m--- (inlined by) [0;33mhttpd_server_init[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m349[0m
+[0m--- 0x42012e2c: [0;33mhttpd_start[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m516[0m
+[0m--- 0x4200cd93: [0;33mweb_server_start[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m345[0m
+[0m--- 0x4200ce16: [0;33mapp_main[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m470[0m
+[0m--- 0x420079d3: [0;33mmain_task[0m[0m at [0;32m/opt/esp/idf/components/freertos/app_startup.c[0m[0m:[1;31m199[0m
+[0m--- 0x4037b8e5: [0;33mesp_restart_noos[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m166[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c8908: [0;33mcall_start_cpu0[0m[0m at [0;32m/opt/esp/idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m--- 0x4037b795: [0;33mpanic_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/panic.c[0m[0m:[1;31m464[0m
+[0m--- 0x4037b75d: [0;33mesp_system_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/esp_system_chip.c[0m[0m:[1;31m87[0m
+[0m--- 0x4037a84d: [0;33m__assert_func[0m[0m at [0;32m/opt/esp/idf/components/esp_libc/src/assert.c[0m[0m:[1;31m81[0m
+[0m--- 0x4201ab3d: [0;33mtcpip_send_msg_wait_sem[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/tcpip.c[0m[0m:[1;31m454[0m
+[0m--- 0x420271ce: [0;33mnetconn_apimsg[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m134[0m
+[0m--- 0x42027252: [0;33mnetconn_new_with_proto_and_callback[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m164[0m
+[0m--- 0x4201a7ed: [0;33mlwip_socket[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/sockets.c[0m[0m:[1;31m1759[0m
+[0m--- 0x42012761: [0;33msocket[0m[0m at [0;32m/opt/esp/idf/components/lwip/include/lwip/sockets.h[0m[0m:[1;31m70[0m
+[0m--- (inlined by) [0;33mhttpd_server_init[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m349[0m
+[0m--- 0x42012e2c: [0;33mhttpd_start[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m516[0m
+[0m--- 0x4200cd93: [0;33mweb_server_start[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m345[0m
+[0m--- 0x4200ce16: [0;33mapp_main[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m470[0m
+[0m--- 0x420079d3: [0;33mmain_task[0m[0m at [0;32m/opt/esp/idf/components/freertos/app_startup.c[0m[0m:[1;31m199[0m
+[0m--- 0x4037b8e5: [0;33mesp_restart_noos[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m166[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c8908: [0;33mcall_start_cpu0[0m[0m at [0;32m/opt/esp/idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m--- 0x4037b795: [0;33mpanic_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/panic.c[0m[0m:[1;31m464[0m
+[0m--- 0x4037b75d: [0;33mesp_system_abort[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/esp_system_chip.c[0m[0m:[1;31m87[0m
+[0m--- 0x4037a84d: [0;33m__assert_func[0m[0m at [0;32m/opt/esp/idf/components/esp_libc/src/assert.c[0m[0m:[1;31m81[0m
+[0m--- 0x4201ab3d: [0;33mtcpip_send_msg_wait_sem[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/tcpip.c[0m[0m:[1;31m454[0m
+[0m--- 0x420271ce: [0;33mnetconn_apimsg[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m134[0m
+[0m--- 0x42027252: [0;33mnetconn_new_with_proto_and_callback[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/api_lib.c[0m[0m:[1;31m164[0m
+[0m--- 0x4201a7ed: [0;33mlwip_socket[0m[0m at [0;32m/opt/esp/idf/components/lwip/lwip/src/api/sockets.c[0m[0m:[1;31m1759[0m
+[0m--- 0x42012761: [0;33msocket[0m[0m at [0;32m/opt/esp/idf/components/lwip/include/lwip/sockets.h[0m[0m:[1;31m70[0m
+[0m--- (inlined by) [0;33mhttpd_server_init[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m349[0m
+[0m--- 0x42012e2c: [0;33mhttpd_start[0m[0m at [0;32m/opt/esp/idf/components/esp_http_server/src/httpd_main.c[0m[0m:[1;31m516[0m
+[0m--- 0x4200cd93: [0;33mweb_server_start[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m345[0m
+[0m--- 0x4200ce16: [0;33mapp_main[0m[0m at [0;32m/workspaces/Esp32-S3_Controller/main/main.c[0m[0m:[1;31m470[0m
+[0m--- 0x420079d3: [0;33mmain_task[0m[0m at [0;32m/opt/esp/idf/components/freertos/app_startup.c[0m[0m:[1;31m199[0m
+[0m--- 0x4205a01a: [0;33mvPortTaskWrapper[0m[0m at [0;32m/opt/esp/idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m143[0m
+[0m--- 0x4037b8e5: [0;33mesp_restart_noos[0m[0m at [0;32m/opt/esp/idf/components/esp_system/port/soc/esp32s3/system_internal.c[0m[0m:[1;31m166[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c8908: [0;33mcall_start_cpu0[0m[0m at [0;32m/opt/esp/idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0;33m--- Warning: Writing to serial is timing out. Please make sure that your application supports an interactive console and that you have picked the correct console for serial communication.[0m
+[0;33m--- Warning: Writing to serial is timing out. Please make sure that your application supports an interactive console and that you have picked the correct console for serial communication.[0m
+[0;33m--- Warning: Writing to serial is timing out. Please make sure that your application supports an interactive console and that you have picked the correct console for serial communication.[0m
+[0;33m--- Warning: Writing to serial is timing out. Please make sure that your application supports an interactive console and that you have picked the correct console for serial communication.[0m
+[0;33m--- Warning: Writing to serial is timing out. Please make sure that your application supports an interactive console and that you have picked the correct console for serial communication.[0m
+[0;33m--- Warning: Writing to serial is timing out. Please make sure that your application supports an interactive console and that you have picked the correct console for serial communication.[0m
+[0;33m--- Warning: Writing to serial is timing out. Please make sure that your application supports an interactive console and that you have picked the correct console for serial communication.[0m
+[0;33m--- Warning: Writing to serial is timing out. Please make sure that your application supports an interactive console and that you have picked the correct console for serial communication.[0m
+[0;33m--- Warning: Writing to serial is timing out. Please make sure that your application supports an interactive console and that you have picked the correct console for serial communication.[0m
+[0;33m--- Warning: Writing to serial is timing out. Please make sure that your application supports an interactive console and that you have picked the correct console for serial communication.[0m
+[0;33m--- Warning: Writing to serial is timing out. Please make sure that your application supports an interactive console and that you have picked the correct console for serial communication.[0m
+[0;33m--- Warning: Writing to serial is timing out. Please make sure that your application supports an interactive console and that you have picked the correct console for serial communication.[0m
+[0;33m--- Warning: Writing to serial is timing out. Please make sure that your application supports an interactive console and that you have picked the correct console for serial communication.[0m
+[0;33m--- Warning: Writing to serial is timing out. Please make sure that your application supports an interactive console and that you have picked the correct console for serial communication.[0m
+[0;33m--- Warning: Writing to serial is timing out. Please make sure that your application supports an interactive console and that you have picked the correct console for serial communication.[0m
+[0;33m--- Warning: Writing to serial is timing out. Please make sure that your application supports an interactive console and that you have picked the correct console for serial communication.[0m
+[0;33m--- Warning: Writing to serial is timing out. Please make sure that your application supports an interactive console and that you have picked the correct console for serial communication.[0m
+[1;31m--- Error: device reports readiness to read but returned no data (device disconnected or multiple access on port?)[0m
+[0;33m--- Waiting for the device to reconnect[0m[0;33m.[0m[0;33m[0m
+[0m
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/opt/esp/python_env/idf6.1_py3.12_env/lib/python3.12/site-packages/esp_idf_monitor/__main__.py", line 4, in <module>
+    main()
+  File "/opt/esp/python_env/idf6.1_py3.12_env/lib/python3.12/site-packages/esp_idf_monitor/idf_monitor.py", line 457, in main
+    monitor.main_loop()
+  File "/opt/esp/python_env/idf6.1_py3.12_env/lib/python3.12/site-packages/esp_idf_monitor/idf_monitor.py", line 200, in main_loop
+    self._main_loop()
+  File "/opt/esp/python_env/idf6.1_py3.12_env/lib/python3.12/site-packages/esp_idf_monitor/idf_monitor.py", line 316, in _main_loop
+    super()._main_loop()
+  File "/opt/esp/python_env/idf6.1_py3.12_env/lib/python3.12/site-packages/esp_idf_monitor/idf_monitor.py", line 246, in _main_loop
+    self.serial_write(codecs.encode(data))
+  File "/opt/esp/python_env/idf6.1_py3.12_env/lib/python3.12/site-packages/esp_idf_monitor/idf_monitor.py", line 290, in serial_write
+    self.serial.write(*args, **kwargs)
+  File "/opt/esp/python_env/idf6.1_py3.12_env/lib/python3.12/site-packages/serial/serialposix.py", line 621, in write
+    n = os.write(self.fd, d)
+        ^^^^^^^^^^^^^^^^^^^^
+TypeError: 'NoneType' object cannot be interpreted as an integer

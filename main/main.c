@@ -18,6 +18,9 @@
 #include "esp_http_client.h"
 #include "esp_https_ota.h"
 #include "io_config.h"
+#include "nvs_flash.h"
+#include "esp_netif.h"
+#include "esp_event.h"
 
 static const char *TAG = "esp32_s3_ctrl";
 
@@ -465,9 +468,24 @@ void app_main(void)
     esp_log_level_set("*", ESP_LOG_INFO);
     ESP_LOGI(TAG, "Starting esp32_s3_controller (integrated)");
 
+    /* 初始化 NVS 與網路/事件迴圈，確保 lwIP/tcpip 已就緒再啟動 HTTP 伺服器 */
+    esp_err_t ret = nvs_flash_init();
+    if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
+        ESP_ERROR_CHECK(nvs_flash_erase());
+        ret = nvs_flash_init();
+    }
+    ESP_ERROR_CHECK(ret);
+
+    ESP_ERROR_CHECK(esp_netif_init());
+    ESP_ERROR_CHECK(esp_event_loop_create_default());
+
     io_init();
     comms_uart_init();
-    web_server_start();
+
+    /* 現在安全啟動 HTTP 伺服器 */
+    if (web_server_start() != ESP_OK) {
+        ESP_LOGE(TAG, "web_server_start failed");
+    }
 
     xTaskCreate(status_task, "status_task", 4096, NULL, 5, NULL);
 }
