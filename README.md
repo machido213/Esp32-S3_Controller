@@ -1,32 +1,156 @@
-# _Sample project_
+# ESP-S3 控制器
 
-(See the README.md file in the upper level 'examples' directory for more information about examples.)
+基於ESP32-S3開發版，連結到電控箱表面的相關輸入與輸出元件，後續會再連結到另外一塊伺服控制器專用的ESP32-S3開發版，以及主要負責影像辨識及開啟Web_Server遠端控制的大腦Jetson Orin nano Devkit。
+此S3控制器相關輸入輸出如下
+| 主項目     | 元件           | 元件編號 | 輸入/輸出 | 數量 | GPIO | VCC | GND |  備註 |
+|------------|----------------|-----------|-----------|------|------|------|-----|------|
+|OTA|更新韌體按鈕|Z1|輸入|1|1|V|V|用來遠端更新|
+| 電源端     | 三檔位開關     | A1 | 輸入      | 1    |   2   |    X  |  V   |   切換模式，自動/手動/搖桿操作   |
+| 電源端     | 狀態指示燈     | A2 | 輸出      | 1    |   1   |   X   |   X  |   220V,自動模式，黃色   |
+| 電源端     | 狀態指示燈     | A3 | 輸出      | 1    |   1   |   X   |   X  |   220V ,手動模式 ，藍色 |
+| 電源端     | 狀態指示燈     | A4 | 輸出      | 1    |   1   |   X   |   X  |   220V,搖桿操作  ，綠色 |
+| 選擇端 | 三檔位開關     | B1 | 輸入      | 1    |   2   |   X   |  V   |   切換槽位選擇項目為縱軸/橫軸/高度   |
+| 選擇端 | 電位器         | B2 | 輸入      | 1    |   1   |   V   |  V   |   選擇試體   |
+| 選擇端 | 電位器         | B3 | 輸入      | 1    |   1   |   V   |  V   |   選擇槽位   |
+| 選擇端 | 切換開關       | B4 | 輸入      | 1    |   1   |   X   |  V  |   執行選擇「試體/槽位」   |
+| 選擇端 | 點動開關       | B5 | 輸入      | 1    |   1   |   X   |  V   |  確認    |
+| 選擇端 | 蜂鳴器         | B6 | 輸出      | 1    |   1   |   X   |  V   |  220V，報警    |
+| 搖桿端     | 雙軸搖桿       | C1 | 輸入      | 1    |   4   |   X   |  V   |   X/Y|
+| 搖桿端     | 雙軸搖桿       | C2 | 輸入      | 1    |   4   |   X   |  V   |   大小手臂|
+| 搖桿端     | 雙軸搖桿       | C3 | 輸入      | 1    |   4   |   X   |  V   |   肩膀/手腕旋轉|
+| 搖桿端     | 單軸搖桿       | C4 | 輸入      | 1    |   2   |   X   |  V   |    手掌夾取  |
 
-This is the simplest buildable example. The example is used by command `idf.py create-project`
-that copies the project to user specified path and set it's name. For more information follow the [docs page](https://docs.espressif.com/projects/esp-idf/en/latest/api-guides/build-system.html#start-a-new-project)
+
+## 使用方法
+根據需要及元件編號，輸入對應的GPIO腳位，設定對應的輸入為上拉電阻
+EX:
+元件A2 需要一個GPIO  則 A1_1 = 10
+元件C1 需要四個GPIO腳位 則C1_1 = 11; C1_2 = 12; C1_3 = 13; C1_4 = 14;
+其他元件依照元件編號及使用的GPIO數量，以此類推。
+
+
+## 程式介紹
+主要分成三部分，電源端/選擇端/搖桿端，且具有Web_Server功能，會把各端狀態數值顯示在頁面上，同時該頁面還有按鈕可以控制是否要執行OTA功能，在顯示資料到頁面上的同時把資料輸出給Jetson Orin Nano。
+
+電源端：
+根據使用者輸入的腳位來設定跟元件的腳位，電源端根據三檔位開關(A1)的狀態來設定狀態指示燈(A2~A4)哪個燈要輸出高電位，A1_1對應到A3，A1_2對應到A4，其中三檔位開關的A1_1及A1_2不會同時接收到高電位訊號，所以兩個都是高電位的話(因為上拉電阻)，則A2輸出高電位。
+
+選擇端：
+於電源端的A3啟用時才作用，且會根據Jetson Orin Nano得到4種範圍值，一個是用來選擇目標物件(試體)，另外三個對應到橫軸/縱軸/高度軸的範圍
+會根據輸入儲存及輸出變數，切換開關B4不作用時讀取B2電位器，切換開關B4作用時讀取B3電位器，三檔位開關B1用來切換讀取B3電位器時，要存放到哪個變數資料(縱軸/橫軸/高度)，點動開關觸發則送出資料給Jetson Orin Nano。
+
+搖桿端：
+讀取並儲存搖桿狀態並輸出給Jetson Orin Nano
+每軸搖桿對應到個兩個方向資料，而雙軸搖桿有兩個軸，對應到4個方向資料，C1_1/C1_2為一組，C1_3/C1_4為一組，以此類推，且每個軸的兩個方向資料不會同時被觸發
 
 
 
-## How to use example
-We encourage the users to use the example as a template for the new projects.
-A recommended way is to follow the instructions on a [docs page](https://docs.espressif.com/projects/esp-idf/en/latest/api-guides/build-system.html#start-a-new-project).
 
-## Example folder contents
 
-The project **sample_project** contains one source file in C language [main.c](main/main.c). The file is located in folder [main](main).
 
-ESP-IDF projects are built using CMake. The project build configuration is contained in `CMakeLists.txt`
-files that provide set of directives and instructions describing the project's source files and targets
-(executable, library, or both). 
+# ESP-S3 Controller — 專案說明 (美化版)
 
-Below is short explanation of remaining files in the project folder.
+本專案基於 ESP32-S3 開發板，負責連接並讀取電控箱表面各類輸入（開關、電位器、搖桿）以及控制輸出（指示燈、蜂鳴器等），並提供 Web API 與 UART 與上層主控 (Jetson Orin Nano) 溝通，支援 OTA 更新功能。
+
+**主要功能**
+- 讀取電源端開關並控制狀態指示燈
+- 選擇端：讀取電位器/開關並可將資料傳送給 Jetson
+- 搖桿端：讀取多組搖桿輸入並輸出狀態
+- Web API：`/status` (回傳 JSON)、`/ota` (觸發 OTA)
+- UART：以 JSON 串流同步傳送狀態給 Jetson
+
+**專案結構（重要檔案）**
+- `CMakeLists.txt` — 專案根 CMake 設定
+- `main/CMakeLists.txt` — main component 設定
+- `main/main.c` — 主程式（已整合 IO、UART、HTTP、OTA）
+- `main/io_config.h` — 所有 GPIO 與 UART 腳位定義（請依實際接線調整）
+- `README.md` — 本文件
+
+**GPIO 與元件對照（示意）**
+> 以下 GPIO 皆為範例預設，請以 `main/io_config.h` 為準並依實際接線修改。
+
+| 分類   | 元件 | 編號 | 類型 | GPIO (範例) | 備註 |
+|--------|------|------|------:|-----------:|------|
+| OTA    | 更新按鈕 | Z1 | 輸入 | `Z1_GPIO` (預設 2) | 觸發 OTA 請使用 Web/API 或長按按鈕 |
+| 電源端 | 三檔位開關 | A1 | 輸入 x2 | `A1_1_GPIO`, `A1_2_GPIO` (預設 4,5) | 三種模式自動/手動/搖桿 |
+| 電源端 | 指示燈 | A2/A3/A4 | 輸出 | `A2_GPIO` `A3_GPIO` `A4_GPIO` | 表示不同電源模式 |
+| 選擇端 | 三檔位開關 | B1 | 輸入 x2 | `B1_1_GPIO`/`B1_2_GPIO` | 選擇儲存變數目標 |
+| 選擇端 | 電位器 | B2/B3 | ADC 輸入 | `B2_GPIO` `B3_GPIO` (預設 11/12) | 請對應 ADC channel，程式內為 placeholder |
+| 選擇端 | 切換/點動開關 | B4 / B5 | 輸入 | `B4_GPIO` `B5_GPIO` | B5 為確認按鈕（送出） |
+| 選擇端 | 蜂鳴器 | B6 | 輸出 | `B6_GPIO` | 若為高電壓 (e.g., 220V) 請透過繼電器驅動 |
+| 搖桿端 | C1/C2/C3 (雙軸) | C?_1..C?_4 | 輸入 | `C1_1`..`C3_4` | 每顆雙軸使用 4 路數位方向或 ADC；請依硬體調整 |
+| 搖桿端 | C4 (單軸) | C4_1/C4_2 | 輸入 | `C4_1_GPIO` `C4_2_GPIO` | 單軸方向 |
+
+**重要注意事項（硬體）**
+- 電位器 (`B2`/`B3`) 為模擬量，請勿啟用上拉或下拉（程式已將它們設為無上下拉的輸入），如欲讀取真實電位器請改用 ADC API（`adc1_get_raw`）。
+- 若驅動 220V 或高電壓負載（指示燈/蜂鳴器），務必使用繼電器或光耦隔離，並注意安全與接地。
+
+**快速啟動（在 Dev Container 內）**
+1. 開啟專案根資料夾 (`/workspaces/Esp32-S3_Controller`)，並使用 VS Code 的 Dev Container 或在容器內開啟終端。
+2. 若容器未自動載入 ESP-IDF 環境，執行：
+```bash
+source /opt/esp/idf/export.sh
+```
+3. 設定 target 並建置：
+```bash
+idf.py set-target esp32s3
+idf.py build
+```
+4. 燒錄並監控（請改為你的序列埠）：
+```bash
+idf.py -p /dev/ttyUSB0 flash monitor
+```
+
+**Web API**
+- `GET /status` — 回傳目前所有輸入/輸出狀態的 JSON（同時會將 JSON 透過 UART 傳給 Jetson）。
+- `POST /ota` — 啟動 OTA 更新，可透過 body JSON `{ "url": "https://.../firmware.bin" }` 或 query `?url=`。
+
+**開發 / 編譯注意**
+- `main/CMakeLists.txt` 已列出所需 IDF component（HTTP server/client、HTTPS OTA、ADC、driver 等），編譯時會自動連結。若增加新依賴請同步更新 `REQUIRES` 或 `PRIV_REQUIRES`。
+- `main/io_config.h` 為腳位定義的單一來源，開發時請在該檔修改腳位，而非直接改 `main.c`。
+
+**安全與測試建議**
+- 在接線與第一次上電前，先在軟體上把所有輸出設為低，確保繼電器/高電壓裝置不會誤動作。
+- OTA 測試時使用 HTTPS 與驗證憑證，範例程式為方便測試已使用簡化流程，實務請補上憑證檢查。
+
+**版本控制與貢獻**
+- 如果你要把整個專案（含 `.devcontainer`、Dockerfile）上傳至 GitHub，請在 repo 根管理；若只想同步應用程式，可單獨在 `template-app` 或 `main` 建立 repo。
+
+---
+
+若你要我：
+- 把 `B2/B3` 的 ADC 實作補上（將 GPIO 對應到 ADC channel、加入讀值程式）
+- 或美化 README 的英文版本 / 加入示意接線圖 (SVG / ASCII)
+
+請告訴我你要哪一項，我會接著修改。謝謝！
+
+## 接線示意圖（SVG 範例）
+下面以 SVG 圖示呈現接線範例。此圖為示意，請以 `main/io_config.h` 的實際設定為準；若要更精細的接線圖（含繼電器/電源），請回覆我想要的細節。
+
+範例 SVG（置於 `docs/wiring.svg`）：
+
+![](docs/wiring.svg)
+
+簡化對照表（保留以方便比對）：
 
 ```
-├── CMakeLists.txt
-├── main
-│   ├── CMakeLists.txt
-│   └── main.c
-└── README.md                  This is the file you are currently reading
+ESP32-S3  GPIO mapping (範例)
+
+	OTA Z1   -> GPIO 2
+	A1_1     -> GPIO 4    A1_2 -> GPIO 5
+	A2 (LED) -> GPIO 6    A3 -> GPIO 7    A4 -> GPIO 8
+	B1_1     -> GPIO 9    B1_2 -> GPIO10
+	B2 (POT)-> GPIO11 (ADC_CHANNEL_0)
+	B3 (POT)-> GPIO12 (ADC_CHANNEL_1)
+	B4       -> GPIO13    B5 -> GPIO14
+	B6 (BUZ)-> GPIO15
+	C1_1..4  -> GPIO16..19
+	C2_1..4  -> GPIO20..23
+	C3_1..4  -> GPIO25..28
+	C4_1..2  -> GPIO29..30
+	JETSON UART TX/RX -> GPIO33/34
+
+	(若某些 GPIO 不支援 ADC，請改用支援 ADC 的腳位或改變 B2/B3_ADC_CHANNEL 設定)
 ```
-Additionally, the sample project contains Makefile and component.mk files, used for the legacy Make based build system. 
-They are not used or needed when building with CMake and idf.py.
+
+如需我把圖改為更詳細的 SVG（含繼電器接線、電源符號、或板上原理圖位置），我可以接著修改 `docs/wiring.svg`。要我繼續 commit 與 push 變更嗎？
