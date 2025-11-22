@@ -1,0 +1,6 @@
+services:
+  esp32s3controller:
+    image: esp32s3controller
+    build:
+      context: .
+      dockerfile: ./Dockerfile

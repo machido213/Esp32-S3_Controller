@@ -1,0 +1,10 @@
+{
+  "idf.pythonInstallPath": "/opt/esp/python_env/idf6.1_py3.12_env/bin/python",
+  "idf.openOcdConfigs": [
+    "board/esp32s3-builtin.cfg"
+  ],
+  "cmake.sourceDirectory": "/workspaces/Esp32-S3_Controller",
+  "idf.customExtraVars": {
+    "IDF_TARGET": "esp32s3"
+  }
+}
