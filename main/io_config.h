@@ -137,7 +137,7 @@ extern "C" {
 #define JETSON_UART_NUM UART_NUM_1
 #endif
 #ifndef JETSON_UART_TX_PIN
-#define JETSON_UART_TX_PIN 48
+#define JETSON_UART_TX_PIN 46
 #endif
 #ifndef JETSON_UART_RX_PIN
 #define JETSON_UART_RX_PIN 47

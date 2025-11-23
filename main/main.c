@@ -28,6 +28,10 @@
 #include "lwip/sockets.h"
 #include "lwip/dns.h"
 #include "lwip/netdb.h"
+
+/* 引用嵌入的網頁檔案 */
+extern const uint8_t index_html_start[] asm("_binary_index_html_start");
+extern const uint8_t index_html_end[]   asm("_binary_index_html_end");
 // ==========================================
 // Wi-Fi 設定 (請修改這裡)
 // ==========================================
@@ -174,7 +178,7 @@ void io_init(void)
 
     gpio_config_t out_conf = {
         .pin_bit_mask = out_mask,
-        .mode = GPIO_MODE_OUTPUT,
+        .mode = GPIO_MODE_INPUT_OUTPUT,
         .pull_up_en = GPIO_PULLUP_DISABLE,
         .pull_down_en = GPIO_PULLDOWN_DISABLE,
     };
@@ -312,6 +316,19 @@ void ota_start(const char *url)
 static const char *WS_TAG = "web_server";
 static httpd_handle_t server = NULL;
 
+static esp_err_t root_get_handler(httpd_req_t *req)
+{
+     // 計算檔案大小
+    size_t html_len = index_html_end - index_html_start;
+
+    httpd_resp_set_type(req, "text/html");
+    
+    // 發送嵌入的檔案內容
+    httpd_resp_send(req, (const char *)index_html_start, html_len);
+    
+    return ESP_OK;
+}
+
 static esp_err_t status_get_handler(httpd_req_t *req)
 {
     // 回傳完整狀態 JSON (包含電源端、選擇端、搖桿端、電位器等)
@@ -426,6 +443,13 @@ static const httpd_uri_t status_uri = {
     .user_ctx  = NULL
 };
 
+static const httpd_uri_t root_uri = {
+    .uri       = "/",
+    .method    = HTTP_GET,
+    .handler   = root_get_handler,
+    .user_ctx  = NULL
+};
+
 static const httpd_uri_t ota_uri = {
     .uri       = "/ota",
     .method    = HTTP_POST,
@@ -441,6 +465,8 @@ esp_err_t web_server_start(void)
         ESP_LOGE(WS_TAG, "Failed to start server");
         return ESP_FAIL;
     }
+    httpd_register_uri_handler(server, &root_uri);
+
     httpd_register_uri_handler(server, &status_uri);
     httpd_register_uri_handler(server, &ota_uri);
     ESP_LOGI(WS_TAG, "HTTP server started");

@@ -1,5 +1,5 @@
 # ESP-S3 控制器
-
+ESP32-S3-WROOM-1U https://documentation.espressif.com/esp32-s3-wroom-1_wroom-1u_datasheet_cn.pdf
 基於ESP32-S3開發版，連結到電控箱表面的相關輸入與輸出元件，後續會再連結到另外一塊伺服控制器專用的ESP32-S3開發版，以及主要負責影像辨識及開啟Web_Server遠端控制的大腦Jetson Orin nano Devkit。
 此S3控制器相關輸入輸出如下
 | 主項目     | 元件           | 元件編號 | 輸入/輸出 | 數量 | GPIO | VCC | GND |  備註 |

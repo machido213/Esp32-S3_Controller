@@ -1,3 +1,0 @@
-Command: ninja flash
-[1/5] cd /workspaces/Esp32-S3_Controller/build && /opt/esp/python_env/idf6.1_py3.12_env/bin/python /opt/esp/idf/components/partition_table/check_sizes.py --offset 0x8000 partition --type app /workspaces/Esp32-S3_Controller/build/partition_table/partition-table.bin /workspaces/Esp32-S3_Controller/build/Esp32-S3_Controller.bin
-Esp32-S3_Controller.bin binary size 0x87650 bytes. Smallest app partition is 0x100000 bytes. 0x789b0 bytes (47%) free.

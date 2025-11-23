@@ -374,6 +374,9 @@ PYTHON:UNINITIALIZED=/opt/esp/python_env/idf6.1_py3.12_env/bin/python
 //No help, variable specified on the command line.
 PYTHON_DEPS_CHECKED:UNINITIALIZED=1
 
+//No help, variable specified on the command line.
+SDKCONFIG:UNINITIALIZED=/workspaces/Esp32-S3_Controller/sdkconfig
+
 //Allow unsafe builds. These builds ARE NOT SECURE.
 UNSAFE_BUILD:BOOL=OFF
 
