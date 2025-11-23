@@ -22,6 +22,98 @@
 #include "esp_netif.h"
 #include "esp_event.h"
 
+#include "esp_wifi.h"
+#include "lwip/err.h"
+#include "lwip/sys.h"
+#include "lwip/sockets.h"
+#include "lwip/dns.h"
+#include "lwip/netdb.h"
+// ==========================================
+// Wi-Fi 設定 (請修改這裡)
+// ==========================================
+#define WIFI_SSID      "kang_home"
+#define WIFI_PASS      "0922293650"
+
+// 是否使用固定 IP? (1=是, 0=否，使用路由器分配)
+#define USE_STATIC_IP  1
+
+#if USE_STATIC_IP
+#define DEVICE_IP      "192.168.2.123" // 你想要的固定 IP (請確認網段與路由器一致)
+#define DEVICE_GW      "192.168.2.1"   // 路由器的 IP (Gateway)
+#define DEVICE_NETMASK "255.255.255.0" // 子網掩碼
+#endif
+// ==========================================
+static void wifi_event_handler(void* arg, esp_event_base_t event_base,
+                               int32_t event_id, void* event_data)
+{
+    if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_START) {
+        esp_wifi_connect();
+    } else if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_DISCONNECTED) {
+        ESP_LOGW("WIFI", "Disconnected. Retrying...");
+        esp_wifi_connect();
+    } else if (event_base == IP_EVENT && event_id == IP_EVENT_STA_GOT_IP) {
+        ip_event_got_ip_t* event = (ip_event_got_ip_t*) event_data;
+        ESP_LOGI("WIFI", "--------------------------------------------------");
+        ESP_LOGI("WIFI", "Connected! IP Address: " IPSTR, IP2STR(&event->ip_info.ip));
+        ESP_LOGI("WIFI", "Open Browser at: http://" IPSTR "/status", IP2STR(&event->ip_info.ip));
+        ESP_LOGI("WIFI", "--------------------------------------------------");
+    }
+}
+
+void wifi_init_sta(void)
+{
+    // 1. 初始化 Wi-Fi 底層
+    esp_netif_t *my_sta = esp_netif_create_default_wifi_sta();
+
+    // 2. 設定固定 IP (Static IP)
+    #if USE_STATIC_IP
+    if (my_sta) {
+        esp_netif_dhcpc_stop(my_sta); // 停止 DHCP 客戶端
+        esp_netif_ip_info_t ip_info;
+        
+        esp_netif_str_to_ip4(DEVICE_IP, &ip_info.ip);
+        esp_netif_str_to_ip4(DEVICE_GW, &ip_info.gw);
+        esp_netif_str_to_ip4(DEVICE_NETMASK, &ip_info.netmask);
+
+        esp_netif_set_ip_info(my_sta, &ip_info);
+        ESP_LOGI("WIFI", "Static IP set to: %s", DEVICE_IP);
+    }
+    #endif
+
+    wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
+    ESP_ERROR_CHECK(esp_wifi_init(&cfg));
+
+    // 3. 註冊事件 (讓它連線成功時印出 IP)
+    ESP_ERROR_CHECK(esp_event_handler_instance_register(WIFI_EVENT,
+                                                        ESP_EVENT_ANY_ID,
+                                                        &wifi_event_handler,
+                                                        NULL,
+                                                        NULL));
+    ESP_ERROR_CHECK(esp_event_handler_instance_register(IP_EVENT,
+                                                        IP_EVENT_STA_GOT_IP,
+                                                        &wifi_event_handler,
+                                                        NULL,
+                                                        NULL));
+
+    // 4. 設定 Wi-Fi 帳密
+    wifi_config_t wifi_config = {
+        .sta = {
+            .ssid = WIFI_SSID,
+            .password = WIFI_PASS,
+            .threshold.authmode = WIFI_AUTH_WPA2_PSK,
+            .pmf_cfg = {
+                .capable = true,
+                .required = false
+            },
+        },
+    };
+    ESP_ERROR_CHECK(esp_wifi_set_mode(WIFI_MODE_STA) );
+    ESP_ERROR_CHECK(esp_wifi_set_config(WIFI_IF_STA, &wifi_config) );
+    ESP_ERROR_CHECK(esp_wifi_start() );
+
+    ESP_LOGI("WIFI", "Wi-Fi initialization finished. Connecting...");
+}
+
 static const char *TAG = "esp32_s3_ctrl";
 
 /* ---------- IO helpers (from io_config.h) ---------- */
@@ -478,6 +570,8 @@ void app_main(void)
 
     ESP_ERROR_CHECK(esp_netif_init());
     ESP_ERROR_CHECK(esp_event_loop_create_default());
+
+     wifi_init_sta(); 
 
     io_init();
     comms_uart_init();
