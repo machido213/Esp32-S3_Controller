@@ -1,6 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="1000" height="640" viewBox="0 0 1000 640">
   <style>
+    .bg { fill:#0f2b21; }
+    .pin { fill:#ffffff; stroke:#000; stroke-width:0.6 }
+    .label { font-family: Arial, Helvetica, sans-serif; font-size:12px; fill:#ffffff }
+    .title { font-size:16px; font-weight:700 }
+    .section { font-size:13px; font-weight:600; fill:#cfeadf }
+    .adc { fill:#4da6ff }
+    .relay { fill:#ff6b6b }
+    .uart { fill:#ffa94d }
+  </style>
+
+  <rect x="24" y="28" width="952" height="584" rx="12" fill="#082016" />
+  <text x="500" y="56" text-anchor="middle" class="label title">ESP32-S3 接線示意圖（與 main/io_config.h 對應）</text>
+
+  <!-- Left column -->
+  <text x="60" y="100" class="section">左側：電源端 / OTA</text>
+  <g transform="translate(60,120)">
+    <text x="0" y="0" class="label">Z1 (OTA 按鈕) — `Z1_GPIO` = GPIO 0 (板上 BOOT)</text>
+    <text x="0" y="24" class="label">A1_1 — `A1_1_GPIO` = GPIO 4</text>
+    <text x="0" y="48" class="label">A1_2 — `A1_2_GPIO` = GPIO 5</text>
+    <text x="0" y="80" class="label">A2 (LED) — `A2_GPIO` = GPIO 6 (繼電器/LED 驅動)</text>
+    <text x="0" y="104" class="label">A3 (LED) — `A3_GPIO` = GPIO 7 (繼電器/LED 驅動)</text>
+    <text x="0" y="128" class="label">A4 (LED) — `A4_GPIO` = GPIO 15 (繼電器/LED 驅動)</text>
+  </g>
+
+  <!-- Center column -->
+  <text x="360" y="100" class="section">中間：選擇端 (B 系列)</text>
+  <g transform="translate(360,120)">
+    <text x="0" y="0" class="label">B1_1 — `B1_1_GPIO` = GPIO 16</text>
+    <text x="0" y="24" class="label">B1_2 — `B1_2_GPIO` = GPIO 17</text>
+    <text x="0" y="56" class="label">B2 (電位器) — `B2_GPIO` = GPIO 1  (ADC_CHANNEL_0)</text>
+    <text x="0" y="80" class="label">B3 (電位器) — `B3_GPIO` = GPIO 2  (ADC_CHANNEL_1)</text>
+    <text x="0" y="112" class="label">B4 (切換) — `B4_GPIO` = GPIO 8</text>
+    <text x="0" y="136" class="label">B5 (點動) — `B5_GPIO` = GPIO 9</text>
+    <text x="0" y="160" class="label">B6 (蜂鳴器) — `B6_GPIO` = GPIO 10 (驅動或繼電器)</text>
+  </g>
+
+  <!-- Right column -->
+  <text x="660" y="100" class="section">右側：搖桿 (C 系列) + UART</text>
+  <g transform="translate(660,120)">
+    <text x="0" y="0" class="label">C1_1..C1_4 — GPIO 11,12,13,14</text>
+    <text x="0" y="24" class="label">C2_1..C2_4 — GPIO 38,39,40,41</text>
+    <text x="0" y="48" class="label">C3_1..C3_4 — GPIO 42,21,35,36</text>
+    <text x="0" y="72" class="label">C4_1..C4_2 — GPIO 37,45 (注意：GPIO45 為 strap pin)</text>
+    <text x="0" y="112" class="label">UART → Jetson: TX=`JETSON_UART_TX_PIN` = GPIO 46, RX=`JETSON_UART_RX_PIN` = GPIO 47 (UART_NUM_1)</text>
+  </g>
+
+  <!-- Legend and notes -->
+  <g transform="translate(60,420)">
+    <rect x="0" y="0" width="880" height="160" rx="8" fill="#0b3b2e" stroke="#0b5a43" />
+    <text x="12" y="22" class="label" style="font-weight:700">接線注意事項</text>
+    <text x="12" y="46" class="label">- B2/B3 為 ADC 輸入 (ADC_CHANNEL_0 / ADC_CHANNEL_1)，程式以 `esp_adc/adc_oneshot` 讀取。</text>
+    <text x="12" y="66" class="label">- 輸出驅動高電壓 (220V) 請用繼電器或驅動板隔離 MCU。</text>
+    <text x="12" y="86" class="label">- 若改動 `main/io_config.h`，請以該檔為最終準則並同步 README/SVG。</text>
+    <text x="12" y="106" class="label">- `C3_3_GPIO` (GPIO 35) 在某些板型或 PSRAM 配置可能不可用，接線前請確認模組腳位。</text>
+    <text x="12" y="126" class="label">- `C4_2_GPIO` = GPIO 45 為 strap pin，開機時請避免拉低。</text>
+  </g>
+
+  <text x="44" y="612" class="label" style="font-size:11px;fill:#9fd9b8">說明：此 SVG 為示意性標註圖，實際接線請以 `main/io_config.h` 與開發板資料表為準。</text>
+</svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="640" viewBox="0 0 1000 640">
+  <style>
     .board { fill:#0f2b21; stroke:#022b22; stroke-width:3 }
     .pin { fill:#ffffff; stroke:#000000; stroke-width:0.8 }
     .label { font-family: Arial, Helvetica, sans-serif; font-size:12px; fill:#ffffff }

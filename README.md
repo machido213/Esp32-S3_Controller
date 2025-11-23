@@ -163,26 +163,40 @@ idf.py -p /dev/ttyUSB0 flash monitor
 
 ![](docs/wiring.svg)
 
-簡化對照表（保留以方便比對）：
+簡化對照表（由 `main/io_config.h` 自動對照，請以該檔為最終準則）：
 
 ```
-ESP32-S3  GPIO mapping (範例)
+ESP32-S3 GPIO mapping (與 main/io_config.h 一致)
 
-	OTA Z1   -> GPIO 2
-	A1_1     -> GPIO 4    A1_2 -> GPIO 5
-	A2 (LED) -> GPIO 6    A3 -> GPIO 7    A4 -> GPIO 8
-	B1_1     -> GPIO 9    B1_2 -> GPIO10
-	B2 (POT)-> GPIO11 (ADC_CHANNEL_0)
-	B3 (POT)-> GPIO12 (ADC_CHANNEL_1)
-	B4       -> GPIO13    B5 -> GPIO14
-	B6 (BUZ)-> GPIO15
-	C1_1..4  -> GPIO16..19
-	C2_1..4  -> GPIO20..23
-	C3_1..4  -> GPIO25..28
-	C4_1..2  -> GPIO29..30
-	JETSON UART TX/RX -> GPIO33/34
+	OTA Z1      -> `Z1_GPIO`  = GPIO 0 (板上 BOOT 按鈕，測試用)
+	A1_1        -> `A1_1_GPIO` = GPIO 4
+	A1_2        -> `A1_2_GPIO` = GPIO 5
+	A2 (LED)    -> `A2_GPIO`   = GPIO 6
+	A3 (LED)    -> `A3_GPIO`   = GPIO 7
+	A4 (LED)    -> `A4_GPIO`   = GPIO 15
 
-	(若某些 GPIO 不支援 ADC，請改用支援 ADC 的腳位或改變 B2/B3_ADC_CHANNEL 設定)
+	B1_1        -> `B1_1_GPIO` = GPIO 16
+	B1_2        -> `B1_2_GPIO` = GPIO 17
+
+	B2 (POT)    -> `B2_GPIO`   = GPIO 1  (ADC_CHANNEL_0)
+	B3 (POT)    -> `B3_GPIO`   = GPIO 2  (ADC_CHANNEL_1)
+	B4 (切換)   -> `B4_GPIO`   = GPIO 8
+	B5 (點動)   -> `B5_GPIO`   = GPIO 9
+	B6 (蜂鳴器) -> `B6_GPIO`   = GPIO 10
+
+	C1_1..C1_4  -> `C1_1_GPIO`..`C1_4_GPIO` = GPIO 11,12,13,14
+	C2_1..C2_4  -> `C2_1_GPIO`..`C2_4_GPIO` = GPIO 38,39,40,41
+	C3_1..C3_4  -> `C3_1_GPIO`..`C3_4_GPIO` = GPIO 42,21,35,36
+	C4_1..C4_2  -> `C4_1_GPIO`,`C4_2_GPIO`   = GPIO 37,45
+
+	JETSON UART TX/RX -> `JETSON_UART_TX_PIN` / `JETSON_UART_RX_PIN` = GPIO 46 / 47
+
+注意：
+- B2/B3 為 ADC 輸入（`B2_ADC_CHANNEL` / `B3_ADC_CHANNEL`），程式使用 `esp_adc/adc_oneshot` 讀取。
+- `C3_3_GPIO` = 35 在某些模組（含 PSRAM）或特定板型上可能不可用，接線前請確認模組腳位。
+- `C4_2_GPIO` = 45 為 strap pin，開機時請避免將其拉低。
+
+若你改動 `main/io_config.h`，請同步更新此表或重新產生 README（我可以幫你自動化）。
 ```
 
 如需我把圖改為更詳細的 SVG（含繼電器接線、電源符號、或板上原理圖位置），我可以接著修改 `docs/wiring.svg`。要我繼續 commit 與 push 變更嗎？
