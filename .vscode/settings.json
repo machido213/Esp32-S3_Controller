@@ -1,5 +1,5 @@
 {
-  "idf.pythonInstallPath": "/opt/esp/python_env/idf6.1_py3.12_env/bin/python",
+  "idf.pythonInstallPath": "C:\\Users\\machido\\.espressif\\tools\\idf-python\\3.11.2\\python.exe",
   "idf.openOcdConfigs": [
     "board/esp32s3-builtin.cfg"
   ],
@@ -8,5 +8,6 @@
     "IDF_TARGET": "esp32s3"
   },
   "idf.port": "/dev/ttyACM0",
-  "idf.flashType": "UART"
+  "idf.flashType": "UART",
+  "idf.portWin": "COM4"
 }

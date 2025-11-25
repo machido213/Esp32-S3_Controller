@@ -117,15 +117,15 @@ extern "C" {
 #define C3_2_GPIO 21 // 右下角
 #endif
 #ifndef C3_3_GPIO
-#define C3_3_GPIO 35 // 右側 (注意：若板子是 Octal PSRAM 此腳不可用，一般 WROOM-1 可用)
+#define C3_3_GPIO 3 // 右側 (注意：若板子是 Octal PSRAM 此腳不可用，一般 WROOM-1 可用)
 #endif
 #ifndef C3_4_GPIO
-#define C3_4_GPIO 36 // 右側
+#define C3_4_GPIO 18 // 右側
 #endif
 
 // C4: 單軸 (2 腳)
 #ifndef C4_1_GPIO
-#define C4_1_GPIO 37 // 右側
+#define C4_1_GPIO 48 // 右側
 #endif
 #ifndef C4_2_GPIO
 #define C4_2_GPIO 45 // 右下 (Strap pin，開機時請勿拉低)

@@ -1,0 +1,2 @@
+source /workspaces/Esp32-S3_Controller/hello_world/build/bootloader/gdbinit/symbols
+source /workspaces/Esp32-S3_Controller/hello_world/build/bootloader/gdbinit/connect

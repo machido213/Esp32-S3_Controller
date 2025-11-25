@@ -15,38 +15,32 @@
         /* 基礎指示燈樣式 */
         .indicator { display: inline-block; width: 25px; height: 25px; border-radius: 50%; background: #444; margin: 0 5px; vertical-align: middle; transition: 0.2s; border: 2px solid #555; }
         .indicator.off { background: #333; opacity: 0.3; }
-
-        /* A1 & B1 預設顏色 (綠色) */
         .indicator.on { background: #00ff00; box-shadow: 0 0 10px #00ff00; border-color: #fff; }
 
-        /* ★★★ 自定義顏色設定 (A2=黃, A3=藍, A4=綠) ★★★ */
+        /* 自定義顏色設定 */
         #A2.on { background: #ffeb3b; box-shadow: 0 0 10px #ffeb3b; border-color: #fff; } /* 黃色 */
         #A3.on { background: #00bfff; box-shadow: 0 0 10px #00bfff; border-color: #fff; } /* 藍色 */
         #A4.on { background: #00ff00; box-shadow: 0 0 10px #00ff00; border-color: #fff; } /* 綠色 */
 
-        /* 開關群組容器 (灰色背景) */
         .switch-group { display: flex; justify-content: center; align-items: center; gap: 15px; background: #222; padding: 15px; border-radius: 8px; margin-bottom: 10px; }
         .switch-item { display: flex; flex-direction: column; align-items: center; }
         .switch-label { font-size: 12px; color: #aaa; margin-top: 5px; display: block; }
-        
         .row { display: flex; justify-content: space-between; margin: 10px 0; align-items: center; }
         
-        /* 進度條 */
         .progress-container { width: 100%; background: #444; height: 20px; border-radius: 10px; overflow: hidden; margin-top: 5px; }
         .progress-bar { height: 100%; background: #00bfff; width: 0%; transition: width 0.1s; }
         
-        /* 搖桿顯示 (九宮格) */
         .dpad { display: grid; grid-template-columns: 25px 25px 25px; grid-template-rows: 25px 25px 25px; gap: 4px; justify-content: center; margin-top: 5px; background: #222; padding: 5px; border-radius: 5px; }
         .dpad-cell { width: 100%; height: 100%; background: #444; border-radius: 3px; }
         .dpad-cell.active { background: #ff4444; box-shadow: 0 0 8px #ff4444; }
         .dpad-center.active { background: #00bfff; box-shadow: 0 0 8px #00bfff; } 
         
-        /* OTA & Raw Data */
         input[type='text'] { width: 90%; padding: 8px; border-radius: 5px; border: none; background: #eee; }
         button { padding: 8px 15px; background: #ff9800; border: none; border-radius: 5px; color: white; cursor: pointer; font-weight: bold; margin-top: 10px; }
         button:hover { background: #e68900; }
-        textarea { width: 95%; height: 60px; background: #111; color: #0f0; border: 1px solid #444; border-radius: 5px; font-family: monospace; font-size: 12px; padding: 5px; resize: none; }
-        .debug-val { font-size: 12px; color: #aaa; font-family: monospace; }
+        
+        /* 補回原本遺失的 textarea 樣式 */
+        textarea { width: 95%; height: 60px; background: #111; color: #0f0; border: 1px solid #444; border-radius: 5px; font-family: monospace; font-size: 12px; padding: 5px; resize: none; margin-top: 10px;}
     </style>
 </head>
 <body>
@@ -56,48 +50,32 @@
         <!-- 電源與狀態 (A) -->
         <div class='card'>
             <h3>電源與狀態 (A)</h3>
-            
             <p>A1 檔位狀態</p>
             <div class='switch-group'>
                 <div class='switch-item'><span id='A1_L' class='indicator'></span><span class='switch-label'>左 (10)</span></div>
                 <div class='switch-item'><span id='A1_M' class='indicator'></span><span class='switch-label'>中 (11)</span></div>
                 <div class='switch-item'><span id='A1_R' class='indicator'></span><span class='switch-label'>右 (01)</span></div>
             </div>
-
             <p>LED 輸出狀態</p>
-            <!-- ★★★ 修改處：將 A2/A3/A4 改為水平排列，並加上灰色背景 ★★★ -->
             <div class='switch-group'>
-                <div class='switch-item'>
-                    <span id='A2' class='indicator'></span>
-                    <span class='switch-label'>A2 (左-黃)</span>
-                </div>
-                <div class='switch-item'>
-                    <span id='A3' class='indicator'></span>
-                    <span class='switch-label'>A3 (中-藍)</span>
-                </div>
-                <div class='switch-item'>
-                    <span id='A4' class='indicator'></span>
-                    <span class='switch-label'>A4 (右-綠)</span>
-                </div>
+                <div class='switch-item'><span id='A2' class='indicator'></span><span class='switch-label'>A2 (左-黃)</span></div>
+                <div class='switch-item'><span id='A3' class='indicator'></span><span class='switch-label'>A3 (中-藍)</span></div>
+                <div class='switch-item'><span id='A4' class='indicator'></span><span class='switch-label'>A4 (右-綠)</span></div>
             </div>
         </div>
         
         <!-- 選擇端 (B) -->
         <div class='card'>
             <h3>選擇端 (B)</h3>
-            
             <p>B1 選擇狀態</p>
             <div class='switch-group'>
                 <div class='switch-item'><span id='B1_L' class='indicator'></span><span class='switch-label'>左 (10)</span></div>
                 <div class='switch-item'><span id='B1_M' class='indicator'></span><span class='switch-label'>中 (11)</span></div>
                 <div class='switch-item'><span id='B1_R' class='indicator'></span><span class='switch-label'>右 (01)</span></div>
             </div>
-
             <div class='row'><span>B4 / B5:</span> <div><span id='B4' class='indicator'></span> <span id='B5' class='indicator'></span></div></div>
-            
             <div style='text-align:left; margin-top: 10px;'>B2 Pot: <span id='val_B2'>0</span></div>
             <div class='progress-container'><div id='bar_B2' class='progress-bar'></div></div>
-            
             <div style='text-align:left; margin-top:5px'>B3 Pot: <span id='val_B3'>0</span></div>
             <div class='progress-container'><div id='bar_B3' class='progress-bar'></div></div>
         </div>
@@ -142,25 +120,35 @@
 
     <!-- OTA & Raw Data -->
     <div class='container'>
-        <div class='card'>
-            <h3>🚀 OTA 韌體更新</h3>
-            <input type='text' id='ota_url' placeholder='http://your-server/firmware.bin' value='http://192.168.2.105:8000/Esp32-S3_Controller.bin'>
-            <button onclick='startOTA()'>開始更新</button>
-            <p id='ota_status' style='color:#aaa; margin-top:5px'></p>
-        </div>
-        <div class='card'>
-            <h3>🔍 Raw Status Output</h3>
-            <textarea id='raw_json' readonly></textarea>
+        <div style="width: 100%; border:1px solid #ccc; padding:10px; border-radius:8px; margin-top:20px; background:#2d2d2d;">
+            <h3>🚀 OTA 韌體更新中心</h3>
+            
+            <p>韌體來源網址 (.bin)：</p>
+            <input type='text' id='ota_url' value='https://github.com/machido213/Esp32-S3_Controller/releases/latest/download/Esp32-S3_Controller.bin'>
+            
+            <div style="margin-top:10px;">
+                <small>快速填入: </small>
+                <button onclick="fillGithub()">GitHub (Latest)</button>
+                <button onclick="fillLocal()">Local (開發)</button>
+            </div>
+
+            <br>
+            <button onclick='startOTA()' style="background-color: #4CAF50;">立即開始更新</button>
+            <p id='ota_status' style='color:#ccc; margin-top:10px; font-weight:bold;'></p>
+
+            <hr style="border-color: #444; margin: 15px 0;">
+            
+            <!-- ★★★ 關鍵修復：補回這個 raw_json 元素 ★★★ -->
+            <p style="margin:5px;">System Raw Data:</p>
+            <textarea id="raw_json" readonly></textarea>
         </div>
     </div>
 
     <script>
-        // 通用：更新燈號 class
         function updateClass(id, isOn) {
             const el = document.getElementById(id);
             if(!el) return;
             el.classList.remove('on', 'off', 'active');
-            
             if (el.classList.contains('dpad-cell') || el.classList.contains('dpad-center')) {
                 if(isOn) el.classList.add('active');
             } else {
@@ -169,83 +157,72 @@
         }
 
         function update3PosSwitch(prefix, v1, v2) {
-            const isMid   = (v1 === 1 && v2 === 1);
-            const isLeft  = (v1 === 1 && v2 === 0);
-            const isRight = (v1 === 0 && v2 === 1);
-            updateClass(prefix + '_L', isLeft);
-            updateClass(prefix + '_M', isMid);
-            updateClass(prefix + '_R', isRight);
+            updateClass(prefix + '_L', (v1 === 1 && v2 === 0));
+            updateClass(prefix + '_M', (v1 === 1 && v2 === 1));
+            updateClass(prefix + '_R', (v1 === 0 && v2 === 1));
         }
 
         function updateJoystick(prefix, arr) {
-            const up    = (arr[0] === 0);
-            const down  = (arr[1] === 0);
-            const left  = (arr[2] === 0);
-            const right = (arr[3] === 0);
-            const isCenter = (!up && !down && !left && !right);
-
-            updateClass(prefix + '_1', up);
-            updateClass(prefix + '_2', down);
-            updateClass(prefix + '_3', left);
-            updateClass(prefix + '_4', right);
-            updateClass(prefix + '_C', isCenter);
+            updateClass(prefix + '_1', arr[0] === 0);
+            updateClass(prefix + '_2', arr[1] === 0);
+            updateClass(prefix + '_3', arr[2] === 0);
+            updateClass(prefix + '_4', arr[3] === 0);
+            updateClass(prefix + '_C', (arr[0] && arr[1] && arr[2] && arr[3])); // 1111 = Center
         }
 
         function updateJoystick2Axis(prefix, arr) {
-            const up   = (arr[0] === 0);
-            const down = (arr[1] === 0);
-            const isCenter = (!up && !down);
-            updateClass(prefix + '_1', up);
-            updateClass(prefix + '_2', down);
-            updateClass(prefix + '_C', isCenter);
+            updateClass(prefix + '_1', arr[0] === 0);
+            updateClass(prefix + '_2', arr[1] === 0);
+            updateClass(prefix + '_C', (arr[0] && arr[1])); 
         }
 
         function fetchStatus() {
             fetch('/status').then(r => r.json()).then(d => {
-                document.getElementById('raw_json').value = JSON.stringify(d);
+                // 如果這行報錯，下面的 UI 都不會更新。現在補上了 textarea 就不會錯了。
+                const rawEl = document.getElementById('raw_json');
+                if(rawEl) rawEl.value = JSON.stringify(d);
 
-                // A1 三檔位
                 update3PosSwitch('A1', d.A1_1, d.A1_2);
-                
-                // LED 輸出 (A2, A3, A4)
                 updateClass('A2', d.A2 === 1); 
                 updateClass('A3', d.A3 === 1); 
                 updateClass('A4', d.A4 === 1);
-
-                // B1 三檔位
                 update3PosSwitch('B1', d.B1_1, d.B1_2);
-
-                // B4/B5 開關
-                updateClass('B4', d.B4 === 0); 
+                updateClass('B4', d.B4 === 0); // 假設按下是 0
                 updateClass('B5', d.B5 === 0);
 
-                // 電位器
                 document.getElementById('val_B2').innerText = d.B2_pot;
                 document.getElementById('bar_B2').style.width = (d.B2_pot / 40.95) + '%';
                 document.getElementById('val_B3').innerText = d.B3_pot;
                 document.getElementById('bar_B3').style.width = (d.B3_pot / 40.95) + '%';
 
-                // 搖桿
                 updateJoystick('C1', d.C1);
                 updateJoystick('C2', d.C2);
                 updateJoystick('C3', d.C3);
                 updateJoystick2Axis('C4', d.C4);
-
-            }).catch(e => console.log(e));
+            }).catch(e => console.log('Error:', e));
         }
+
+        // 注意：GitHub 的 OTA 連結必須是 /download/ 不是 /tag/
+        const GITHUB_URL = "https://github.com/machido213/Esp32-S3_Controller/releases/latest/download/Esp32-S3_Controller.bin";
+        const LOCAL_URL  = "http://192.168.2.105:8000/Esp32-S3_Controller.bin";
+
+        function fillGithub() { document.getElementById('ota_url').value = GITHUB_URL; }
+        function fillLocal() { document.getElementById('ota_url').value = LOCAL_URL; }
 
         function startOTA() {
             const url = document.getElementById('ota_url').value;
             if(!url) { alert('請輸入 URL'); return; }
-            if(!confirm('確定要從 ' + url + ' 更新韌體嗎？')) return;
-            document.getElementById('ota_status').innerText = '更新請求已發送...';
+            if(!confirm("確定要更新嗎？ ESP32 將會重啟。")) return;
+
+            document.getElementById('ota_status').innerText = '⏳ 正在更新中，請留意 ESP32 是否重啟...';
+            
             fetch('/ota', {
                 method: 'POST',
                 body: JSON.stringify({url: url})
             }).then(r => r.text()).then(t => {
-                document.getElementById('ota_status').innerText = '伺服器回應: ' + t;
+                document.getElementById('ota_status').innerText = 'System: ' + t;
             }).catch(e => {
-                document.getElementById('ota_status').innerText = '錯誤: ' + e;
+                document.getElementById('ota_status').innerText = 'Error: ' + e;
             });
         }
 

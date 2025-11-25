@@ -29,6 +29,11 @@
 #include "lwip/dns.h"
 #include "lwip/netdb.h"
 
+#include "esp_crt_bundle.h"
+
+// /* 引用 GitHub 的根憑證 */
+// extern const uint8_t github_root_pem_start[] asm("_binary_github_root_pem_start");
+// extern const uint8_t github_root_pem_end[]   asm("_binary_github_root_pem_end");
 /* 引用嵌入的網頁檔案 */
 extern const uint8_t index_html_start[] asm("_binary_index_html_start");
 extern const uint8_t index_html_end[]   asm("_binary_index_html_end");
@@ -80,6 +85,13 @@ void wifi_init_sta(void)
         esp_netif_str_to_ip4(DEVICE_NETMASK, &ip_info.netmask);
 
         esp_netif_set_ip_info(my_sta, &ip_info);
+
+         // ★★★ 新增這段：手動設定 DNS (使用 Google DNS 8.8.8.8) ★★★
+        esp_netif_dns_info_t dns_info;
+        dns_info.ip.u_addr.ip4.addr = ipaddr_addr("8.8.8.8");
+        dns_info.ip.type = IPADDR_TYPE_V4;
+        esp_netif_set_dns_info(my_sta, ESP_NETIF_DNS_MAIN, &dns_info);
+
         ESP_LOGI("WIFI", "Static IP set to: %s", DEVICE_IP);
     }
     #endif
@@ -276,33 +288,56 @@ static const char *OTA_TAG = "ota_task";
 
 static void ota_task(void *arg)
 {
-    char *url = (char *)arg; // malloc'ed by caller
-    if (!url) {
-        vTaskDelete(NULL);
-        return;
-    }
-    ESP_LOGI(OTA_TAG, "OTA task start: %s", url);
+    char *url = (char *)arg;
+    ESP_LOGI(OTA_TAG, "Starting OTA task...");
+    ESP_LOGI(OTA_TAG, "Target URL: %s", url);
 
-    // 使用 esp_https_ota_config_t 並把 http client config 放入 http_config
-    // esp_https_ota expects a pointer to esp_http_client_config_t inside esp_https_ota_config_t
     esp_http_client_config_t http_cfg = {
         .url = url,
-        // .cert_pem = (char *)server_cert_pem_start, // 正式環境請提供憑證
+        // ★★★ 關鍵修正：移除 .cert_pem，改用自動憑證包 ★★★
+        .crt_bundle_attach = esp_crt_bundle_attach, 
+        
+        .keep_alive_enable = true,
+        .timeout_ms = 10000,
+        // 如果遇到 GitHub 轉址問題，通常這兩行有幫助，但先用預設試試
+        // .disable_auto_redirect = false, 
+
+        
+        // ★★★ 關鍵修正：加大接收緩衝區 (解決 Out of buffer) ★★★
+        // 預設通常只有 512 或 1024，GitHub 轉址連結很長，至少要給 2048 以上
+        // 既然你是 R8 (8MB PSRAM)，直接給 4096 或 8192 都不會心痛
+        // 改成 16KB (16384)，確保萬無一失
+        .buffer_size = 16384,
+        // 同時設定 TX buffer 也大一點 (選用，通常 RX 才是關鍵)
+        .buffer_size_tx = 4096,
     };
+
     esp_https_ota_config_t ota_config = {
         .http_config = &http_cfg,
+        // .partial_http_download = true, // 如果檔案很大，這個選項有助於穩定性
     };
+
+    ESP_LOGI(OTA_TAG, "Attempting to download and update...");
     esp_err_t err = esp_https_ota(&ota_config);
+    
     if (err == ESP_OK) {
-        ESP_LOGI(OTA_TAG, "OTA successful, rebooting...");
-        free(url);
+        ESP_LOGI(OTA_TAG, "✅ OTA Update Successful! Rebooting now...");
+        vTaskDelay(pdMS_TO_TICKS(1000)); // 等待 Log 印完
         esp_restart();
     } else {
-        ESP_LOGE(OTA_TAG, "OTA failed: %s", esp_err_to_name(err));
-        free(url);
+        // 印出詳細錯誤
+        ESP_LOGE(OTA_TAG, "❌ OTA Failed! Error: %s", esp_err_to_name(err));
+        
+        // 如果是憑證驗證失敗，通常會報 ESP_ERR_HTTP_CONNECT
+        if (err == ESP_ERR_HTTP_CONNECT) {
+             ESP_LOGE(OTA_TAG, "Connection refused. Please check Certificate Bundle in Menuconfig.");
+        }
     }
+
+    free(url);
     vTaskDelete(NULL);
 }
+
 
 void ota_start(const char *url)
 {
@@ -388,53 +423,128 @@ static esp_err_t status_get_handler(httpd_req_t *req)
 
 static esp_err_t ota_post_handler(httpd_req_t *req)
 {
-    char url[256] = {0};
-    int total_len = req->content_len;
-    if (total_len > 0 && total_len < (int)sizeof(url)) {
-        int ret = httpd_req_recv(req, url, total_len);
-        if (ret > 0) url[ret < (int)sizeof(url) ? ret : (int)sizeof(url)-1] = '\0';
-    }
+    char buf[512] = {0}; // 加大 buffer 避免網址過長被截斷
+    int ret, remaining = req->content_len;
 
-    // If body looks like JSON, try to extract "url":"..."
-    if (url[0] == '{') {
-        char *p = strstr(url, "\"url\"");
-        if (p) {
-            p = strchr(p, ':');
-            if (p) {
-                p++;
-                while (*p == ' ' || *p == '"') p++;
-                char *end = p;
-                while (*end && *end != '"' && *end != '}') end++;
-                size_t n = (end - p);
-                if (n >= sizeof(url)) n = sizeof(url)-1;
-                memmove(url, p, n);
-                url[n] = 0;
-            }
-        }
-    }
-
-    // fallback: check query string
-    if (strlen(url) == 0) {
-        char qs[256];
-        if (httpd_req_get_url_query_str(req, qs, sizeof(qs)) == ESP_OK) {
-            char val[256];
-            if (httpd_query_key_value(qs, "url", val, sizeof(val)) == ESP_OK) {
-                strncpy(url, val, sizeof(url)-1);
-            }
-        }
-    }
-
-    if (strlen(url) == 0) {
-        httpd_resp_send_err(req, HTTPD_400_BAD_REQUEST, "missing url");
+    if (remaining >= sizeof(buf)) {
+        ESP_LOGE(WS_TAG, "Content too long");
+        httpd_resp_send_err(req, HTTPD_500_INTERNAL_SERVER_ERROR, "Content too long");
         return ESP_FAIL;
     }
 
-    ESP_LOGI(WS_TAG, "OTA requested: %s", url);
-    ota_start(url);
+    // 讀取 HTTP Body
+    ret = httpd_req_recv(req, buf, remaining);
+    if (ret <= 0) {
+        if (ret == HTTPD_SOCK_ERR_TIMEOUT) {
+            httpd_resp_send_408(req);
+        }
+        return ESP_FAIL;
+    }
+    buf[ret] = '\0'; // 確保字串結尾
 
-    httpd_resp_sendstr(req, "OTA started\n");
+    // ★ 關鍵除錯：印出 ESP32 到底收到了什麼
+    ESP_LOGI(WS_TAG, "Received POST data: %s", buf);
+
+    // 簡單的 JSON 解析 (尋找 "url" 欄位)
+    // 預期格式: {"url": "https://..."}
+    char *url_start = strstr(buf, "\"url\"");
+    char final_url[256] = {0};
+
+    if (url_start) {
+        // 找到 "url" 後，尋找冒號
+        char *colon = strchr(url_start, ':');
+        if (colon) {
+            // 找到冒號後，尋找第一個雙引號 (網址的開始)
+            char *quote_start = strchr(colon, '\"');
+            if (quote_start) {
+                quote_start++; // 跳過引號本身
+                // 尋找結束的雙引號
+                char *quote_end = strchr(quote_start, '\"');
+                if (quote_end) {
+                    // 計算長度並複製
+                    int len = quote_end - quote_start;
+                    if (len < sizeof(final_url)) {
+                        strncpy(final_url, quote_start, len);
+                        final_url[len] = '\0';
+                    }
+                }
+            }
+        }
+    }
+
+    // 如果 JSON 解析失敗，嘗試直接把內容當作 URL (容錯)
+    if (strlen(final_url) == 0) {
+        // 移除前後空白或換行
+        // 這裡省略複雜處理，直接假設如果是純文字網址
+        if (strncmp(buf, "http", 4) == 0) {
+             strncpy(final_url, buf, sizeof(final_url)-1);
+        }
+    }
+
+    if (strlen(final_url) == 0) {
+        ESP_LOGE(WS_TAG, "Failed to extract URL from JSON");
+        httpd_resp_send_err(req, HTTPD_400_BAD_REQUEST, "Invalid JSON, 'url' missing");
+        return ESP_FAIL;
+    }
+
+    ESP_LOGI(WS_TAG, "Parsed URL: %s", final_url);
+    
+    // 啟動 OTA 任務
+    ota_start(final_url);
+
+    httpd_resp_sendstr(req, "OTA Starting...");
     return ESP_OK;
 }
+
+// static esp_err_t ota_post_handler(httpd_req_t *req)
+// {
+//     char url[256] = {0};
+//     int total_len = req->content_len;
+//     if (total_len > 0 && total_len < (int)sizeof(url)) {
+//         int ret = httpd_req_recv(req, url, total_len);
+//         if (ret > 0) url[ret < (int)sizeof(url) ? ret : (int)sizeof(url)-1] = '\0';
+//     }
+
+//     // If body looks like JSON, try to extract "url":"..."
+//     if (url[0] == '{') {
+//         char *p = strstr(url, "\"url\"");
+//         if (p) {
+//             p = strchr(p, ':');
+//             if (p) {
+//                 p++;
+//                 while (*p == ' ' || *p == '"') p++;
+//                 char *end = p;
+//                 while (*end && *end != '"' && *end != '}') end++;
+//                 size_t n = (end - p);
+//                 if (n >= sizeof(url)) n = sizeof(url)-1;
+//                 memmove(url, p, n);
+//                 url[n] = 0;
+//             }
+//         }
+//     }
+
+//     // fallback: check query string
+//     if (strlen(url) == 0) {
+//         char qs[256];
+//         if (httpd_req_get_url_query_str(req, qs, sizeof(qs)) == ESP_OK) {
+//             char val[256];
+//             if (httpd_query_key_value(qs, "url", val, sizeof(val)) == ESP_OK) {
+//                 strncpy(url, val, sizeof(url)-1);
+//             }
+//         }
+//     }
+
+//     if (strlen(url) == 0) {
+//         httpd_resp_send_err(req, HTTPD_400_BAD_REQUEST, "missing url");
+//         return ESP_FAIL;
+//     }
+
+//     ESP_LOGI(WS_TAG, "OTA requested: %s", url);
+//     ota_start(url);
+
+//     httpd_resp_sendstr(req, "OTA started\n");
+//     return ESP_OK;
+// }
 
 static const httpd_uri_t status_uri = {
     .uri       = "/status",

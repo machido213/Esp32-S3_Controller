@@ -150,12 +150,6 @@ idf.py -p /dev/ttyUSB0 flash monitor
 
 ---
 
-若你要我：
-- 把 `B2/B3` 的 ADC 實作補上（將 GPIO 對應到 ADC channel、加入讀值程式）
-- 或美化 README 的英文版本 / 加入示意接線圖 (SVG / ASCII)
-
-請告訴我你要哪一項，我會接著修改。謝謝！
-
 ## 接線示意圖（SVG 範例）
 下面以 SVG 圖示呈現接線範例。此圖為示意，請以 `main/io_config.h` 的實際設定為準；若要更精細的接線圖（含繼電器/電源），請回覆我想要的細節。
 
@@ -186,8 +180,8 @@ ESP32-S3 GPIO mapping (與 main/io_config.h 一致)
 
 	C1_1..C1_4  -> `C1_1_GPIO`..`C1_4_GPIO` = GPIO 11,12,13,14
 	C2_1..C2_4  -> `C2_1_GPIO`..`C2_4_GPIO` = GPIO 38,39,40,41
-	C3_1..C3_4  -> `C3_1_GPIO`..`C3_4_GPIO` = GPIO 42,21,35,36
-	C4_1..C4_2  -> `C4_1_GPIO`,`C4_2_GPIO`   = GPIO 37,45
+	C3_1..C3_4  -> `C3_1_GPIO`..`C3_4_GPIO` = GPIO 42,21,3,18
+	C4_1..C4_2  -> `C4_1_GPIO`,`C4_2_GPIO`   = GPIO 48,45
 
 	JETSON UART TX/RX -> `JETSON_UART_TX_PIN` / `JETSON_UART_RX_PIN` = GPIO 46 / 47
 
@@ -195,8 +189,4 @@ ESP32-S3 GPIO mapping (與 main/io_config.h 一致)
 - B2/B3 為 ADC 輸入（`B2_ADC_CHANNEL` / `B3_ADC_CHANNEL`），程式使用 `esp_adc/adc_oneshot` 讀取。
 - `C3_3_GPIO` = 35 在某些模組（含 PSRAM）或特定板型上可能不可用，接線前請確認模組腳位。
 - `C4_2_GPIO` = 45 為 strap pin，開機時請避免將其拉低。
-
-若你改動 `main/io_config.h`，請同步更新此表或重新產生 README（我可以幫你自動化）。
 ```
-
-如需我把圖改為更詳細的 SVG（含繼電器接線、電源符號、或板上原理圖位置），我可以接著修改 `docs/wiring.svg`。要我繼續 commit 與 push 變更嗎？

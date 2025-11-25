@@ -1,0 +1,13 @@
+# Name,   Type, SubType, Offset,  Size, Flags
+# 系統必要區
+nvs,      data, nvs,     ,        0x4000,
+otadata,  data, ota,     ,        0x2000,
+phy_init, data, phy,     ,        0x1000,
+
+# OTA 應用程式區 (針對 N16，我們給每個 App 超大的 4MB 空間)
+ota_0,    app,  ota_0,   ,        4M,
+ota_1,    app,  ota_1,   ,        4M,
+
+# (選用) 剩餘空間可以拿來當作檔案儲存區，例如放網頁檔或圖片
+# 這裡分配 4MB 給 SPIFFS，剩下的空間保留
+storage,  data, spiffs,  ,        4M,
