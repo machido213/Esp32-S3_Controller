@@ -1,7 +1,7 @@
 {
     "version":            "1.2",
     "project_name":       "Esp32-S3_Controller",
-    "project_version":    "ebfcff7-dirty",
+    "project_version":    "V0.0.0_hello_world-1-gb851957-dirty",
     "project_path":       "C:/Users/machido/Desktop/Code/Esp32-S3_Controller",
     "idf_path":           "C:/Users/machido/esp/v5.5.1/esp-idf",
     "build_dir":          "C:/Users/machido/Desktop/Code/Esp32-S3_Controller/build",
@@ -1220,12 +1220,12 @@
             "dir": "C:/Users/machido/Desktop/Code/Esp32-S3_Controller/main",
             "type": "LIBRARY",
             "lib": "__idf_main",
-            "reqs": [ "esp_http_server", "esp_http_client", "esp_https_ota", "esp_adc", "esp_netif", "nvs_flash", "esp_wifi", "mbedtls" ],
+            "reqs": [ "esp_http_server", "esp_http_client", "esp_https_ota", "esp_adc", "esp_netif", "nvs_flash", "esp_wifi", "mbedtls", "spiffs", "json" ],
             "priv_reqs": [ "esp_driver_gpio", "esp_driver_uart" ],
             "managed_reqs": [],
             "managed_priv_reqs": [],
             "file": "C:/Users/machido/Desktop/Code/Esp32-S3_Controller/build/esp-idf/main/libmain.a",
-            "sources": [ "C:/Users/machido/Desktop/Code/Esp32-S3_Controller/main/main.c", "C:/Users/machido/Desktop/Code/Esp32-S3_Controller/build/index.html.S", "C:/Users/machido/Desktop/Code/Esp32-S3_Controller/build/github_root.pem.S" ],
+            "sources": [ "C:/Users/machido/Desktop/Code/Esp32-S3_Controller/main/main.c" ],
             "include_dirs": [ "." ]
         },
         "mbedtls": {
@@ -2922,7 +2922,7 @@
             "prefix": "idf",
             "dir": "C:/Users/machido/Desktop/Code/Esp32-S3_Controller/main",
             "lib": "__idf_main",
-            "reqs": [ "esp_http_server", "esp_http_client", "esp_https_ota", "esp_adc", "esp_netif", "nvs_flash", "esp_wifi", "mbedtls" ],
+            "reqs": [ "esp_http_server", "esp_http_client", "esp_https_ota", "esp_adc", "esp_netif", "nvs_flash", "esp_wifi", "mbedtls", "spiffs", "json" ],
             "priv_reqs": [ "esp_driver_gpio", "esp_driver_uart" ],
             "managed_reqs": [],
             "managed_priv_reqs": [],

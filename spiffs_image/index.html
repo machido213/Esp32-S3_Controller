@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang='zh-TW'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>ESP32-S3 控制中心</title>
+    <style>
+        /* 全局暗黑風格 */
+        body { background-color: #1e1e1e; color: #e0e0e0; font-family: 'Segoe UI', sans-serif; text-align: center; margin: 0; padding: 20px; }
+        h2 { color: #00bfff; margin-bottom: 20px; letter-spacing: 1px; }
+        
+        /* 容器排版 */
+        .container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; max-width: 1400px; margin: auto; margin-bottom: 20px; }
+        
+        /* 卡片樣式 */
+        .card { background: #2d2d2d; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.4); flex: 1; min-width: 300px; max-width: 400px; }
+        .card h3 { border-bottom: 1px solid #444; padding-bottom: 10px; margin-top: 0; color: #fff; font-size: 16px; }
+        
+        /* 指示燈與開關群組 */
+        .switch-group { background: #222; padding: 15px; border-radius: 8px; margin-bottom: 10px; display: flex; justify-content: center; align-items: center; gap: 15px; }
+        .switch-item { display: flex; flex-direction: column; align-items: center; }
+        .switch-label { font-size: 11px; color: #888; margin-top: 6px; }
+
+        .indicator { display: inline-block; width: 24px; height: 24px; border-radius: 50%; background: #444; border: 2px solid #555; transition: 0.2s; }
+        .indicator.on { background: #00ff00; box-shadow: 0 0 10px #00ff00; border-color: #fff; }
+        
+        /* 特殊顏色燈號 */
+        #A2.on { background: #ffeb3b; box-shadow: 0 0 12px #ffeb3b; } /* 黃 */
+        #A3.on { background: #00bfff; box-shadow: 0 0 12px #00bfff; } /* 藍 */
+        #A4.on { background: #00ff00; box-shadow: 0 0 12px #00ff00; } /* 綠 */
+
+        /* 進度條 */
+        .progress-label { display: flex; justify-content: space-between; font-size: 12px; margin-top: 5px; color: #ccc; }
+        .progress-bg { width: 100%; background: #444; height: 12px; border-radius: 6px; overflow: hidden; margin-top: 2px; margin-bottom: 10px; }
+        .progress-bar { height: 100%; background: #00bfff; width: 0%; transition: width 0.1s linear; }
+
+        /* 九宮格搖桿 */
+        .dpad-container { display: flex; justify-content: space-around; margin-top: 10px; }
+        .dpad-box { text-align: center; }
+        .dpad-box small { color: #aaa; font-size: 11px; display: block; margin-bottom: 4px; }
+        .dpad { display: grid; grid-template-columns: repeat(3, 20px); grid-template-rows: repeat(3, 20px); gap: 4px; background: #222; padding: 5px; border-radius: 6px; }
+        .dpad-cell { background: #3a3a3a; border-radius: 2px; }
+        .dpad-cell.active { background: #ff4444; box-shadow: 0 0 6px #ff4444; } /* 觸發紅光 */
+        .dpad-center.active { background: #00bfff; box-shadow: 0 0 6px #00bfff; } /* 中心藍光 */
+
+        /* 輸入框與按鈕 */
+        input[type='text'], input[type='password'] { 
+            width: 100%; padding: 8px; margin-top: 5px; margin-bottom: 10px;
+            background: #444; border: 1px solid #555; color: #fff; border-radius: 4px; box-sizing: border-box;
+        }
+        label { display: block; text-align: left; font-size: 12px; color: #aaa; }
+        
+        button { 
+            padding: 10px 15px; border: none; border-radius: 5px; color: white; cursor: pointer; font-weight: bold; width: 100%; margin-top: 5px; transition: 0.2s;
+        }
+        button:hover { opacity: 0.9; }
+        .btn-ota { background: #ff9800; color: #000; }
+        .btn-save { background: #2196F3; }
+        .btn-fill { background: #555; width: auto; font-size: 11px; padding: 5px 10px; margin-top: 0; }
+
+        /* Raw Data */
+        textarea { width: 100%; height: 50px; background: #111; color: #0f0; border: 1px solid #333; font-family: monospace; font-size: 11px; padding: 5px; box-sizing: border-box; resize: none; }
+    </style>
+</head>
+<body>
+    <h2>🎮 ESP32-S3 控制中心</h2>
+    
+    <!-- 第一列：監控儀表板 (還原你原本的設計) -->
+    <div class='container'>
+        
+        <!-- 卡片 A: 電源與狀態 -->
+        <div class='card'>
+            <h3>電源與狀態 (A)</h3>
+            
+            <div style="margin-bottom: 5px; font-size: 12px; color: #ccc;">A1 檔位狀態</div>
+            <div class='switch-group'>
+                <div class='switch-item'><span id='A1_L' class='indicator'></span><span class='switch-label'>左 (10)</span></div>
+                <div class='switch-item'><span id='A1_M' class='indicator'></span><span class='switch-label'>中 (11)</span></div>
+                <div class='switch-item'><span id='A1_R' class='indicator'></span><span class='switch-label'>右 (01)</span></div>
+            </div>
+
+            <div style="margin-bottom: 5px; font-size: 12px; color: #ccc;">LED 輸出狀態</div>
+            <div class='switch-group'>
+                <div class='switch-item'><span id='A2' class='indicator'></span><span class='switch-label'>A2 (左-黃)</span></div>
+                <div class='switch-item'><span id='A3' class='indicator'></span><span class='switch-label'>A3 (中-藍)</span></div>
+                <div class='switch-item'><span id='A4' class='indicator'></span><span class='switch-label'>A4 (右-綠)</span></div>
+            </div>
+        </div>
+        
+        <!-- 卡片 B: 選擇端 -->
+        <div class='card'>
+            <h3>選擇端 (B)</h3>
+            
+            <div style="margin-bottom: 5px; font-size: 12px; color: #ccc;">B1 選擇狀態</div>
+            <div class='switch-group'>
+                <div class='switch-item'><span id='B1_L' class='indicator'></span><span class='switch-label'>左 (10)</span></div>
+                <div class='switch-item'><span id='B1_M' class='indicator'></span><span class='switch-label'>中 (11)</span></div>
+                <div class='switch-item'><span id='B1_R' class='indicator'></span><span class='switch-label'>右 (01)</span></div>
+            </div>
+
+            <div style="display:flex; justify-content:space-between; align-items:center; background:#222; padding:10px; border-radius:8px; margin-bottom:10px;">
+                <span style="font-size:12px; color:#ccc;">B4 / B5 按鈕:</span>
+                <div>
+                    <span id='B4' class='indicator' style="margin-right:5px"></span>
+                    <span id='B5' class='indicator'></span>
+                </div>
+            </div>
+
+            <div class="progress-label"><span>B2 Pot</span><span id='val_B2'>0</span></div>
+            <div class='progress-bg'><div id='bar_B2' class='progress-bar'></div></div>
+            
+            <div class="progress-label"><span>B3 Pot</span><span id='val_B3'>0</span></div>
+            <div class='progress-bg'><div id='bar_B3' class='progress-bar'></div></div>
+        </div>
+        
+        <!-- 卡片 C: 搖桿狀態 -->
+        <div class='card'>
+            <h3>搖桿狀態 (C)</h3>
+            <div class="dpad-container">
+               <div class="dpad-box"><small>C1</small>
+                   <div class='dpad'>
+                       <div class='dpad-cell'></div><div id='C1_1' class='dpad-cell'></div><div class='dpad-cell'></div>
+                       <div id='C1_3' class='dpad-cell'></div><div id='C1_C' class='dpad-cell dpad-center'></div><div id='C1_4' class='dpad-cell'></div>
+                       <div class='dpad-cell'></div><div id='C1_2' class='dpad-cell'></div><div class='dpad-cell'></div>
+                   </div>
+               </div>
+               <div class="dpad-box"><small>C2</small>
+                   <div class='dpad'>
+                       <div class='dpad-cell'></div><div id='C2_1' class='dpad-cell'></div><div class='dpad-cell'></div>
+                       <div id='C2_3' class='dpad-cell'></div><div id='C2_C' class='dpad-cell dpad-center'></div><div id='C2_4' class='dpad-cell'></div>
+                       <div class='dpad-cell'></div><div id='C2_2' class='dpad-cell'></div><div class='dpad-cell'></div>
+                   </div>
+               </div>
+            </div>
+            <div class="dpad-container">
+               <div class="dpad-box"><small>C3</small>
+                   <div class='dpad'>
+                       <div class='dpad-cell'></div><div id='C3_1' class='dpad-cell'></div><div class='dpad-cell'></div>
+                       <div id='C3_3' class='dpad-cell'></div><div id='C3_C' class='dpad-cell dpad-center'></div><div id='C3_4' class='dpad-cell'></div>
+                       <div class='dpad-cell'></div><div id='C3_2' class='dpad-cell'></div><div class='dpad-cell'></div>
+                   </div>
+               </div>
+               <div class="dpad-box"><small>C4</small>
+                   <div class='dpad'>
+                       <div class='dpad-cell'></div><div id='C4_1' class='dpad-cell'></div><div class='dpad-cell'></div>
+                       <div class='dpad-cell'></div><div id='C4_C' class='dpad-cell dpad-center'></div><div class='dpad-cell'></div>
+                       <div class='dpad-cell'></div><div id='C4_2' class='dpad-cell'></div><div class='dpad-cell'></div>
+                   </div>
+               </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 第二列：系統管理 (網路設定 + OTA) -->
+    <div class='container'>
+        
+        <!-- 新增功能：網路設定 -->
+        <div class='card'>
+            <h3>📶 網路設定 (Network)</h3>
+            <div style="text-align: left;">
+                <label>WiFi SSID</label>
+                <input type="text" id="cfg_ssid" placeholder="WiFi 名稱">
+                
+                <label>Password</label>
+                <input type="password" id="cfg_pass" placeholder="密碼">
+                
+                <div style="display: flex; gap: 10px;">
+                    <div style="flex:1">
+                        <label>Static IP</label>
+                        <input type="text" id="cfg_ip" placeholder="192.168.x.x">
+                    </div>
+                    <div style="flex:1">
+                        <label>Gateway</label>
+                        <input type="text" id="cfg_gw" placeholder="192.168.x.1">
+                    </div>
+                </div>
+            </div>
+            <button class="btn-save" onclick="saveWifi()">💾 儲存並重啟 (Save & Reboot)</button>
+        </div>
+
+        <!-- 既有功能：OTA 更新 -->
+        <div class='card'>
+            <h3>🚀 OTA 韌體更新</h3>
+            <div style="text-align: left;">
+                <label>韌體來源網址 (.bin)</label>
+                <input type='text' id='ota_url' value='https://github.com/machido213/Esp32-S3_Controller/releases/latest/download/Esp32-S3_Controller.bin'>
+                
+                <div style="margin-bottom: 10px; display: flex; gap: 5px;">
+                    <button class="btn-fill" onclick="fillGithub()">GitHub (Latest)</button>
+                    <button class="btn-fill" onclick="fillLocal()">Local (Dev)</button>
+                </div>
+            </div>
+            <button class="btn-ota" onclick='startOTA()'>🔥 立即開始更新</button>
+            <p id='ota_status' style='font-size: 12px; color:#aaa; margin-top:5px; height: 15px;'></p>
+        </div>
+    </div>
+
+    <!-- 底部：Raw Data -->
+    <div class='container' style="margin-top: 0;">
+        <div style="width: 100%; max-width: 1000px; text-align: left;">
+            <label>System Raw Data:</label>
+            <textarea id="raw_json" readonly></textarea>
+        </div>
+    </div>
+
+    <script>
+        // --- 1. UI 更新函式 (保留原本邏輯) ---
+        function updateClass(id, isOn) {
+            const el = document.getElementById(id);
+            if(!el) return;
+            el.classList.remove('on', 'off', 'active');
+            if (el.classList.contains('dpad-cell') || el.classList.contains('dpad-center')) {
+                if(isOn) el.classList.add('active');
+            } else {
+                el.classList.add(isOn ? 'on' : 'off');
+            }
+        }
+
+        function update3PosSwitch(prefix, v1, v2) {
+            updateClass(prefix + '_L', (v1 === 1 && v2 === 0));
+            updateClass(prefix + '_M', (v1 === 1 && v2 === 1));
+            updateClass(prefix + '_R', (v1 === 0 && v2 === 1));
+        }
+
+        function updateJoystick(prefix, arr) {
+            updateClass(prefix + '_1', arr[0] === 0);
+            updateClass(prefix + '_2', arr[1] === 0);
+            updateClass(prefix + '_3', arr[2] === 0);
+            updateClass(prefix + '_4', arr[3] === 0);
+            updateClass(prefix + '_C', (arr[0] && arr[1] && arr[2] && arr[3])); 
+        }
+
+        function updateJoystick2Axis(prefix, arr) {
+            updateClass(prefix + '_1', arr[0] === 0);
+            updateClass(prefix + '_2', arr[1] === 0);
+            updateClass(prefix + '_C', (arr[0] && arr[1])); 
+        }
+
+        // --- 2. 狀態獲取 (Polling) ---
+        function fetchStatus() {
+            fetch('/status').then(r => r.json()).then(d => {
+                document.getElementById('raw_json').value = JSON.stringify(d);
+
+                update3PosSwitch('A1', d.A1_1, d.A1_2);
+                updateClass('A2', d.A2 === 1); 
+                updateClass('A3', d.A3 === 1); 
+                updateClass('A4', d.A4 === 1);
+                update3PosSwitch('B1', d.B1_1, d.B1_2);
+                updateClass('B4', d.B4 === 0); // 假設按下是 0
+                updateClass('B5', d.B5 === 0);
+
+                document.getElementById('val_B2').innerText = d.B2_pot;
+                document.getElementById('bar_B2').style.width = (d.B2_pot / 40.95) + '%';
+                document.getElementById('val_B3').innerText = d.B3_pot;
+                document.getElementById('bar_B3').style.width = (d.B3_pot / 40.95) + '%';
+
+                updateJoystick('C1', d.C1);
+                updateJoystick('C2', d.C2);
+                updateJoystick('C3', d.C3);
+                updateJoystick2Axis('C4', d.C4);
+            }).catch(e => console.log('Conn Error'));
+        }
+
+        // --- 3. 網路設定功能 (新增) ---
+        function saveWifi() {
+            if(!confirm("⚠️ 確定要修改網路設定並重啟嗎？\n請確保密碼正確，否則需重置！")) return;
+            const data = {
+                ssid: document.getElementById('cfg_ssid').value,
+                pass: document.getElementById('cfg_pass').value,
+                ip: document.getElementById('cfg_ip').value,
+                gw: document.getElementById('cfg_gw').value
+            };
+            
+            fetch('/api/save_wifi', {
+                method: 'POST',
+                body: JSON.stringify(data)
+            })
+            .then(r => r.text())
+            .then(msg => alert("ESP32: " + msg))
+            .catch(e => alert("Error: " + e));
+        }
+
+        // --- 4. OTA 功能 ---
+        const GITHUB_URL = "https://github.com/machido213/Esp32-S3_Controller/releases/latest/download/Esp32-S3_Controller.bin";
+        const LOCAL_URL  = "http://192.168.2.105:8000/Esp32-S3_Controller.bin";
+
+        function fillGithub() { document.getElementById('ota_url').value = GITHUB_URL; }
+        function fillLocal() { document.getElementById('ota_url').value = LOCAL_URL; }
+
+        function startOTA() {
+            const url = document.getElementById('ota_url').value;
+            if(!url) return alert('請輸入網址');
+            
+            document.getElementById('ota_status').innerText = '⏳ 下載更新中... (請勿斷電)';
+            document.getElementById('ota_status').style.color = '#00bfff';
+
+            fetch('/ota', {
+                method: 'POST',
+                body: JSON.stringify({url: url})
+            })
+            .then(r => r.text())
+            .then(t => {
+                document.getElementById('ota_status').innerText = 'Response: ' + t;
+                document.getElementById('ota_status').style.color = '#4CAF50';
+            })
+            .catch(e => {
+                document.getElementById('ota_status').innerText = 'Error: ' + e;
+                document.getElementById('ota_status').style.color = '#f44336';
+            });
+        }
+
+        // 啟動定時更新
+        setInterval(fetchStatus, 300);
+        fetchStatus();
+    </script>
+</body>
+</html>

@@ -9,5 +9,5 @@
   },
   "idf.port": "/dev/ttyACM0",
   "idf.flashType": "UART",
-  "idf.portWin": "COM4"
+  "idf.portWin": "COM5"
 }

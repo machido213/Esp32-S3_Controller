@@ -1,192 +1,155 @@
-# ESP-S3 控制器
-ESP32-S3-WROOM-1U https://documentation.espressif.com/esp32-s3-wroom-1_wroom-1u_datasheet_cn.pdf
-基於ESP32-S3開發版，連結到電控箱表面的相關輸入與輸出元件，後續會再連結到另外一塊伺服控制器專用的ESP32-S3開發版，以及主要負責影像辨識及開啟Web_Server遠端控制的大腦Jetson Orin nano Devkit。
-此S3控制器相關輸入輸出如下
-| 主項目     | 元件           | 元件編號 | 輸入/輸出 | 數量 | GPIO | VCC | GND |  備註 |
-|------------|----------------|-----------|-----------|------|------|------|-----|------|
-|OTA|更新韌體按鈕|Z1|輸入|1|1|V|V|用來遠端更新|
-| 電源端     | 三檔位開關     | A1 | 輸入      | 1    |   2   |    X  |  V   |   切換模式，自動/手動/搖桿操作   |
-| 電源端     | 狀態指示燈     | A2 | 輸出      | 1    |   1   |   X   |   X  |   220V,自動模式，黃色   |
-| 電源端     | 狀態指示燈     | A3 | 輸出      | 1    |   1   |   X   |   X  |   220V ,手動模式 ，藍色 |
-| 電源端     | 狀態指示燈     | A4 | 輸出      | 1    |   1   |   X   |   X  |   220V,搖桿操作  ，綠色 |
-| 選擇端 | 三檔位開關     | B1 | 輸入      | 1    |   2   |   X   |  V   |   切換槽位選擇項目為縱軸/橫軸/高度   |
-| 選擇端 | 電位器         | B2 | 輸入      | 1    |   1   |   V   |  V   |   選擇試體   |
-| 選擇端 | 電位器         | B3 | 輸入      | 1    |   1   |   V   |  V   |   選擇槽位   |
-| 選擇端 | 切換開關       | B4 | 輸入      | 1    |   1   |   X   |  V  |   執行選擇「試體/槽位」   |
-| 選擇端 | 點動開關       | B5 | 輸入      | 1    |   1   |   X   |  V   |  確認    |
-| 選擇端 | 蜂鳴器         | B6 | 輸出      | 1    |   1   |   X   |  V   |  220V，報警    |
-| 搖桿端     | 雙軸搖桿       | C1 | 輸入      | 1    |   4   |   X   |  V   |   X/Y|
-| 搖桿端     | 雙軸搖桿       | C2 | 輸入      | 1    |   4   |   X   |  V   |   大小手臂|
-| 搖桿端     | 雙軸搖桿       | C3 | 輸入      | 1    |   4   |   X   |  V   |   肩膀/手腕旋轉|
-| 搖桿端     | 單軸搖桿       | C4 | 輸入      | 1    |   2   |   X   |  V   |    手掌夾取  |
+# 🎮 ESP32-S3 Industrial Remote Controller
 
+這是一個基於 **ESP32-S3 (N16R8)** 的工控遙控器系統，作為 ROS 機器人 (Jetson Orin Nano) 的遠端控制介面。本系統負責讀取電控箱表面的開關、電位器與搖桿訊號，透過 UART 與 Jetson 通訊，並具備 **Web 監控儀表板**、**NVS 參數記憶** 與 **WiFi 斷線救援模式**。
 
-## 使用方法
-根據需要及元件編號，輸入對應的GPIO腳位，設定對應的輸入為上拉電阻
-EX:
-元件A2 需要一個GPIO  則 A1_1 = 10
-元件C1 需要四個GPIO腳位 則C1_1 = 11; C1_2 = 12; C1_3 = 13; C1_4 = 14;
-其他元件依照元件編號及使用的GPIO數量，以此類推。
+## ✨ 專案特點 (Features)
 
+*   **多模式控制**: 支援自動 (Auto)、手動 (Manual)、搖桿 (Joystick) 三種模式切換。
+*   **多軸搖桿整合**: 整合 3 組雙軸搖桿與 1 組單軸搖桿，對應機械手臂各關節控制。
+*   **智慧參數選擇**: 透過電位器與切換開關，可動態選擇「試體」或「槽位座標 (X/Y/Z)」，並傳送至上位機。
+*   **Web 儀表板**: 內建暗黑工業風 Web Server (SPIFFS)，可視化所有開關與搖桿狀態。
+*   **智慧網路管理**:
+    *   **NVS 記憶**: 自動儲存 WiFi SSID、密碼與固定 IP。
+    *   **斷線救援 (AP Mode)**: 連線失敗自動切換至熱點模式 (`ESP32-Controller-Rescue`)，支援網頁配網。
+*   **OTA 更新**: 支援透過 Web 介面無線更新韌體。
+*   **USBIP 支援**: 提供 Docker 容器內的 USB 透傳解決方案。
 
-## 程式介紹
-主要分成三部分，電源端/選擇端/搖桿端，且具有Web_Server功能，會把各端狀態數值顯示在頁面上，同時該頁面還有按鈕可以控制是否要執行OTA功能，在顯示資料到頁面上的同時把資料輸出給Jetson Orin Nano。
+## 🛠 硬體規格 (Hardware)
 
-電源端：
-根據使用者輸入的腳位來設定跟元件的腳位，電源端根據三檔位開關(A1)的狀態來設定狀態指示燈(A2~A4)哪個燈要輸出高電位，A1_1對應到A3，A1_2對應到A4，其中三檔位開關的A1_1及A1_2不會同時接收到高電位訊號，所以兩個都是高電位的話(因為上拉電阻)，則A2輸出高電位。
-
-選擇端：
-於電源端的A3啟用時才作用，且會根據Jetson Orin Nano得到4種範圍值，一個是用來選擇目標物件(試體)，另外三個對應到橫軸/縱軸/高度軸的範圍
-會根據輸入儲存及輸出變數，切換開關B4不作用時讀取B2電位器，切換開關B4作用時讀取B3電位器，三檔位開關B1用來切換讀取B3電位器時，要存放到哪個變數資料(縱軸/橫軸/高度)，點動開關觸發則送出資料給Jetson Orin Nano。
-
-搖桿端：
-讀取並儲存搖桿狀態並輸出給Jetson Orin Nano
-每軸搖桿對應到個兩個方向資料，而雙軸搖桿有兩個軸，對應到4個方向資料，C1_1/C1_2為一組，C1_3/C1_4為一組，以此類推，且每個軸的兩個方向資料不會同時被觸發
-
-
-# Container連結到USB
-參考https://blog.csdn.net/laoxue123456/article/details/138339029
-因為Docker無法直接訪問主機的USB設備需要使用USBIP，這是允許我們通過網路共享USB設備的工具，以下教學
-分成三部分：
-主機端下載安裝usbipd-win，以及在wsl安裝ubuntu(因為docker-desktop無法編譯)，並且在ubuntu安裝usbip工具
-管理員執行powershell
-```powershell
-usbipd list
-```
-這會顯示主機端所有usb設備，找到你要連接的設備的busid，然後執行
-```powershell
-usbipd bind --busid <busid>
-```
-接著在wsl的ubuntu安裝usbip工具		
-```bash
-apt install linux-tools-virtual hwdata
-update-alternatives --install /usr/bin/usbip usbip `ls /usr/lib/linux-tools/*/usbip |tail -n1` 20 
-```
-使用usbip help測試是否成功
-```bash
-usbip help
-```		
-
-接著在wsl啟動usbipd-win服務
-```powershell
-usbipd wsl list
-usbipd wsl attach --busid <busid> --auto-attach
-```
-然後在ubuntu查看usb裝置
-```bash
-dmesg | tail
-```
-
-
-
-# ESP-S3 Controller — 專案說明 (美化版)
-
-本專案基於 ESP32-S3 開發板，負責連接並讀取電控箱表面各類輸入（開關、電位器、搖桿）以及控制輸出（指示燈、蜂鳴器等），並提供 Web API 與 UART 與上層主控 (Jetson Orin Nano) 溝通，支援 OTA 更新功能。
-
-**主要功能**
-- 讀取電源端開關並控制狀態指示燈
-- 選擇端：讀取電位器/開關並可將資料傳送給 Jetson
-- 搖桿端：讀取多組搖桿輸入並輸出狀態
-- Web API：`/status` (回傳 JSON)、`/ota` (觸發 OTA)
-- UART：以 JSON 串流同步傳送狀態給 Jetson
-
-**專案結構（重要檔案）**
-- `CMakeLists.txt` — 專案根 CMake 設定
-- `main/CMakeLists.txt` — main component 設定
-- `main/main.c` — 主程式（已整合 IO、UART、HTTP、OTA）
-- `main/io_config.h` — 所有 GPIO 與 UART 腳位定義（請依實際接線調整）
-- `README.md` — 本文件
-
-**GPIO 與元件對照（示意）**
-> 以下 GPIO 皆為範例預設，請以 `main/io_config.h` 為準並依實際接線修改。
-
-| 分類   | 元件 | 編號 | 類型 | GPIO (範例) | 備註 |
-|--------|------|------|------:|-----------:|------|
-| OTA    | 更新按鈕 | Z1 | 輸入 | `Z1_GPIO` (預設 2) | 觸發 OTA 請使用 Web/API 或長按按鈕 |
-| 電源端 | 三檔位開關 | A1 | 輸入 x2 | `A1_1_GPIO`, `A1_2_GPIO` (預設 4,5) | 三種模式自動/手動/搖桿 |
-| 電源端 | 指示燈 | A2/A3/A4 | 輸出 | `A2_GPIO` `A3_GPIO` `A4_GPIO` | 表示不同電源模式 |
-| 選擇端 | 三檔位開關 | B1 | 輸入 x2 | `B1_1_GPIO`/`B1_2_GPIO` | 選擇儲存變數目標 |
-| 選擇端 | 電位器 | B2/B3 | ADC 輸入 | `B2_GPIO` `B3_GPIO` (預設 11/12) | 請對應 ADC channel，程式內為 placeholder |
-| 選擇端 | 切換/點動開關 | B4 / B5 | 輸入 | `B4_GPIO` `B5_GPIO` | B5 為確認按鈕（送出） |
-| 選擇端 | 蜂鳴器 | B6 | 輸出 | `B6_GPIO` | 若為高電壓 (e.g., 220V) 請透過繼電器驅動 |
-| 搖桿端 | C1/C2/C3 (雙軸) | C?_1..C?_4 | 輸入 | `C1_1`..`C3_4` | 每顆雙軸使用 4 路數位方向或 ADC；請依硬體調整 |
-| 搖桿端 | C4 (單軸) | C4_1/C4_2 | 輸入 | `C4_1_GPIO` `C4_2_GPIO` | 單軸方向 |
-
-**重要注意事項（硬體）**
-- 電位器 (`B2`/`B3`) 為模擬量，請勿啟用上拉或下拉（程式已將它們設為無上下拉的輸入），如欲讀取真實電位器請改用 ADC API（`adc1_get_raw`）。
-- 若驅動 220V 或高電壓負載（指示燈/蜂鳴器），務必使用繼電器或光耦隔離，並注意安全與接地。
-
-**快速啟動（在 Dev Container 內）**
-1. 開啟專案根資料夾 (`/workspaces/Esp32-S3_Controller`)，並使用 VS Code 的 Dev Container 或在容器內開啟終端。
-2. 若容器未自動載入 ESP-IDF 環境，執行：
-```bash
-source /opt/esp/idf/export.sh
-```
-3. 設定 target 並建置：
-```bash
-idf.py set-target esp32s3
-idf.py build
-```
-4. 燒錄並監控（請改為你的序列埠）：
-```bash
-idf.py -p /dev/ttyUSB0 flash monitor
-```
-
-
-**Web API**
-- `GET /status` — 回傳目前所有輸入/輸出狀態的 JSON（同時會將 JSON 透過 UART 傳給 Jetson）。
-- `POST /ota` — 啟動 OTA 更新，可透過 body JSON `{ "url": "https://.../firmware.bin" }` 或 query `?url=`。
-
-**開發 / 編譯注意**
-- `main/CMakeLists.txt` 已列出所需 IDF component（HTTP server/client、HTTPS OTA、ADC、driver 等），編譯時會自動連結。若增加新依賴請同步更新 `REQUIRES` 或 `PRIV_REQUIRES`。
-- `main/io_config.h` 為腳位定義的單一來源，開發時請在該檔修改腳位，而非直接改 `main.c`。
-
-**安全與測試建議**
-- 在接線與第一次上電前，先在軟體上把所有輸出設為低，確保繼電器/高電壓裝置不會誤動作。
-- OTA 測試時使用 HTTPS 與驗證憑證，範例程式為方便測試已使用簡化流程，實務請補上憑證檢查。
-
-**版本控制與貢獻**
-- 如果你要把整個專案（含 `.devcontainer`、Dockerfile）上傳至 GitHub，請在 repo 根管理；若只想同步應用程式，可單獨在 `template-app` 或 `main` 建立 repo。
+*   **MCU**: ESP32-S3-WROOM-1U (N16R8)
+    *   **Flash**: 16MB
+    *   **PSRAM**: 8MB (Octal Mode)
+*   **上位機**: NVIDIA Jetson Orin Nano (透過 UART 通訊)。
+*   **電源**: 外部供電 (注意：部分指示燈與蜂鳴器為 220V 系統，需透過繼電器隔離控制)。
 
 ---
 
-## 接線示意圖（SVG 範例）
-下面以 SVG 圖示呈現接線範例。此圖為示意，請以 `main/io_config.h` 的實際設定為準；若要更精細的接線圖（含繼電器/電源），請回覆我想要的細節。
+## 🔌 腳位定義與元件表 (Pin Map)
 
-範例 SVG（置於 `docs/wiring.svg`）：
+本系統連接了大量的輸入輸出元件，以下定義基於 `main/io_config.h` 配置。
+**注意：** ESP32-S3 部分腳位有特殊限制 (如 ADC1/2, Strap Pin)，請務必依照下表接線。
 
-![](docs/wiring.svg)
+### 1. 系統與電源端 (Power & System)
+| 元件編號 | 元件名稱 | 輸入/輸出 | 數量 | GPIO | 功能描述 | 備註 |
+| :---: | :--- | :---: | :---: | :---: | :--- | :--- |
+| **Z1** | OTA 更新按鈕 | 輸入 | 1 | **0** | 觸發韌體更新 (使用板載 BOOT 鍵) | 測試用，亦可外接 |
+| **A1** | 三檔位開關 | 輸入 | 2 | **4, 5** | 切換操作模式 (左:自動 / 中:手動 / 右:搖桿) | 4=A1_1, 5=A1_2 |
+| **A2** | 狀態指示燈 (黃) | 輸出 | 1 | **6** | **自動模式** 指示燈 | 220V (需繼電器) |
+| **A3** | 狀態指示燈 (藍) | 輸出 | 1 | **7** | **手動模式** 指示燈 | 220V (需繼電器) |
+| **A4** | 狀態指示燈 (綠) | 輸出 | 1 | **15** | **搖桿模式** 指示燈 | 220V (需繼電器) |
 
-簡化對照表（由 `main/io_config.h` 自動對照，請以該檔為最終準則）：
+### 2. 參數選擇端 (Selection)
+| 元件編號 | 元件名稱 | 輸入/輸出 | 數量 | GPIO | 功能描述 | 備註 |
+| :---: | :--- | :---: | :---: | :---: | :--- | :--- |
+| **B1** | 三檔位開關 | 輸入 | 2 | **16, 17** | 選擇座標軸 (左:縱 / 中:橫 / 右:高) | 16=B1_1, 17=B1_2 |
+| **B2** | 電位器 (Pot) | 輸入 (ADC) | 1 | **1** | 選擇 **試體 (Item)** 編號 | **ADC1_CH0** |
+| **B3** | 電位器 (Pot) | 輸入 (ADC) | 1 | **2** | 選擇 **槽位 (Slot)** 數值 | **ADC1_CH1** |
+| **B4** | 切換開關 | 輸入 | 1 | **8** | 切換讀取源：OFF 讀 B2，ON 讀 B3 | 左側腳位 |
+| **B5** | 點動開關 | 輸入 | 1 | **9** | **確認鍵**，按下傳送數據 | 左側腳位 |
+| **B6** | 蜂鳴器 | 輸出 | 1 | **10** | 操作提示音或警報 | 220V (需繼電器) |
 
+> **⚠️ 注意**：B2 與 B3 必須使用 **GPIO 1 & 2** (ADC1 通道)，若使用 ADC2 會導致 WiFi 連線時無法讀取數值。
+
+### 3. 搖桿控制端 (Joystick)
+| 元件編號 | 元件名稱 | I/O | GPIO (4路/2路) | 功能描述 | 備註 |
+| :---: | :--- | :---: | :--- | :--- | :--- |
+| **C1** | 雙軸搖桿 | 輸入 | **11, 12, 13, 14** | X / Y 軸移動 | 左側下半部 |
+| **C2** | 雙軸搖桿 | 輸入 | **38, 39, 40, 41** | 大小手臂控制 | 右側中段 |
+| **C3** | 雙軸搖桿 | 輸入 | **42, 21, 3, 18** | 肩膀 / 手腕旋轉 | **GPIO 3** 需確認無 PSRAM 衝突 |
+| **C4** | 單軸搖桿 | 輸入 | **48, 45** | 手掌夾取 | **GPIO 45** 開機時不可拉低 |
+
+> **⚠️ 特別注意**：
+> *   **GPIO 45 (C4_2)**: 為 Strap Pin，開機瞬間必須保持高電位，請確保搖桿未被拉低。
+> *   **GPIO 3 (C3_3)**: 若使用 Octal PSRAM 模組，此腳位偶爾會被佔用，若讀取異常請更換腳位。
+
+### 4. 通訊介面 (UART)
+| 裝置 | TX Pin | RX Pin | Baud Rate | 說明 |
+| :--- | :---: | :---: | :---: | :--- |
+| **Jetson Orin Nano** | **46** | **47** | 115200 | JSON 格式資料傳輸 |
+
+---
+
+## ⚡ 控制邏輯說明 (Logic)
+
+### 1. 電源模式邏輯 (Power Mode)
+系統根據 **A1 三檔位開關** (A1_1, A1_2) 的狀態決定輸出燈號：
+*   **手動模式 (藍燈 A3)**: 當 `A1_1` 為 High。
+*   **搖桿模式 (綠燈 A4)**: 當 `A1_2` 為 High。
+*   **自動模式 (黃燈 A2)**: 當 `A1_1` 與 `A1_2` 同時為 High (硬體接線邏輯)。
+*   *備註：軟體內部使用上拉電阻 (Pull-up)，實際觸發邏輯視硬體接線而定 (通常開關導通接地為 Low，程式需反相判斷)。*
+
+### 2. 參數選擇邏輯 (Selection Mode)
+當系統處於 **手動模式 (A3 ON)** 時，選擇端功能啟用：
+*   **變數切換**: 透過 **B4 開關** 決定讀取 **B2 (試體)** 還是 **B3 (槽位)** 的電位器數值。
+*   **目標鎖定**: 若讀取 B3，透過 **B1 三檔位開關** 決定該數值是寫入「縱軸」、「橫軸」還是「高度」。
+*   **資料傳送**: 按下 **B5 點動開關**，將目前的變數與數值打包成 JSON，透過 UART 發送給 Jetson，並觸發 **B6 蜂鳴器** 短響提示。
+
+---
+
+## 🌐 網路配置與救援模式 (Network & Rescue)
+
+本系統具備智慧配網功能，無需每次修改程式碼。
+
+### 1. 正常啟動
+*   系統會讀取 NVS 的 WiFi 設定。
+*   預設出廠設定：
+    *   SSID: `SSID`
+    *   密碼: `********`
+    *   Static IP: `192.168.2.123`
+
+### 2. 救援模式 (AP Mode)
+若連線失敗 (超過 5 次重試)，自動切換為 **熱點模式**：
+1.  **搜尋 WiFi**: `ESP32-Controller-Rescue`
+2.  **瀏覽器訪問**: `http://192.168.4.1`
+3.  在儀表板的「網路設定」區塊輸入正確資訊並儲存。
+
+---
+
+## 🚀 開發與環境設定 (Development)
+
+### 1. ESP-IDF 編譯與燒錄
+本專案使用 SPIFFS 存放網頁，請確保根目錄有 `spiffs_image` 資料夾。
+
+```bash
+# 設定目標晶片
+idf.py set-target esp32s3
+
+# Menuconfig 設定 (關鍵!)
+idf.py menuconfig
+# -> Serial Flasher Config -> Flash Size: 16MB
+# -> Partition Table -> Custom partition table CSV
+# -> Component config -> ESP32S3-Specific -> PSRAM: Octal Mode
+
+# 編譯與燒錄
+idf.py build flash monitor
 ```
-ESP32-S3 GPIO mapping (與 main/io_config.h 一致)
 
-	OTA Z1      -> `Z1_GPIO`  = GPIO 0 (板上 BOOT 按鈕，測試用)
-	A1_1        -> `A1_1_GPIO` = GPIO 4
-	A1_2        -> `A1_2_GPIO` = GPIO 5
-	A2 (LED)    -> `A2_GPIO`   = GPIO 6
-	A3 (LED)    -> `A3_GPIO`   = GPIO 7
-	A4 (LED)    -> `A4_GPIO`   = GPIO 15
-
-	B1_1        -> `B1_1_GPIO` = GPIO 16
-	B1_2        -> `B1_2_GPIO` = GPIO 17
-
-	B2 (POT)    -> `B2_GPIO`   = GPIO 1  (ADC_CHANNEL_0)
-	B3 (POT)    -> `B3_GPIO`   = GPIO 2  (ADC_CHANNEL_1)
-	B4 (切換)   -> `B4_GPIO`   = GPIO 8
-	B5 (點動)   -> `B5_GPIO`   = GPIO 9
-	B6 (蜂鳴器) -> `B6_GPIO`   = GPIO 10
-
-	C1_1..C1_4  -> `C1_1_GPIO`..`C1_4_GPIO` = GPIO 11,12,13,14
-	C2_1..C2_4  -> `C2_1_GPIO`..`C2_4_GPIO` = GPIO 38,39,40,41
-	C3_1..C3_4  -> `C3_1_GPIO`..`C3_4_GPIO` = GPIO 42,21,3,18
-	C4_1..C4_2  -> `C4_1_GPIO`,`C4_2_GPIO`   = GPIO 48,45
-
-	JETSON UART TX/RX -> `JETSON_UART_TX_PIN` / `JETSON_UART_RX_PIN` = GPIO 46 / 47
-
-注意：
-- B2/B3 為 ADC 輸入（`B2_ADC_CHANNEL` / `B3_ADC_CHANNEL`），程式使用 `esp_adc/adc_oneshot` 讀取。
-- `C3_3_GPIO` = 35 在某些模組（含 PSRAM）或特定板型上可能不可用，接線前請確認模組腳位。
-- `C4_2_GPIO` = 45 為 strap pin，開機時請避免將其拉低。
+### 2. Docker 與 USBIP 設定 (Windows/WSL)
+由於 Docker Desktop (Windows) 無法直接存取 USB 設備，若使用 Dev Container 開發，需透過 usbipd-win 進行透傳。
+### 步驟 A: Windows 主機端
+#### 1.安裝 usbipd-win。
+#### 2.管理員身分開啟 PowerShell，列出裝置：
+```powershell
+usbipd list
 ```
+#### 3.綁定 ESP32 裝置 (假設 BusID 為	`1-3`):
+```powershell
+usbipd bind --busid 1-3
+```
+
+#### 4.將裝置透傳給 WSL：
+```
+usbipd wsl attach --busid <BUSID> --auto-attach
+```
+
+### 步驟 B: WSL 端
+#### 1.安裝 usbip 工具：
+```bash
+sudo apt install linux-tools-virtual hwdata
+sudo update-alternatives --install /usr/bin/usbip usbip `ls /usr/lib/linux-tools/*/usbip | tail -n1` 20
+```
+#### 2.驗證是否抓到裝置：
+```bash
+lsusb
+```
+若看到 Espressif 裝置，即代表透傳成功，可在 Docker 內進行燒錄。

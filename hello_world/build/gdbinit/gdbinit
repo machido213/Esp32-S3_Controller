@@ -1,2 +1,0 @@
-source /workspaces/Esp32-S3_Controller/hello_world/build/gdbinit/symbols
-source /workspaces/Esp32-S3_Controller/hello_world/build/gdbinit/connect

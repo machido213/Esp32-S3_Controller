@@ -20,6 +20,9 @@ C:/Users/machido/Desktop/Code/Esp32-S3_Controller/build/CMakeFiles/dfu-flash.dir
 C:/Users/machido/Desktop/Code/Esp32-S3_Controller/build/CMakeFiles/uf2.dir
 C:/Users/machido/Desktop/Code/Esp32-S3_Controller/build/CMakeFiles/uf2-app.dir
 C:/Users/machido/Desktop/Code/Esp32-S3_Controller/build/CMakeFiles/__ldgen_output_sections.ld.dir
+C:/Users/machido/Desktop/Code/Esp32-S3_Controller/build/CMakeFiles/spiffs_storage_bin.dir
+C:/Users/machido/Desktop/Code/Esp32-S3_Controller/build/CMakeFiles/storage-flash.dir
+C:/Users/machido/Desktop/Code/Esp32-S3_Controller/build/CMakeFiles/encrypted-storage-flash.dir
 C:/Users/machido/Desktop/Code/Esp32-S3_Controller/build/CMakeFiles/edit_cache.dir
 C:/Users/machido/Desktop/Code/Esp32-S3_Controller/build/CMakeFiles/rebuild_cache.dir
 C:/Users/machido/Desktop/Code/Esp32-S3_Controller/build/CMakeFiles/list_install_components.dir
